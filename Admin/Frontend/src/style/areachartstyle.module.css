@@ -1,0 +1,37 @@
+.mainWrapper{
+    width: 30.5rem;
+    height: 200px;
+}
+
+.header{
+    width: 100%;
+    text-align: center;
+}
+
+@media(max-width: 1100px) {
+    .mainWrapper{
+        width: 20rem;
+    }
+    .header{
+        width: 9.5rem;
+        font-size: 1rem;
+        margin-left: 4rem;
+        text-align: center;
+    }
+
+    @media(max-width: 900px) {
+        .mainWrapper{
+            width: 15.5rem;
+        }
+        .header{
+            font-size: .7rem;
+        }
+    }
+    @media(max-width: 550px) {
+        .mainWrapper{
+            margin-left: -2rem;
+        }
+    
+    }
+    
+}

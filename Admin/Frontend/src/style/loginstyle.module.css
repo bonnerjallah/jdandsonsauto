@@ -1,0 +1,193 @@
+body{
+    height: 100vh;
+}
+.loginMainContainer{
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    height: 21rem;
+    width: 21rem;
+    background-color: #ec712e;
+    margin: 3.1rem auto;
+    border-radius: .5rem;
+    padding: .5rem;
+}
+
+.loginWrapper{
+    display: flex;
+    position: relative;
+    margin-top: 1rem ;
+    font-size: 1.2rem;
+}
+
+.loginWrapper input{
+    margin: 1.2rem;
+    height: 1.5rem;
+}
+
+.bttn{
+    position: absolute;
+    top: 8rem;
+    right: 3.5rem;
+    width: 5rem;
+    height: 2rem;
+    border-radius: .5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.bttn:hover{
+    color: blue;
+    background-color: #2ec4b6;
+}
+
+.signup{
+    text-decoration: none;
+    color: black;
+    width: 5rem;
+    font-size: 1rem;
+    margin-top: 4rem;
+    right: 0rem;
+    bottom: -8rem;
+    position: absolute;
+}
+
+.signup:hover{
+    color: rgb(231, 231, 234);
+}
+
+/**
+*! SIGN UP STYLE
+**/
+
+.signUpMainContainer{
+    background-color: #000000;
+    color:#ec712e;
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    height: 24rem;
+    width: 25rem;
+    margin: 1.1rem auto;
+    border-radius: .5rem;
+    padding: .5rem;
+    position: relative;
+}
+
+.signUpWrapper form{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    margin-top: .5rem;
+    left: 10px;
+    height: 19rem;
+}
+
+
+.signUpWrapper input{
+    margin: 1rem;
+    height: 1.5rem;
+}
+
+.login{
+    position: absolute;
+    bottom: -1rem;
+    left: 20rem;
+    text-decoration: none;
+    color: #ec712e;
+    width: 5rem;
+    font-size: 1rem;
+}
+
+.login:hover{
+    color: rgb(231, 231, 234);
+}
+
+.bttn2{
+    position: absolute;
+    top: 18rem;
+    right: 1rem;
+    width: 5rem;
+    height: 2rem;
+    border-radius: .5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.bttn2:hover{
+    color: blue;
+    background-color: #2ec4b6;
+}
+
+.errorMessage{
+    color: red;
+}
+
+
+@media(max-width: 500px) {
+    .signUpMainContainer  {
+        width: 90%;
+    }
+    .login{
+        top: 19rem;
+        left: 15rem;
+    }
+
+    .bttn2{
+        left: 7rem;
+    }
+
+    @media(max-width: 340px) {
+        .signUpMainContainer{
+            width: 100%;
+            height: 100vh;
+        }
+        .bttn{
+            top: 11rem;
+            right: 6.5rem;    
+        }
+        .signup{
+            top: 8rem;
+        }
+    
+    }
+
+    @media(max-width: 290px) {
+        .signUpMainContainer, .loginMainContainer{
+            width: 100%;
+            height: 70vh;
+        }
+        .bttn2{
+            top: 23rem;
+            left: 5.5rem;    
+        }
+        .login{
+            top: 24rem;
+            left: 14rem;
+        }
+        .signUpWrapper form input{
+            display: block;
+        }
+    }
+
+    @media(max-width: 268px) {
+        .signUpMainContainer, .loginMainContainer{
+            width: 100%;
+            height: 90vh;
+        }
+        .bttn2{
+            top: 23rem;
+            left: 3.5rem;    
+        }
+        .login{
+            top: 24rem;
+            left: 10rem;
+        }
+        .signUpWrapper form input{
+            display: block;
+        }
+    }
+}
+
+
+

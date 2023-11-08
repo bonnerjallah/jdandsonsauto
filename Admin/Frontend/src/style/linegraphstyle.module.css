@@ -1,0 +1,44 @@
+.linegraphWrapper{
+    width: 37.5rem;
+    height: 200px;
+}
+
+.chart{
+    background-color: #b6c787;
+    border-radius: .4rem;
+}
+
+.header{
+    margin-bottom: 1rem;
+    background-color: #4d543a;
+    text-align: center;
+    width: 30rem;
+    margin-left: 4rem;
+}
+
+
+@media(max-width: 1100px) {
+    .linegraphWrapper{
+        width: 14rem;
+    }
+
+    .header{
+        width: 5.5rem;
+        font-size: .5rem;
+    }
+
+    @media(max-width: 900px) {
+        .linegraphWrapper{
+            width: 10.5rem;
+        }
+
+        .header{
+            width: 5.5rem;
+            font-size: .5rem;
+            margin-left: 3rem;
+        }
+    }
+    
+}
+
+

@@ -1,0 +1,123 @@
+.mainContainer{
+    display: flex;
+}
+
+.mainWapper{
+    margin: .3rem 0 0 0;
+    width: 100%;
+
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+    height: 7%;
+    width: 99%;
+    margin: 0 .3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black;
+}
+
+.recenttransactionWrapper{
+    margin: 2rem;
+}
+
+.recentPurchFormWrapper{
+    margin: 2rem 2rem 7rem 2rem;
+}
+
+.purchBttn{
+    background-color: #283618;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+    position: absolute;
+    left: 42rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+@media(max-width:850px) {
+    .purchBttn{
+        margin-left: -200px;
+    }
+    .recentPurchFormWrapper form input{
+        display: flex;
+    }
+
+}
+
+@media(max-width:750px) {
+    .purchBttn{
+        margin-left: -300px;
+        height: 2rem;
+
+    }
+
+    .mainWapper{
+        width: 60vw;
+    }
+
+    .recenttransactionWrapper{
+        display: flex;
+        column-gap: 1rem;
+    }
+}
+
+@media(max-width:600px) {
+    .purchBttn{
+        margin-left: -400px;
+        height: 2rem;
+    }
+
+    .header{
+        font-size: .9rem;
+    }
+
+    .recenttransactionWrapper{
+        display: flex;
+        column-gap: 1rem;
+    }
+}
+
+@media(max-width: 500px) {
+    .mainWapper{
+        margin-left: -170px;
+    }
+
+    .header{
+        font-size: .6rem;
+        width: 55vh;
+    }
+    .recenttransactionWrapper{
+        display: flex;
+        justify-content: space-between;
+        column-gap: 5rem;
+
+    }
+}
+
+@media(max-width: 430px) {
+    .mainWapper{
+        margin-left: -170px;
+    }
+
+    .purchBttn{
+        margin-left: -600px;
+        height: 2rem;
+    }
+
+    .header{
+        font-size: .6rem;
+    }
+    .recenttransactionWrapper{
+        display: flex;
+        justify-content: space-between;
+        column-gap: 5rem;
+
+    }
+}

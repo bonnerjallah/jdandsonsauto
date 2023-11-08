@@ -1,0 +1,36 @@
+.mainContainer{
+    display: flex;
+}
+
+.analyticsMainWrapper{
+    background-color: #283618;
+    margin-top: .3rem;
+    width: 100%;
+
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+    height: 7%;
+    width: 99%;
+    margin: 0 .3rem 2rem .3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black;  
+}
+
+.chartsWrapper{
+    margin: .3rem;
+}
+
+.finicialgainsWrapper{
+    width: 100%;
+}
+
+.linegraphWrapper{
+    width: 50%;
+    margin: 5rem 0 10rem 1rem;
+}

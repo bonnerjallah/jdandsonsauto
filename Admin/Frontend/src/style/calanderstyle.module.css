@@ -1,0 +1,117 @@
+.maincontainer{
+    padding-bottom: .5rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.calanderWrapper{
+    background-color: #283618;
+    margin-top: .3rem;
+    width: 100%;
+    height: 800px;
+    
+}
+
+.calanderHeader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;  
+    height: 7%;
+    width: 99%;
+    margin: 0 .3rem 2rem .3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black;   
+}
+
+.calander{
+    background-color: #ec712e;  
+    margin: 0 3rem;
+    border-radius: 1rem;
+    color: white;
+}
+
+.maincontainer input{
+    margin: .5rem;
+    height: 1rem;
+    width: 16rem;
+    padding: 1rem;
+}
+
+.addEventsWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addEventsWrapper button{
+    width: 5rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+@media(max-width: 760px) {
+
+    .calanderWrapper{
+        width: 75vw;
+    }
+
+    .calanderHeader{
+        width: 75vw;
+    }
+
+    .calander{
+        width:30rem ;
+    }
+}
+
+@media(max-width: 700px) {
+
+    .calanderWrapper{
+        width: 68vw;
+    }
+
+    .calanderHeader{
+        width: 72vw;
+    }
+
+    .calander{
+        width:20rem ;
+    }
+}
+
+@media(max-width: 630px) {
+
+    .calanderWrapper{
+        width: 68vw;
+    }
+
+    .calanderHeader{
+        width: 65vw;
+    }
+
+    .calander{
+        width:15rem ;
+    }
+}
+
+@media(max-width: 500px) {
+
+    .calanderWrapper{
+        margin-left: -20vw;
+    }
+}
+
+@media(max-width: 400px) {
+
+    .calanderWrapper{
+        margin-left: -30vw;
+    }
+    .calander{
+        width:15rem ;
+        margin-left: 15px ;
+    }
+}

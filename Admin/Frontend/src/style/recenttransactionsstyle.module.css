@@ -1,0 +1,76 @@
+.mainContainer{
+    background-color: #554e47;
+}
+
+.mainContainer h1{
+    font-size: 1.5rem;
+    text-align: center;
+    
+}
+
+.mainWrapper{
+    background-color: #96897b;
+    overflow-y: scroll;
+    width: auto;
+    height: 10.5rem;
+    
+}
+
+
+.mainWrapperItems h5{
+    border: 1px solid black;
+    margin-top: .5rem;
+    padding: .2rem;
+}   
+
+table{
+    width: 100%;
+    background-color: #283618;
+    color: white;
+    margin-top: .5rem;
+
+}
+
+thead{
+    text-align: center;
+    background-color: #ec712e;
+    color: black;
+
+}
+
+tr{
+    text-align: center;
+}
+
+td{
+    border: 1px solid white;
+
+}
+
+@media (min-width: 650px) and (max-width: 749px) {
+    .mainContainer{
+        width: 30vw;
+        margin-top: -2rem;
+    }
+}
+
+@media (max-width: 630px) {
+    .mainContainer{
+        width:20vw ;
+        margin-top: -3rem;
+    }
+
+    .mainContainer h1{
+        font-size: 1rem;
+    }
+
+    .mainWrapperItems table{
+        font-size: .5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .mainContainer h1{
+        font-size: .6rem;
+    }
+}

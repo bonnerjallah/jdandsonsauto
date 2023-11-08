@@ -1,0 +1,142 @@
+.container{
+    margin: .3rem 0 0 0;
+    width: 100%;
+    display: flex;
+
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+    height: 7%;
+    width: 99%;
+    margin: .3rem .3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black;
+}
+
+.updateformwrapper{
+    padding: 1rem 3rem;
+    color: white;
+    border: 1px solid #ec712e;
+    margin: 3rem;
+    height: 350px;
+}
+
+.updateformwrapper form label{
+    margin-left: .3rem;
+}
+
+.vehicleUpdateBttnWrapper{
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    height: 2rem;
+    margin: 2rem auto;
+}
+
+.imageWrapper{
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+    height: 10rem;
+    margin-top: 1rem;
+}
+.imageWrapper button{
+    width: 4rem;
+    cursor: pointer;
+    background-color: rgb(72, 71, 71);
+    color: white;
+}
+
+.imageWrapper button:hover{
+    background-color: rgb(0, 0, 0, .2);
+    border: none;
+
+}
+
+.vehUpdateBttnEdit{
+    color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .2rem;
+    border: 2px solid blue;    
+    cursor: pointer;
+}
+.vehUpdateBttnEdit:hover{
+    background-color: blue;
+    color: white;
+}
+
+.vehUpdateBttnDelete{
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .2rem;
+    border: 2px solid red;
+    cursor: pointer; 
+}
+.vehUpdateBttnDelete:hover{
+    background-color: red;
+    color: white;
+}
+
+@media (max-width: 1200px) {
+    .updateformwrapper{
+        height: 100vh;
+    }
+
+    @media (max-width: 950px) {
+        .updateformwrapper form input{
+            display: flex;
+        }
+        .updateformwrapper{
+            border: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .header{
+            font-size: .8rem;
+            width: 69vw;
+        }
+        .imageWrapper{
+            width: 50vw ;
+            margin-left: 3rem;
+        }
+        .imageWrapper button{
+            font-size: .9rem;
+            width: auto;
+            height: 3rem;
+
+        }
+    }
+
+    @media (max-width: 550px) {
+        .header{
+            font-size: .8rem;
+            width: 63vw;
+        }
+        .imageWrapper button{
+            font-size: .5rem;
+            width: auto;
+            height: 3rem;
+            margin-left: -1rem;
+            margin-top: 3rem;
+        }
+        .imageWrapper img{
+            margin-left: -1rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .vehicleupdateMainWrapper{
+            margin-left: -5rem;
+        }
+    }
+}

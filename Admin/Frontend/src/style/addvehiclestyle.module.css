@@ -1,0 +1,103 @@
+.mainContainer{
+    display: flex;
+}
+
+.addvechMainWrapper{
+    width: 100%;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+    height: 7%;
+    width: 99%;
+    margin: .3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black;  
+}
+
+.addform{
+    margin: 2rem 1rem;
+}
+
+fieldset{
+    margin-top: 1rem;
+    height: auto;
+    background-color: #283618;
+    color: white;
+    padding: .2rem;
+}
+
+fieldset h3{
+    color:#ec712e;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+input{
+    margin:.5rem 1rem .5rem .3rem;
+    padding: .2rem;
+}
+
+.formAddButton{
+    background-color: #283618;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+    position: absolute;
+    left: 42rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+@media(max-width: 1050px) {
+    .formAddButton{
+        margin-left: -100px;
+    }
+    @media(max-width: 900px) {
+        .formAddButton{
+            margin-left: -200px
+        }
+    }
+    @media (max-width: 800px) {
+        .formAddButton{
+            margin-left: -300px;
+        }
+    }
+    @media (max-width: 600px) {
+        .formAddButton{
+            margin-left: -400px;
+        }
+    }
+    @media (max-width: 500px) {
+        .addform{
+            display: flex;
+            flex-direction: column;
+            margin-left: -90px;
+        }
+        .header{
+            margin-left: -90px;
+            width: 100%;
+        }
+    }
+    @media (max-width: 435px) {
+        .formAddButton{
+            margin-left: -500px;
+        }
+        .addform input{
+            display: flex;
+            flex-direction: column;
+        }
+        .header{
+            margin-left: -90px;
+            width: 100%;
+        }
+        
+    }
+}
+

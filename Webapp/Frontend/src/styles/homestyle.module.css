@@ -1,0 +1,224 @@
+*, *::before, *::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.imageSliderImages{
+    width: 100%;
+    height: 100%;
+    margin-top: -3rem;
+    object-fit: cover;
+    flex-shrink: 0;
+    flex-grow: 0;
+    transition: translate 2s ease-in-out;
+}
+
+.sliderbttn{
+    all: unset; 
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 1rem;
+    cursor: pointer;
+    height: 420px;
+}
+
+.sliderbttn:hover{
+    background-color: rgb(0, 0, 0, .5);
+}
+
+.sliderbttn:hover > * {
+    animation: squish 200ms ease-in-out;
+}
+
+@keyframes squish {
+    50%{
+        scale: 1.4 0.6;
+    }
+}
+
+.welcome{
+    margin-top: -3rem;
+    background-color: #ec712e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+}
+
+.browserVisitContainer{
+    background-color: rgb(0, 0, 0, .9);
+
+    display: flex;
+    justify-content: space-around;
+    height: 15rem;
+    padding: 1rem;
+}
+
+.browserWrapper, .locationWrapper{
+    background-color: rgba(236, 113, 46, 0.3); 
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.browserWrapper h2, .locationWrapper h2{
+    margin-top: 2rem;
+    color: black;
+    cursor: pointer;
+}
+.browserWrapper h2:hover, .locationWrapper h2:hover{
+    color: #ec712e;
+}
+
+.faCarWraper, .faLocationDotWrapper{
+    font-size: 3rem;
+    color: white;
+    margin-top: 2rem;
+}
+
+.vehicleUnder{
+    height: 4rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.vehicleUnder p:hover{
+    cursor: pointer;
+    color: #ec712e;
+}
+
+.vehicleUnder span{
+    font-weight: bold;
+}
+
+.helpHealthyCarContainer {
+    background-image: url('../assets/truck.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+    display: flex;
+    padding: 3rem; 
+    column-gap: 15rem;
+}
+
+.helpWrapper, .HealthyCarWrapper{
+    background-color: rgb(0, 0, 0, .6);
+    width: 40%;
+    font-size: 1.2rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
+}
+
+.helpWrapper p{
+    margin-left: 7rem;
+}
+
+.HealthyCarWrapper p{
+    margin-left: 7rem;
+    margin-top: -12rem;
+}
+
+.mapAndLocationWrapper{
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    height: 25rem;
+    background-color: #ec712e;
+
+}
+
+.businessHoursAndLocationContainer{
+    background-color: #ec712e;
+    padding: 1rem 0 0 1rem ;
+}
+
+.businessHoursContainer{
+    margin-top: 1rem;
+}
+
+.localIconsWrapper p{
+    margin: .5rem 0;
+}
+
+.businessHoursWrapper{
+    display: flex;
+    column-gap: 2rem;
+}
+
+.aboutAndHowToReachUsContainer{
+    background-color: black;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    padding: 3rem;
+}
+
+.aboutUsWrapper, 
+.howToReachUsWrapper, 
+.businessHoursSecondWrapper, 
+.contactUs{
+    color: white;
+}
+
+.aboutUsWrapper h3, 
+.howToReachUsWrapper h3, 
+.businessHoursSecondWrapper h3, 
+.contactUs h3{
+    margin-bottom: 1rem;
+    color: #ec712e;
+}
+
+.businessHoursSecondWrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.howToReachUsWrapper div, 
+.businessHoursSecondWrapper div,
+.contactUs div{
+    display: flex;
+    column-gap: .5rem;
+}
+
+.footerWrapper {
+    background-color: black;
+    border-bottom: 1px solid #ec712e;
+    border-top: 1px solid #ec712e;
+}
+
+.footerWrapper ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: .9rem;
+}
+
+
+.footerWrapper ul a:hover{
+    color: #ec712e;
+}
+
+.copyrigtWrapper{
+    background-color: black;
+    border-top: 1px solid #ec712e;
+    height: 3rem;
+}
+
+.copyrigtWrapper{
+    display: flex;
+    justify-content: space-between;
+    font-size: .8rem;
+    padding: 1rem 3rem;
+    color: white;
+}

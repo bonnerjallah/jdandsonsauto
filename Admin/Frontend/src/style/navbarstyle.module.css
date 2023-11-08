@@ -1,0 +1,145 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbarlogo{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+.links {
+    background-color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.liinks{
+    color: white;
+}
+
+.fabars{
+    color: white;
+    visibility: hidden;
+}
+
+.navBarMainContainer a{
+    text-decoration: none;
+    list-style: none;
+    color: white;
+}
+
+.navBarMainContainer a:hover{
+    color: #ec712e;
+}
+
+.fauser{
+    color: white;
+}
+
+.fauser:hover{
+    color: #ec712e;
+}
+
+.logOutBttn{
+    margin-left: 10px;
+    padding: 2px;
+    cursor: pointer;
+    color: white;
+    background-color: #ec712e ;
+}
+
+.logOutBttn:hover{
+    background-color: white;
+    color: #ec712e;
+}
+
+.popUpModalMainDivWrapper{
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem;
+    z-index: 1;
+    color: white;
+    background-color: rgb(0, 0, 0, .9);
+    position: absolute;
+    top:8.4rem;
+    animation: popUp 500ms ease-in-out 1 normal forwards;
+}
+
+@keyframes popUp {
+    0%{opacity: 0; margin-left: -500px;}
+    50%{ opacity: .5; }
+    100%{ opacity: 1; margin-left: 0;}
+}
+
+.popUpModalCloseButton{
+    font-size: 2rem;
+    color: red;
+    margin-bottom: 1rem;
+    border: 1px solid red;
+    width: 15%;
+    text-align: center;
+}
+
+.popUpModalLinks{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+@media(max-width: 900px){
+    .links{
+        font-size: 0.5rem;
+    }
+    .navBarMainContainer{
+        width: 100%;
+    }
+    
+    @media (max-width: 500px){
+        ul.links li {
+            display: none;
+            width: 100%;
+            font-size: 0.3rem;  
+        }
+
+        .fabars, .fauser{
+            visibility: visible;
+            &:hover{color: #ec712e;
+            }        
+            font-size: 1rem;
+        }
+        .userWrapper {
+            margin-left: 1rem;
+        }
+
+        .navBarMainContainer{
+            width: 100%;
+        }
+
+        .popUpModalMainDivWrapper{
+            width: 90%;
+        }
+    }
+
+    @media(max-width: 290px) {
+        ul.links li {
+            width: 100%;
+            font-size: 0.3rem;
+            margin: 1rem;
+        }
+        .userWrapper {
+            margin-left: 1rem;
+        }
+
+        .navBarMainContainer{
+            width: 100%;
+        }
+    }
+    
+}

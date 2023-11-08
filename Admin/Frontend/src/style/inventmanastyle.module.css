@@ -1,0 +1,228 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #283618;
+}
+
+.mainContainer  {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.InventoryManagementWrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+    width: auto;
+    height: 800px;
+    background-color: #283618;
+    margin-top: .3rem;
+    margin-left: 0;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+    height: 7%;
+    width: 99%;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black;  
+
+}
+
+.addvehiclelink{
+    margin: 0 1.5rem;
+    cursor: pointer;
+    width: 10rem;
+    border: 1px solid #ec712e;
+    border-radius: .2rem;
+    text-align: center;
+}
+
+.scrollButtonRight{
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1;
+    background-color: rgb(0, 0, 0, .5);
+    color: white;
+}
+
+.scrollButtonLeft{
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1;
+    background-color: rgb(0, 0, 0, .5);
+    color: white;
+}
+
+.scrollButtonLeft:hover, .scrollButtonRight:hover {
+    animation: squish 1s ease-in-out normal forwards;
+}
+
+@keyframes squish {
+    50% {
+        transform: scale(2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.stockList {
+    height: 50%;
+    width: 95%;
+    position: relative;
+    margin-top: -2rem;
+    margin-bottom: 4rem; 
+    margin-left: 17px;   
+}
+
+
+.scrollItem{
+    flex-direction: column;
+    align-items: center;
+    margin: 0 1.1rem;
+    height: 85%;
+    transition: 1s ease-in-out;
+}
+
+.scrollItemWrapper{
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.scrollItemWrapper::before, .scrollItemWrapper::after{
+    color: rgb(0, 0, 0, .5);
+    z-index: 1;
+}
+
+.stockList h2{
+    padding: .5rem;
+    background-color: #152e35;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.scrollItem h3, .scrollItem p{
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+}
+
+.scrollbuttonswrapper{
+    margin-top: -10rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5rem;
+}
+
+.otherVehicleList{
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    height: 35%;
+    column-gap: 1rem;
+    justify-content: center;
+    padding: 2rem;
+    margin-top: -8rem;
+}
+
+.otherVehicleList div li{
+    margin: 1rem 2rem;
+    line-height: .9rem;
+    font-size: 1rem;
+}
+
+.outOfStockList, .mostStockList, .lowStock {
+    background-color: #248277;
+    height: 100%;
+    text-align: center;
+    color: white;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin-top: 5rem;
+}
+.outOfStockList h3, .mostStockList h3, .lowStock h3{
+    background-color: #152e35;
+    color: white;
+    height: 4rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 5px 5px 0px black;  
+    font-size: 1rem;
+}
+
+.carImage{
+    cursor: pointer;
+}
+
+.carSpec:hover{
+    color: #ec712e;
+}
+
+.inventoryListWrapper{
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    height: 70%;
+}
+
+.outOfStockList span, .mostStockList span, .lowStock span {
+    margin: 0 1rem;
+}
+
+.outstock{
+    color: red;
+}
+.lowstock{
+    color: rgb(232, 232, 94);
+}
+.instock{
+    color: rgb(76, 76, 248);
+}
+
+
+@media (max-width: 765px) {
+    .outOfStockList h3, .mostStockList h3, .lowStock h3{
+        font-size: .9rem;
+    }
+    @media (max-width: 720px) {
+        .outOfStockList h3, .mostStockList h3, .lowStock h3{
+            font-size: .5rem;
+            text-align: center;
+        } 
+    }
+}
+
+@media (max-width: 665px) {
+    .outstock, .lowstock, .instock{
+        font-size: .7rem;
+        text-align: center;
+    }
+    
+    
+}
+
+@media (max-width: 665px) {
+    .otherVehicleList div li{
+        font-size: .6rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .InventoryManagementWrapper{
+        margin-left: -90px;
+    }
+}

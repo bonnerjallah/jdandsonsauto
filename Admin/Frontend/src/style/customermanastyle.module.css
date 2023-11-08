@@ -1,0 +1,102 @@
+.mainContainer{
+    display: flex;
+}
+
+.mainwrapper{
+    margin: .3rem 0 0 0;
+    width: 100%;
+    background-color: #283618;}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+    height: 7%;
+    width: 99%;
+    margin: 0 .3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px 0px black; 
+}
+
+.tableWrapper{
+    background-color: #96897b;
+    margin: 2rem;
+    max-height: 20rem;
+    overflow-y: scroll;
+    width: auto;
+    height: 15.5rem;
+}
+
+.tableWrapper h1{
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: #554e47;
+
+}
+
+.custaddform{
+    margin: 2rem 2rem 7rem 2rem;
+
+}
+
+
+
+.formAddButton{
+    background-color: #283618;
+    color: white;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+    position: absolute;
+    left: 42rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+@media(max-width:850px) {
+    .formAddButton{
+        margin-left: -200px;
+    }
+
+}
+
+@media (max-width:750px) {
+    .custaddform input{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .formAddButton{
+        margin-left: -400px;
+    }
+    .header{
+        width: 65vw;
+        font-size: .7rem;
+    }
+    .tableWrapper{
+        width: 65vw;
+    }
+}
+
+@media(max-width: 660px) {
+    .mainwrapper{
+        width: 60vw;
+    }
+
+    .tableWrapper {
+        width: 60vw;
+        font-size: .9rem;
+    }
+}
+
+@media(max-width: 500px) {
+    .mainwrapper{
+        margin-left: -170px;
+    }
+
+    .formAddButton{
+        margin-left: -600px;
+    }
+}

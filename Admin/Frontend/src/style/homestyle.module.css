@@ -1,0 +1,21 @@
+.mainContainer{
+    height: 72vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ec712e;
+}
+
+.mainContainer img {
+    margin-top: 1rem;
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 35% 51%, 0% 0%);
+    border-radius: 5rem;
+}
+
+@media(max-width: 1200px){
+    .mainContainer img {
+        width:50%;
+        clip-path: none;
+    }
+}
