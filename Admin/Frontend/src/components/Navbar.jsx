@@ -2,7 +2,6 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import { useAuth } from "./AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
-import { Navigate } from "react-router-dom";
 
 import axios from "axios";
 

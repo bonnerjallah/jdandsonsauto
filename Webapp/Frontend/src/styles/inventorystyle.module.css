@@ -1,0 +1,67 @@
+
+/**
+*! Header Style
+**/
+
+.headerContainer{
+    margin-bottom: none;
+    height: 11rem;
+}
+
+.header {
+    background-image: url(../assets/benz.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10rem;
+    width: 100%;
+    /* filter: brightness(.2); */
+    opacity: .3;
+}
+
+.headericonWrapper{
+    color: black;
+    margin-top: -7rem;
+    z-index: 99;
+    width: 20rem;
+    height: 15rem;
+    margin-left: 2rem;
+    text-align: center;
+}
+
+.filterOptionIcon{
+    background-color: #ec712e;
+    margin-top: 2rem;
+    height: 7rem;
+    width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+    z-index: 2;
+}
+
+/**
+*! Keyword Searchbar
+**/
+
+.KeywordSearchBarAndSortByContainer {
+    background-color: rgb(179, 178, 178);
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-left: 25rem;
+}
+
+.searchBarWrapper input{
+    width: 20rem;
+    height: 2rem;
+}
+
+.pageSizeAndSortWrapper{
+    display: flex;
+    justify-content: center;
+    column-gap: .5rem;
+}

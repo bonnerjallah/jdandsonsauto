@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { NavLink } from "react-router-dom"
+
 
 import MapComponent from "../components/Map"
 
@@ -12,20 +14,15 @@ import homestyle from "../styles/homestyle.module.css"
 
 
 
-
-
 import img1 from '../assets/img1.jpg'
 import img2 from '../assets/img2.jpg'
 import img3 from '../assets/img3.jpg'
 import img4 from '../assets/img4.jpg'
 import img5 from '../assets/img5.jpg'
 import img6 from '../assets/img6.jpg'
-import { NavLink } from "react-router-dom"
 
 
 const Images = [img1, img2, img3, img4, img5, img6]
-
-
 
 
 //Image slider
@@ -103,13 +100,13 @@ const Home = () => {
                     <div className={homestyle.faCarWraper}>
                         <FontAwesomeIcon icon={faCar} />
                     </div>
-                    <NavLink><h2>BROWSE INVENTORY</h2></NavLink>
+                    <NavLink to="Inventory"><h2>BROWSE INVENTORY</h2></NavLink>
                 </div>
                 <div className={homestyle.locationWrapper}>
                     <div className={homestyle.faLocationDotWrapper}>
                         <FontAwesomeIcon icon={faLocationDot} />
                     </div>
-                    <NavLink><h2>VISIT DEALER</h2></NavLink>
+                    <NavLink to="ContactUs"><h2>VISIT DEALER</h2></NavLink>
                 </div>
             </div>
 

@@ -33,14 +33,14 @@ const Navbar = () => {
             <div className={navbarstyle.linksWrapper}>
                 <ul className={navbarstyle.links}>
                     <NavLink to='/'><li>Home</li></NavLink>
-                    <NavLink><li>Inventory</li></NavLink>
-                    <NavLink><li>Car Finder</li></NavLink>
-                    <NavLink><li>Apply Online</li></NavLink>
-                    <NavLink><li>About Us</li></NavLink>
-                    <NavLink><li>Contact Us</li></NavLink>
+                    <NavLink to="Inventory"><li>Inventory</li></NavLink>
+                    <NavLink to="CarFinder"><li>Car Finder</li></NavLink>
+                    <NavLink to="ApplyOnLine"><li>Apply Online</li></NavLink>
+                    <NavLink to="AboutUs"><li>About Us</li></NavLink>
+                    <NavLink to="ContactUs"><li>Contact Us</li></NavLink>
                 </ul>
 
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className={navbarstyle.magnifyingGlass} />
+                <FontAwesomeIcon icon={faMagnifyingGlass} className={navbarstyle.magnifyingGlass} />
 
             </div>
 

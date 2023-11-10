@@ -28,6 +28,12 @@ db.connect((err) => {
     console.log("Connected to database")
 })
 
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    methods: ['GET', 'POST', ]
+}));
+
+
 
 
 app.listen(3001, () => {
