@@ -152,7 +152,7 @@ const InventoryManagement = () => {
                             <NavLink key={id} to={`/vehicleUpdate/${elem.id}?images=${encodeURIComponent(JSON.stringify(elem.images))}`}>
                                 <div key={id} className={inventmanastyle.scrollItem} style={{ transform: `translateX(${scrollLeft}px) translateX(-${scrollRight}px)` }}>
                                     <div className={inventmanastyle.carImage} >
-                                            {imageArray[id] && <img src={imageArray[id][3]} alt={`Image ${id}`} width={250} height={200} />}
+                                        {imageArray[id] && <img src={imageArray[id][3]} alt={`Image ${id}`} width={250} height={200} />}
                                     </div>
                                     <div>
                                         <h3>{elem.carname}</h3>

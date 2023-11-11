@@ -33,7 +33,38 @@ app.use(cors({
     methods: ['GET', 'POST', ]
 }));
 
+app.use('/carimages', express.static(path.join(__dirname, '../../shared-assets/public/carimages')))
 
+
+app.get('/cardiscrip/:id?', async (req, res) => {
+    try {
+        if(req.params.id) {
+            const sql = 'SELECT * FROM cardiscrip WHERE ID = ?'
+            const [rows] = await db.promise().query(sql, [req.params.id])
+            return res.json(rows)
+        } else {
+            const sql = 'SELECT * FROM cardiscrip';
+            const [rows] = await db.promise().query(sql)
+            return res.json(rows)
+        }
+        
+    } catch (error) {
+        console.log("Error fetching car data", error);
+        res.status(500).json({message: "Internal server error", error})
+    }
+})
+
+app.get('/carImages', async (req, res) => {
+    try {
+        const sql = 'SELECT * FROM carimage';
+        const [rows] = await db.promise().query(sql)
+        return res.json(rows)
+
+    } catch (error) {
+        console.log("Error fetch car image", error)
+        res.status(500).json({message: "Internal server issues"})
+    }
+})
 
 
 app.listen(3001, () => {
