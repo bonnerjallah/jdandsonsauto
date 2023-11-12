@@ -3,11 +3,12 @@ import axios from 'axios'
 import { NavLink, Outlet } from "react-router-dom"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faPhone } from '@fortawesome/free-solid-svg-icons'
 
 import Footer from "../components/Footer"
 
 import inventorystyle from '../styles/inventorystyle.module.css'
+import AvailabilityModal from '../components/AvailabilityModal'
 
 const Inventory = () => {
     
@@ -15,7 +16,6 @@ const Inventory = () => {
     const [carDiscription, setCarDiscription] = useState([])
 
     //Use State for pagination
-    const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [carDiscriptionPerPage] = useState(5)
 
@@ -42,9 +42,7 @@ const Inventory = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                setLoading(true);
-    
+            try {    
                 // Fetch car details
                 const response = await axios.get('http://localhost:3001/cardiscrip');
                 const vehicleDiscriptionData = response.data;
@@ -78,15 +76,26 @@ const Inventory = () => {
     
                 setCarDiscription(combinedData);
     
-                setLoading(false);
             } catch (error) {
                 console.error("Error fetching car discription from database", error);
-                setLoading(false);
             }
         };
     
         fetchData();
     }, []);
+
+
+    //Modals Logics
+    const [openAvalModal, setOpenAvalModal] = useState(false)
+    const [avaliData, setAvaliData] = useState()
+
+    const handleAvailabilityModal = (elem) => {
+        setOpenAvalModal(true);
+        setAvaliData(elem);
+    };
+
+
+    
 
 
     return (
@@ -108,17 +117,6 @@ const Inventory = () => {
                         <input type="text" name='keywordSearch' placeholder='Keyword Search' />
                     </div>
                     <div className={inventorystyle.pageSizeAndSortWrapper}>
-                        <div className={inventorystyle.pageSizeWrapper}>
-                            <p>Page Size</p>
-                            <select>
-                                <option value="5">5 Items</option>
-                                <option value="10">10 Items</option>
-                                <option value="15">15 Items</option>
-                                <option value="20">20 Items</option>
-                                <option value="25">25 Items</option>
-                            </select>
-                        </div>
-
                         <div className={inventorystyle.sortByWrapper}>
                             <p>Sort By</p>
                             <select>
@@ -231,102 +229,106 @@ const Inventory = () => {
                         </button>
                     </div>
                     <div>
-                        {loading ? (
-                            <h2>Loading...</h2>
-                        ) : ( 
-                            <>
-                                <div className={inventorystyle.paginationListWrapper}>
-                                    <div>
-                                        <p>Page {currentPage} of {Math.ceil(totalCars / carsPerPage)} 
-                                            <span style={{marginLeft: '.3rem'}}>({carDiscription.length} vehicles)</span>
-                                        </p>
-                                    </div>
-                                    <div className={inventorystyle.paginationPagesList}>
-                                        {pageNumbers.map( numberElem => (
-                                            <li
-                                                key={numberElem}
-                                                style={{
-                                                backgroundColor: currentPage === numberElem ? "#4d2d1c" : "",
-                                                border: currentPage === numberElem ? "1px solid #ec712e" : "",
-                                                cursor: 'pointer',
-                                                }}
-                                                onClick={() => paginate(numberElem)}
-                                            >
-                                                {numberElem}
-                                            </li>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {currentCarInfos.map((elem, id) => (
-                                    <div key={id} className={inventorystyle.carInfomainBox}>
-                                        <div className={inventorystyle.carDiscriptionContainer}>
-                                            <div className={inventorystyle.carDiscriptionImageWrapper}>
-                                                <NavLink>
-                                                    {elem.images && elem.images
-                                                        .filter((image) => image.car_id === elem.id)  // Filter images based on car_id
-                                                        .slice(3, 4)  // Take only the forth image
-                                                        .map((filteredImage, index) => (
-                                                        <img key={index} src={`http://localhost:3001/carImages/${filteredImage.image_url}`} alt={`Image ${index}`} width="100%" height="100%" />
-                                                    ))}
-                                                </NavLink>
-                                            </div>
-                                            <div className={inventorystyle.carInfoWrapper}>
-                                                <div className={inventorystyle.carNameAndYearWrapper}>
-                                                    <h4>{elem.caryear}</h4>
-                                                    <h4>{elem.carname}</h4>
-                                                </div>
-                                                <div className={inventorystyle.otherDisCripContainer}>
-                                                    <div style={{display: "flex"}}>
-                                                        <div className={inventorystyle.smallSection}>
-                                                            <small>Drivetrain</small>
-                                                            <p>{elem.drivetrain}</p>
-                                                        </div>
-                                                        <div className={inventorystyle.smallSection}>
-                                                            <small>Transmission</small>
-                                                            <p>{elem.transmiss}</p>
-                                                        </div>
-                                                        <div className={inventorystyle.smallSection}>
-                                                            <small>Engine</small>
-                                                            <p>{elem.engine}</p>
-                                                        </div>
-                                                        <div className={inventorystyle.smallSection}>
-                                                            <small>Mileage</small>
-                                                            <p>{elem.miles}</p>
-                                                        </div>
-                                                        <div className={inventorystyle.smallSection}>
-                                                            <small>Doors</small>
-                                                            <p>{elem.doors}</p>
-                                                        </div>
-
-                                                        <div className={inventorystyle.priceAmountWrapper}>
-                                                            <h2>$ {elem.priceamount}</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div className={inventorystyle.bottomDisCripContainer}>
-                                                        <div className={inventorystyle.vinAndStockWrapper}>
-                                                            <small>VIN</small>
-                                                            <p>{elem.vinnum}</p>
-                                                        </div>
-                                                        <div className={inventorystyle.vinAndStockWrapper}>
-                                                            <small>Stock Number</small>
-                                                            <p>{elem.stocknum}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <button>CONFIRM AVAILABILITY</button>
-                                            <button>REQUEST A QUOTE</button>
-                                            <button>APPLY ONLINE</button>
-                                            <button>VIEW DETAILS</button>
-                                        </div>
-                                    </div>
+                        <div className={inventorystyle.paginationListWrapper}>
+                            <div>
+                                <p>Page {currentPage} of {Math.ceil(totalCars / carsPerPage)} 
+                                    <span style={{marginLeft: '.3rem'}}>({carDiscription.length} vehicles)</span>
+                                </p>
+                            </div>
+                            <div className={inventorystyle.paginationPagesList}>
+                                {pageNumbers.map( numberElem => (
+                                    <li
+                                        key={numberElem}
+                                        style={{
+                                        backgroundColor: currentPage === numberElem ? "#4d2d1c" : "",
+                                        border: currentPage === numberElem ? "1px solid #ec712e" : "",
+                                        cursor: 'pointer',
+                                        }}
+                                        onClick={() => paginate(numberElem)}
+                                    >
+                                        {numberElem}
+                                    </li>
                                 ))}
-                            </>
-                        )}
+                            </div>
+                        </div>
+
+                        <div>
+                            {currentCarInfos.map((elem, id) => (
+                                <div key={id} className={inventorystyle.carInfomainBox}>
+
+                                    <div className={inventorystyle.carDiscriptionContainer}>
+                                        <div className={inventorystyle.carDiscriptionImageWrapper}>
+                                            <NavLink>
+                                                {elem.images && elem.images
+                                                    .filter((image) => image.car_id === elem.id)  // Filter images based on car_id
+                                                    .slice(3, 4)  // Take only the forth image
+                                                    .map((filteredImage, index) => (
+                                                    <img key={index} src={`http://localhost:3001/carImages/${filteredImage.image_url}`} alt={`Image ${index}`} width="100%" height="100%" />
+                                                ))}
+                                            </NavLink>
+                                        </div>
+                                        <div className={inventorystyle.carInfoWrapper}>
+                                            <div className={inventorystyle.carNameAndYearWrapper}>
+                                                <h4>{elem.caryear}</h4>
+                                                <h4>{elem.carname}</h4>
+                                            </div>
+                                            <div className={inventorystyle.otherDisCripContainer}>
+                                                <div style={{display: "flex"}}>
+                                                    <div className={inventorystyle.smallSection}>
+                                                        <small>Drivetrain</small>
+                                                        <p>{elem.drivetrain}</p>
+                                                    </div>
+                                                    <div className={inventorystyle.smallSection}>
+                                                        <small>Transmission</small>
+                                                        <p>{elem.transmiss}</p>
+                                                    </div>
+                                                    <div className={inventorystyle.smallSection}>
+                                                        <small>Engine</small>
+                                                        <p>{elem.engine}</p>
+                                                    </div>
+                                                    <div className={inventorystyle.smallSection}>
+                                                        <small>Mileage</small>
+                                                        <p>{elem.miles}</p>
+                                                    </div>
+                                                    <div className={inventorystyle.smallSection}>
+                                                        <small>Doors</small>
+                                                        <p>{elem.doors}</p>
+                                                    </div>
+
+                                                    <div className={inventorystyle.priceAmountWrapper}>
+                                                        <h2>$ {elem.priceamount}</h2>
+                                                    </div>
+                                                </div>
+                                                <div className={inventorystyle.bottomDisCripContainer}>
+                                                    <div className={inventorystyle.vinAndStockWrapper}>
+                                                        <small>VIN</small>
+                                                        <p>{elem.vinnum}</p>
+                                                    </div>
+                                                    <div className={inventorystyle.vinAndStockWrapper}>
+                                                        <small>Stock Number</small>
+                                                        <p>{elem.stocknum}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button onClick={() => handleAvailabilityModal(elem)}>CONFIRM AVAILABILITY</button>
+                                        <button onClick={() => handleAvailabilityModal(elem)} >REQUEST A QUOTE</button>
+                                        <NavLink to="/ApplyOnLine">
+                                            <button>APPLY ONLINE</button>
+                                        </NavLink>
+                                        <NavLink to='/ViewDetails'>
+                                            <button>VIEW DETAILS</button>
+                                        </NavLink>
+                                    </div>
+                                </div> 
+                            ))}
+                        </div>
+
+                        {openAvalModal && ( <AvailabilityModal avaliData={avaliData} closeAvilModal={setOpenAvalModal} /> )}
+
+
                         <div className={inventorystyle.paginationListWrapper}>
                             <div>
                                 <p>Page {currentPage} of {Math.ceil(totalCars / carsPerPage)} 

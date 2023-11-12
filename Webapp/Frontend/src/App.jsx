@@ -10,6 +10,7 @@ import CarFinder from './pages/CarFinder'
 import ApplyOnLine from './pages/ApplyOnLine'
 import AboutUs from './pages/AboutUs'
 import ContactUs from './pages/ContactUs'
+import ViewDetails from './pages/ViewDetails'
 
 
 const router = createBrowserRouter(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="/ApplyOnLine" element={<ApplyOnLine />} />
       <Route path="/AboutUs" element={<AboutUs />} />
       <Route path="ContactUs" element={<ContactUs /> } />
+      <Route path="ViewDetails" element={<ViewDetails /> } />
     </Route>
   )
 )

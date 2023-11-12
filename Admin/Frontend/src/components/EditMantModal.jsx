@@ -6,6 +6,7 @@ import axios from "axios"
 
 const EditMantModal = ({closeModal, editData}) => {
 
+    //State to update the input field with the data to be edited
     const [localEditData, setLocalEditData] = useState(editData)
 
     const inputToEdit = (e) => {
@@ -50,8 +51,6 @@ const EditMantModal = ({closeModal, editData}) => {
             console.log("Error updating data", error)
         }     
     }
-
-
 
 
 
