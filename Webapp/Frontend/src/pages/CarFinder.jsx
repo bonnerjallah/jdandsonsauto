@@ -1,8 +1,14 @@
-import React from 'react'
-
+import carfinderstyle from "../styles/carfinderstyle.module.css"
 const CarFinder = () => {
     return (
-        <div>CarFinder</div>
+        <div>
+            <div className={carfinderstyle.header}>
+
+            </div>
+            <div className={carfinderstyle.headerWrapper}>
+                <h1>CAR FINDER</h1>
+            </div>
+        </div>
     )
 }
 

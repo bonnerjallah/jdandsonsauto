@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import Footer from "../components/Footer"
 
@@ -258,7 +258,7 @@ const Inventory = () => {
 
                                     <div className={inventorystyle.carDiscriptionContainer}>
                                         <div className={inventorystyle.carDiscriptionImageWrapper}>
-                                            <NavLink>
+                                            <NavLink to="/ViewDetails">
                                                 {elem.images && elem.images
                                                     .filter((image) => image.car_id === elem.id)  // Filter images based on car_id
                                                     .slice(3, 4)  // Take only the forth image

@@ -1,0 +1,120 @@
+.mainContainer{
+    padding: 0 3rem;
+}
+
+.headerContainer{
+    background-color: #ec712e;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+.vehicleYearMakeAndModalWrapper{
+    display: flex;
+    column-gap: 1rem;
+}
+
+.discripImageAndCalContainer {
+    display: grid;
+    grid-template-columns: 20% 40% 20%;
+    margin-top: 1rem;
+    justify-content: space-between;
+}
+
+.dispriptionWrapper{
+    border: 1px solid #ec712e;
+    display: flex;
+    flex-direction: column;
+    row-gap: .4rem;
+    padding: .3rem;
+}
+
+.dispriptionWrapper p{
+    border-bottom: 1px dotted #ec712e;
+}
+
+.dispriptionWrapper span{
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.imageWrapper{
+    border: 2px solid black;
+}
+
+.lillImagesWrapper{
+    border: 1px solid black;
+}
+
+.calWrapper{
+    border: 1px solid #ec712e;
+    padding: .3rem;
+}
+
+.calWrapper button{
+    background-color: #ec712e;
+    cursor: pointer;
+}
+
+.calWrapper button:hover{
+    color: white;
+}
+
+.inputWrapper{
+    display: flex;
+    align-items: center;
+}
+
+.inputWrapper input{
+    width: 90%;
+    height: 1.5rem;
+}
+
+.inputWrapper label{
+    background-color: #ec712e;
+    height: 1.5rem;
+    width: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonAndEquipContainer{
+    margin-top: 1rem;
+    height: 20rem;
+}
+
+.buttonWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
+    background-color: rgb(211, 209, 209);
+    height: 25%;
+}
+
+.buttonWrapper button{
+    width: 20%;
+    height: 50%;
+    background-color: #ec712e;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 1);
+}
+
+.buttonWrapper button:hover{
+    transform: scale(1.1);
+    color: white;
+}
+
+.equipAndSimilarContainer{
+    display: grid;
+    grid-template-columns: 75% 25%;
+    border: 1px solid black;
+    height: auto;
+}
+
+.similarVehicleWrapper{
+    background-color: rgb(211, 209, 209);
+}

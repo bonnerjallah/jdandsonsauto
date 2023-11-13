@@ -1,391 +1,50 @@
+import { useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleQuestion, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 
+import Applyform from '../components/Applyform';
+import Cobuyerform from '../components/Cobuyerform';
 import Footer from "../components/Footer"
+
+import applyonline from "../styles/applyonlinestyle.module.css"
 
 
 
 const ApplyOnLine = () => {
+
+
+    //Toogle between two components
+    const[showApplyForm, setShowApplyForm] = useState(true)
+
+    const toggleComponent = () => {
+        setShowApplyForm(!showApplyForm)
+    }
+
     return (
         <div>
-            <div>
+            <div className={applyonline.header}>
+            </div>
+            <div className={applyonline.headertext}>
                 <h1> Apply OnLine </h1>
             </div>
+            <div className={applyonline.formContainer}>
 
-            <div>
-                <p>Buyer</p>
-                <p>Co-Buyer</p>
+                <div className={applyonline.buyerCoBuyerWrapper}>
+                    <p onClick={toggleComponent} style={{background: showApplyForm ? '#ec712e' : 'white'}}> Buyer</p>
+                    <p onClick={toggleComponent} style={{background: !showApplyForm ? '#ec712e' : 'white'}} >Co-Buyer</p>
+                </div>
+                <hr style={{marginBottom: '1rem'}} />
+                <div >
+                    {showApplyForm ? <Applyform /> : <Cobuyerform />}
+                </div>
             </div>
-            <br />
-            <div>
-                <form action="">
-                    <fieldset>
-                        <h4>CLIENT INFORMATION</h4>
-
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" name="firstname" id="firstName" required />
-
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" name="lastname" id="lastName" required/>
-                        
-                        <label htmlFor="stAddress">Street Address</label>
-                        <input type="text" name="streetaddress" id="stAddress" required />
-                        <br />
-
-                        <label htmlFor="cityinfo">City</label>
-                        <input type="text" name="city" id="cityinfo" required/>
-
-                        <label htmlFor="stateinfo">State</label>
-                        <select name="state" id="stateinfo" required>
-                            <option value=""></option>
-                            <option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="Arizona">Arizona</option>
-                            <option value="Arkansas">Arkansas</option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut</option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="Idaho">Idaho</option>
-                            <option value="Illinois">Illinois</option>
-                            <option value="Indiana">Indiana</option>
-                            <option value="Iowa">Iowa</option>
-                            <option value="Kansas">Kansas</option>
-                            <option value="Kentucky">Kentucky</option>
-                            <option value="Louisiana">Louisiana</option>
-                            <option value="Maine">Maine</option>
-                            <option value="Maryland">Maryland</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan</option>
-                            <option value="Minnesota">Minnesota</option>
-                            <option value="Mississippi">Mississippi</option>
-                            <option value="Missouri">Missouri</option>
-                            <option value="Montana">Montana</option>
-                            <option value="Nebraska">Nebraska</option>
-                            <option value="Nevada">Nevada</option>
-                            <option value="New Hampshire">New Hampshire</option>
-                            <option value="New Jersey">New Jersey</option>
-                            <option value="New Mexico">New Mexico</option>
-                            <option value="New York">New York</option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota</option>
-                            <option value="Ohio">Ohio</option>
-                            <option value="Oklahoma">Oklahoma</option>
-                            <option value="Oregon">Oregon</option>
-                            <option value="Pennsylvania">Pennsylvania</option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina">South Carolina</option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virginia">Virginia</option>
-                            <option value="Washington">Washington</option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>
-                        </select>
-
-                        <label htmlFor="zipCode"> Zip Code</label>
-                        <input type="number" name="zipcode" id="zipCode" required/>
-
-                        <label htmlFor="emailinfo">Email</label>
-                        <input type="email" name="email" id="emailinfo" />
-                        <br />
-
-                        <label htmlFor="homePhone">Home Phone</label>
-                        <input type="number" name="homephone" id="homePhone" />
-
-                        <label htmlFor="cellPhone">Cell Phone</label>
-                        <input type="number" name="cellphone" id="cellPhone" required />
-
-                        <label htmlFor="SSnumber">SSN</label>
-                        <input type="number" name="ssnumber" id="SSnumber" required />
-                        <br />
-
-                        <label htmlFor="DOB">Date of Birth</label>
-                        <input type="date" name="dateofbirth" id="DOB" required />
-
-                        <label htmlFor="DLstate">Driver's License State</label>
-                        <select name="dlstate" id="DLstate" required>
-                            <option value=""></option>
-                            <option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="Arizona">Arizona</option>
-                            <option value="Arkansas">Arkansas</option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut</option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="Idaho">Idaho</option>
-                            <option value="Illinois">Illinois</option>
-                            <option value="Indiana">Indiana</option>
-                            <option value="Iowa">Iowa</option>
-                            <option value="Kansas">Kansas</option>
-                            <option value="Kentucky">Kentucky</option>
-                            <option value="Louisiana">Louisiana</option>
-                            <option value="Maine">Maine</option>
-                            <option value="Maryland">Maryland</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan</option>
-                            <option value="Minnesota">Minnesota</option>
-                            <option value="Mississippi">Mississippi</option>
-                            <option value="Missouri">Missouri</option>
-                            <option value="Montana">Montana</option>
-                            <option value="Nebraska">Nebraska</option>
-                            <option value="Nevada">Nevada</option>
-                            <option value="New Hampshire">New Hampshire</option>
-                            <option value="New Jersey">New Jersey</option>
-                            <option value="New Mexico">New Mexico</option>
-                            <option value="New York">New York</option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota</option>
-                            <option value="Ohio">Ohio</option>
-                            <option value="Oklahoma">Oklahoma</option>
-                            <option value="Oregon">Oregon</option>
-                            <option value="Pennsylvania">Pennsylvania</option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina">South Carolina</option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virginia">Virginia</option>
-                            <option value="Washington">Washington</option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>
-                        </select>
-
-                        <label htmlFor="dlNumber">Driver's License Number</label>
-                        <input type="number" name="dlnumber" id="dlNumber" required />
-                        <br />
-
-                        <label htmlFor="dlIssueDate">Driver's License Issue Date</label>
-                        <input type="date" name="dlissuedate" id="dlIssueDate" required />
-
-                        <label htmlFor="dlExpDate">Driver's License Expiry Date</label>
-                        <input type="date" name="dlexpdate" id="dlExpDate"  required />
-                    </fieldset>
-
-                    <fieldset>
-                        <h4>RESIDENTIAL INFORMATION</h4>
-                        
-                        <label htmlFor="housing">Housing Type</label>
-                        <select name="housingtype" id="housing" required>
-                            <option value=""></option>
-                            <option value="rent">Rent</option>
-                            <option value="own">Own</option>
-                            <option value="other"></option>
-                        </select>
-
-                        <label htmlFor="rent">Monthly Rent/Mortgage</label>
-                        <input type="number" name="monthlyrent" id="rent" required />
-
-                        <label htmlFor="AtAddress">Years at Address</label>
-                        <input type="number" name="yearsataddress" id="AtAddress" required />
-                        <input type="number" name="monthataddress" id="AtAddress"/>
-                    </fieldset>
-
-                    <fieldset>
-                        <h4>ADD PREVIOUS ADDRESS</h4>
-
-                        <label htmlFor="prevstname">Street Name</label>
-                        <input type="text" name="prevstreetname" id="prevstname" />
-
-                        <label htmlFor="prevcity">City</label>
-                        <input type="text" name="prevcity" id="prevcity" />
-
-                        <label htmlFor="prevst">State</label>
-                        <select name="prevst" id="prevst">
-                            <option value=""></option>
-                            <option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="Arizona">Arizona</option>
-                            <option value="Arkansas">Arkansas</option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut</option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="Idaho">Idaho</option>
-                            <option value="Illinois">Illinois</option>
-                            <option value="Indiana">Indiana</option>
-                            <option value="Iowa">Iowa</option>
-                            <option value="Kansas">Kansas</option>
-                            <option value="Kentucky">Kentucky</option>
-                            <option value="Louisiana">Louisiana</option>
-                            <option value="Maine">Maine</option>
-                            <option value="Maryland">Maryland</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan</option>
-                            <option value="Minnesota">Minnesota</option>
-                            <option value="Mississippi">Mississippi</option>
-                            <option value="Missouri">Missouri</option>
-                            <option value="Montana">Montana</option>
-                            <option value="Nebraska">Nebraska</option>
-                            <option value="Nevada">Nevada</option>
-                            <option value="New Hampshire">New Hampshire</option>
-                            <option value="New Jersey">New Jersey</option>
-                            <option value="New Mexico">New Mexico</option>
-                            <option value="New York">New York</option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota</option>
-                            <option value="Ohio">Ohio</option>
-                            <option value="Oklahoma">Oklahoma</option>
-                            <option value="Oregon">Oregon</option>
-                            <option value="Pennsylvania">Pennsylvania</option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina">South Carolina</option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virginia">Virginia</option>
-                            <option value="Washington">Washington</option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>
-                        </select>
-
-                        <label htmlFor="prevzip">Zip Code</label>
-                        <input type="number" name="prevzipcode" id="prevzip" />
-                        <br />
-
-                        <label htmlFor="prevhousing">Housing Type</label>
-                        <select name="prevhousingtype" id="prevhousing" required>
-                            <option value=""></option>
-                            <option value="rent">Rent</option>
-                            <option value="own">Own</option>
-                            <option value="other"></option>
-                        </select>
-
-                        <label htmlFor="prevrent">Monthly Rent/Mortgage</label>
-                        <input type="number" name="prevmonthlyrent" id="prevrent" required />
-
-                        <label htmlFor="prevAtAddress">Years at Address</label>
-                        <input type="number" name="prevyearsataddress" id="prevAtAddress" required />
-                        <input type="number" name="prevmonthataddress" id="prevAtAddress"/>
-                    </fieldset>
-
-                    <fieldset>
-                        <h4>EMPLOYMENT INFORMATION</h4>
-
-                        <label htmlFor="jobname">Employer Name</label>
-                        <input type="text" name="employername" id="jobname" required />
-
-                        <label htmlFor="titleposition">Title/Position</label>
-                        <input type="text" name="jobtitle" id="titleposition" required />
-
-                        <label htmlFor="businessphonenum">Business Phone Number</label>
-                        <input type="number" name="businessphone" id="businessphonenum" />
-                        <br />
-
-                        <label htmlFor="monthlyincome">Gross Monthly Salary</label>
-                        <input type="number" name="income" id="monthlyincome" required/>
-
-                        <label htmlFor="yearsatemployment">Years at Employment</label>
-                        <input type="number" name="yearsatjob" id="yearsatemployment" required />
-                    </fieldset>
-
-                    <fieldset>
-                        <h4>ADD PREVIOUS EMPLOYMENT</h4>
-
-                        <label htmlFor="prevjobname">Employer Name</label>
-                        <input type="text" name="prevemployername" id="prevjobname" required />
-
-                        <label htmlFor="prevtitleposition">Title/Position</label>
-                        <input type="text" name="prevjobtitle" id="prevtitleposition" required />
-
-                        <label htmlFor="prevbusinessphonenum">Business Phone Number</label>
-                        <input type="number" name="prevbusinessphone" id="prevbusinessphonenum" />
-                        <br />
-
-                        <label htmlFor="prevmonthlyincome">Gross Monthly Salary</label>
-                        <input type="number" name="previncome" id="prevmonthlyincome" required/>
-
-                        <label htmlFor="prevyearsatemployment">Years at Employment</label>
-                        <input type="number" name="prevyearsatjob" id="prevyearsatemployment" required />
-                    </fieldset>
-
-                    <fieldset>
-                        <div>
-                            <h3>VEHICLE INTERESTED</h3>
-
-                            <label htmlFor="intrestedvehistock"></label>
-                            <input type="text" name="vehistock" id="intrestedvehistock" />
-
-                            <label htmlFor="intrestedvihiname"></label>
-                            <input type="text" name="vehiname" id="intrestedvihiname" />
-
-                            <label htmlFor="intrestedvehitype"></label>
-                            <input type="text" name="vehitype" id="intrestedvehitype" />
-
-                            <label htmlFor="intrestedvehiyear"></label>
-                            <input type="text" name="vehiyear" id="intrestedvehiyear" />
-
-                            <label htmlFor="downpaymentamount"></label>
-                            <input type="number" name="downpayment" id="downpaymentamount"/>
-                        </div>
-                        <div>
-                            <h3>TRADE-IN</h3>
-
-                            <label htmlFor="askoftradein">Trade-in?</label>
-                            <input type="checkbox" name="tradein" id="askoftradein" />
-
-                            <label htmlFor="tradevinnumber"></label>
-                            <input type="text" name="tradevin" id="tradevinnumber" placeholder="VIN Number" />
-
-                            <label htmlFor="makeoftrade"></label>
-                            <input type="text" name="trademake" id="makeoftrade" placeholder="Make" />
-
-                            <label htmlFor="modaloftrade"></label>
-                            <input type="text" name="trademodal" id="modaloftrade" placeholder="Modal" />
-
-                            <label htmlFor="yearoftrade"></label>
-                            <input type="number" name="tradeyear" id="yearoftrade" placeholder="Year" />
-
-                            <label htmlFor="milesoftrade"></label>
-                            <input type="number" name="trademiles" id="milesoftrade" placeholder="Mileage" />
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <h4>SIGNATURE REQUIRED</h4>
-
-                        <label htmlFor="signature">Please Type in Your Name</label>
-                        <input type="text" name="siggy" id="signature"/>
-
-                        <p>I understand this is a legal representation of my signature.</p>
-                    </fieldset>
-
-                    <div>
-                        <p>By clicking "Accept & Submit", I, the undersigned, (a) for the purpose of securing credit, certify the below representations to be correct; (b) authorize financial institutions, as they consider necessary and appropriate, to obtain consumer credit reports on me periodically and to gather employment history, and (c) understand that we, or any financial institution to whom this application is submitted, will retain this application whether or not it is approved, and that it is the applicant's responsibility to notify the creditor of any change of name, address, or employment. We and any financial institution to whom this application is submitted, may share certain non-public personal information about you with your authorization or as provided by law.</p>
-
-                        <label htmlFor="acceptterms"> I accept the above terms. <input type="checkbox" name="accept" id="acceptterms" /></label>
-                    </div>
-
-                    <button>Submit</button>
-                    
-                </form>
-            </div>
-            <div>
-                <div>
+            <div className={applyonline.callUsWrapper}>
+                <div className={applyonline.callUsIconWrapper}>
                     <FontAwesomeIcon icon={faCircleQuestion} /> <p>Have Questions? Call Today!</p>
                 </div>
-                <div>
+                <div className={applyonline.callUsPhoneNumberWrapper}>
                     <FontAwesomeIcon icon={faPhone} /> <p>470-552-2433</p>
                 </div>
             </div>

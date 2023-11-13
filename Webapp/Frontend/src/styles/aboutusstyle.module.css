@@ -1,0 +1,19 @@
+.header {
+    background-image: url(../assets/pickup.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10rem;
+    width: 100%;
+    opacity: .2;
+}
+
+.headerWrapper{
+    color: black;
+    margin-top: -7rem;
+    z-index: 99;
+    width: 20rem;
+    height: 15rem;
+    margin-left: 2rem;
+    text-align: center;
+}

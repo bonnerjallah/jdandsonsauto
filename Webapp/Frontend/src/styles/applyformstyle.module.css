@@ -1,0 +1,130 @@
+form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+fieldset h4{
+    margin-bottom: .5rem;
+    background-color: #ec712e;
+    color: white;
+    width: max-content;
+    padding: .3rem;
+}
+
+fieldset{
+    border: 1px solid #ec712e;
+    padding: .5rem;
+}
+
+.firstfieldset input, 
+.firstfieldset select{
+    width: 13rem;
+    height: 2rem;
+    margin: .3rem;
+}
+
+.secondfieldset input,
+.secondfieldset select{
+    width: 10rem;
+    height: 2rem;
+    margin: .3rem;
+}
+
+.thirdfieldset input,
+.thirdfieldset select{
+    width: 10rem;
+    height: 2rem;
+    margin: .3rem;
+}
+
+.forthfieldset input,
+.fifthfieldset input{
+    width: 13rem;
+    height: 2rem;
+    margin: .3rem;
+}
+
+.sixthfieldset{
+    display: flex;
+    column-gap: 2rem;
+    justify-content: space-around;
+}
+
+.sixthfieldset div{
+    background-color: #f09f73;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 45%;
+    padding: .5rem;
+}
+
+.intrestedInputWrapper input{
+    height: 2rem;
+    margin: .5rem;
+}
+
+.tradeInInputWrapper input{
+    width: 28rem;
+    height: 2rem;
+    margin: .5rem;
+}
+
+
+/* .sixthfieldset div input{
+    margin: .5rem;
+    padding: .2rem;
+    height: 2rem;
+} */
+
+.checkboxWrapper {
+    display: flex;
+    justify-items: center;
+}
+
+.signatureBox{
+    display: flex;
+    flex-direction: column;
+}
+.signatureBox input{
+    width: 15rem;
+    height: 2rem;
+}
+
+.accepttermsWrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.applybutton{
+    background-color: #ec712e;
+    cursor: pointer;
+    width: 7rem;
+    height: 2rem;
+    border: none;
+}
+
+.applybutton:hover{
+    color: white;
+    transform: scale(1.1);
+}
+
+form input:focus{
+    padding: .3rem;
+}
+
+.hasacobuyerContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 60%;
+    padding:  0 1rem;
+}
+
+.hasacobuyerContainer select{
+    height: 2rem;
+    width: 15rem;
+}

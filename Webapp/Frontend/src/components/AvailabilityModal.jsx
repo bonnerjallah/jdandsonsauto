@@ -17,7 +17,6 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
                     const filteredImage = avaliData.images.find((image, index) => index === 3);
                     if (filteredImage) {
                         setModalVehicleImage(filteredImage.image_url);
-                        console.log(filteredImage.image_url);
                     }
                 }
             } catch (error) {
@@ -28,13 +27,11 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
         fetchImages();
     }, [avaliData]); 
 
-    console.log("modal image", modalVehicleImage)
-
 
     return (
         <div className={availabilitymodalstyle.mainContainer}>
             <div className={availabilitymodalstyle.header}>
-                <h4 style={{color: '#ec712e'}}>CONFIRM AVAILABILITY</h4>
+                <h4 style={{color: '#ec712e'}}>CONFIRM AVAILABILITY / REQUEST A QUOTE</h4>
                 <p onClick={() => closeAvilModal(false)}>X</p>
             </div>
             <div className={availabilitymodalstyle.vehicleInfo}> 

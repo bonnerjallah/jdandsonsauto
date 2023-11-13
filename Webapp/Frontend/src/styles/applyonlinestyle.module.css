@@ -1,0 +1,62 @@
+.header {
+    background-image: url(../assets/fillform.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10rem;
+    width: 100%;
+    opacity: .3;
+}
+
+.headertext{
+    color: black;
+    margin-top: -7rem;
+    z-index: 99;
+    width: 20rem;
+    height: 15rem;
+    margin-left: 2rem;
+    text-align: center;
+}
+
+.formContainer{
+    margin: -5rem 5rem 0 5rem;
+}
+
+.buyerCoBuyerWrapper{
+    display: flex;
+    width: 15%;
+    column-gap: 1rem;
+    font-size: 1rem;
+}
+
+.buyerCoBuyerWrapper p{
+    cursor: pointer;
+    padding: .2rem;
+}
+
+.callUsWrapper{
+    background-color: #ec712e;
+    display: flex;
+    width: 70%;
+    height: 5rem;
+    margin-top: 3rem;
+    margin-left: 13rem;
+    column-gap: 10rem;
+    padding: 2rem;
+}
+
+.callUsIconWrapper{
+    display: flex;
+    width: 80%;
+    font-size: 2rem;
+    column-gap: 1rem;
+    align-items: center;
+}
+
+.callUsPhoneNumberWrapper{
+    display: flex;
+    width: 80%;
+    font-size: 2rem;
+    column-gap: 1rem;
+    align-items: center;
+}
