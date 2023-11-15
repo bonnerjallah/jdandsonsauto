@@ -17,3 +17,48 @@
     margin-left: 2rem;
     text-align: center;
 }
+
+.mainWrapper{
+    display: flex;
+    margin-top: -3rem;
+}
+
+.imageWrapper{
+    width: 60rem;
+    height: 30rem;
+    margin: 0 2rem;
+}
+
+.textWrapper{
+    padding: 1rem;
+}
+
+.textWrapper h2{
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #ec712e;
+}
+
+.textWrapper p{
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+
+}
+
+.mapAndHoursContainer{
+    display: flex;
+    height: 30rem;
+    padding: 1rem;
+}
+
+.mapWrapper{
+    width: 75%;
+    height: 100%;
+}
+
+.hoursWrapper{
+    border: 2px solid #ec712e;
+    width: 25%;
+    margin-left: 1rem;
+
+}

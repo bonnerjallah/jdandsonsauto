@@ -84,8 +84,6 @@ const ImageSlider = ({imageUrls}) => {
 
 const Home = () => {
 
-
-
     return (
         <div>
             <div>

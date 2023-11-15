@@ -56,7 +56,7 @@ const Footer = () => {
                 </div>
                 <div className={homestyle.copyrigtWrapper}>
                     <p>&copy; 2023 JD & SONS AUTO BROKER</p>
-                    <p>Developed by: BAJ-DEV</p>
+                    <p>Developed by: BAJ-TECH SOLUTIONS</p>
                 </div>
                 
             </div>
