@@ -95,7 +95,95 @@ const Inventory = () => {
     };
 
 
+
+    console.log('car discriptions', carDiscription )
+
+
+    //Year count
+    const yearCount = carDiscription.reduce((acc, elem) => {
+        const {caryear} = elem;
+        acc[caryear] = (acc[caryear] || 0) + 1;
+        return acc
+    }, {})
+
+
+    //make and modal count
+    const makeAndModal = carDiscription.reduce((acc, elem) => {
+        const {carname} = elem
+        acc[carname] = (acc[carname] || 0) + 1;
+        return acc
+    }, {})
+
+
+    //drivetrain count
+    const drivetrainCount = carDiscription.reduce((acc, elem) => {
+        const drivetrain = elem.drivetrain;
+        acc[drivetrain] = (acc[drivetrain] || 0) + 1;
+        return acc;
+    }, {});
     
+
+    //Transmission count
+    const transmissionCount = carDiscription.reduce((acc, elem) => {
+        const transmission = elem.transmiss;
+        acc[transmission] = (acc[transmission] || 0) + 1
+        return acc
+    }, {})
+
+
+
+    // Miles sorting
+    const milesArray = carDiscription.map((car) => car.miles);
+
+
+    const milesRanges = milesArray.reduce((acc, mileage) => {
+        const mileageNumber = parseInt(mileage.replace(/,/g, ''), 10);
+    
+        if (mileageNumber >= 50000 && mileageNumber < 60000) {
+        acc.fiftySexty.push(mileageNumber);
+        } else if (mileageNumber >= 60000 && mileageNumber < 70000) {
+        acc.sixtyseventy.push(mileageNumber);
+        } else if (mileageNumber >= 70000 && mileageNumber < 80000) {
+        acc.seventyEighty.push(mileageNumber);
+        } else if (mileageNumber >= 80000 && mileageNumber < 90000) {
+        acc.eightNinety.push(mileageNumber);
+        } else if (mileageNumber >= 90000 && mileageNumber < 100000) {
+        acc.nightyHundred.push(mileageNumber);
+        } else if (mileageNumber >= 100000 && mileageNumber < 120000) {
+        acc.oneTwentyOneThirty.push(mileageNumber);
+        } else if (mileageNumber >= 120000 && mileageNumber < 140000) {
+        acc.oneThirtyOneFouty.push(mileageNumber);
+        } else if (mileageNumber >= 140000 && mileageNumber < 150000) {
+        acc.oneFortyOneFifty.push(mileageNumber);
+        } else if (mileageNumber < 50000) {
+            acc.lessThenFifty.push(mileageNumber)
+        }
+    
+        return acc;
+    }, {
+        lessThenFifty: [],
+        fiftySexty: [],
+        sixtyseventy: [],
+        seventyEighty: [],
+        eightNinety: [],
+        nightyHundred: [],
+        oneTwentyOneThirty: [],
+        oneThirtyOneFouty: [],
+        oneFortyOneFifty: [],
+    });
+
+
+    //Body type count
+    const bodyType = carDiscription.reduce((acc, car) => {
+        const { trim } = car;
+    
+        acc[trim] = (acc[trim] || 0) + 1;
+        return acc;
+    }, {});
+    
+    
+    
+
 
 
     return (
@@ -140,11 +228,19 @@ const Inventory = () => {
                             <h3>Year</h3>
                             <hr style={{color:'black'}} />
                             <div className={inventorystyle.filterTypeWrapper}>
-                                <div>
-                                    <p>2020</p>
+                                <div className={inventorystyle.years}>
+                                    {Object.entries(yearCount).map(([year]) => (
+                                        <p key={year}>
+                                            {year}
+                                        </p>
+                                    ))}
                                 </div>
-                                <div>
-                                    <p>2</p>
+                                <div className={inventorystyle.count}>
+                                    {Object.entries(yearCount).map(([year, count]) => (
+                                        <p key={year}> 
+                                            {count}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
                             <button>View More...</button>
@@ -154,10 +250,21 @@ const Inventory = () => {
                             <hr style={{color:'black'}} />
                             <div className={inventorystyle.filterTypeWrapper}>
                                 <div>
-                                    <p>CHRYSLER</p>
+                                    {Object.entries(makeAndModal).map(([carname, count]) => {
+                                        const firstname = carname.split(' ')[0]; //get just the first word
+                                        return (
+                                            <p key={carname}>
+                                                {firstname}
+                                            </p>
+                                        )
+                                    })}
                                 </div>
-                                <div>
-                                    <p>2</p>
+                                <div className={inventorystyle.count}>
+                                    {Object.entries(makeAndModal).map(([carname, count]) => (
+                                        <p key={carname}> 
+                                            {count}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
                             <button>View More...</button>
@@ -167,10 +274,18 @@ const Inventory = () => {
                             <hr style={{color:'black'}} />
                             <div className={inventorystyle.filterTypeWrapper}>
                                 <div>
-                                    <p>4WD</p>
+                                    {Object.entries(drivetrainCount).map(([drivetrain, count]) => (
+                                        <p key={drivetrain}> 
+                                            {drivetrain}
+                                        </p>
+                                    ))}
                                 </div>
-                                <div>
-                                    <p>2</p>
+                                <div className={inventorystyle.count}>
+                                    {Object.entries(drivetrainCount).map(([drivetrain, count]) => (
+                                        <p key={drivetrain}>
+                                            {count}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
 
@@ -180,10 +295,18 @@ const Inventory = () => {
                             <hr style={{color:'black'}} />
                             <div className={inventorystyle.filterTypeWrapper}>
                                 <div>
-                                    <p>AUTOMATIC</p>
+                                    {Object.entries(transmissionCount).map(([transmission, count]) => (
+                                        <p key={transmission}>
+                                            {transmission}
+                                        </p>
+                                    ))}
                                 </div>
-                                <div>
-                                    <p>4</p>
+                                <div className={inventorystyle.count}>
+                                    {Object.entries(transmissionCount).map(([transmission, count]) => (
+                                        <p key={transmission}>
+                                            {count}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -191,10 +314,20 @@ const Inventory = () => {
                             <h3>Mileage</h3>
                             <hr style={{color:'black'}} />
                             <div className={inventorystyle.filterTypeWrapper}>
-                                <div>
-                                    <p>0 - $10,000</p>
-                                </div>
-                                <div>
+                            <div>
+                                {Object.entries(milesRanges).map(([range, values]) => (
+                                    <div key={range}>
+                                        <p>0 - 50,000</p>
+                                        <ul>
+                                            {values.map((value, index) => (
+                                            <li key={index}>{index}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+
+                                <div className={inventorystyle.count}>
                                     <p>3</p>
                                 </div>
                             </div>
@@ -205,10 +338,32 @@ const Inventory = () => {
                             <hr style={{color:'black'}} />
                             <div className={inventorystyle.filterTypeWrapper}>
                                 <div>
-                                    SUV
+                                {Object.entries(bodyType).map(([trim, count]) => {
+    const words = trim.split(' ');
+
+    let displayWord = words.length === 2 ? words[1] : words[0];
+
+    return (
+        <div key={trim}>
+            <p>
+                Word: {displayWord}
+            </p>
+            <p>
+                Count: {count}
+            </p>
+        </div>
+    );
+})}
+
+
+
                                 </div>
-                                <div>
-                                    <p>5</p>
+                                <div className={inventorystyle.count}>
+                                    {Object.entries(bodyType).map(([trim, count]) => (
+                                        <p key={trim}>
+                                            {count}
+                                        </p>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -219,7 +374,7 @@ const Inventory = () => {
                                 <div>
                                     <p>$ - $5,000</p>
                                 </div>
-                                <div>
+                                <div className={inventorystyle.count}>
                                     <p>2</p>
                                 </div>
                             </div>
@@ -315,7 +470,7 @@ const Inventory = () => {
                                     <div>
                                         <button onClick={() => handleAvailabilityModal(elem)}>CONFIRM AVAILABILITY</button>
                                         <button onClick={() => handleAvailabilityModal(elem)} >REQUEST A QUOTE</button>
-                                        <NavLink to="/ApplyOnLine">
+                                        <NavLink to='/ApplyOnLine'>
                                             <button>APPLY ONLINE</button>
                                         </NavLink>
                                         <NavLink to='/ViewDetails'>

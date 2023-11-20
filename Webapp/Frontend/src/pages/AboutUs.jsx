@@ -39,6 +39,27 @@ const AboutUs = () => {
                 </div>
                 <div className={aboutusstyle.hoursWrapper}>
 
+                    <h2 style={{marginBottom: '.6rem'}}>Bussiness Hours</h2>
+                    <div className={aboutusstyle.businessHoursWrapper}>
+                        <div style={{fontWeight: 'bold'}}>
+                            <div>Monday</div>
+                            <div>Tuesday</div>
+                            <div>Wednesday</div>
+                            <div>Thursday</div>
+                            <div>Friday</div>
+                            <div>Saturday</div>
+                            <div>Sunday</div>
+                        </div>
+                        <div >
+                            <div>10:00 AM - 06:00 PM</div>
+                            <div>10:00 AM - 06:00 PM</div>
+                            <div>10:00 AM - 06:00 PM</div>
+                            <div>10:00 AM - 06:00 PM</div>
+                            <div>10:00 AM - 06:00 PM</div>
+                            <div>10:00 AM - 05:00 PM</div>
+                            <div>By Appointment Only</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

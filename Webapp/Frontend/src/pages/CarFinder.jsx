@@ -9,7 +9,6 @@ import carfinderstyle from "../styles/carfinderstyle.module.css"
 
 
 
-
 const CarFinder = () => {
     return (
         <div>

@@ -90,7 +90,7 @@ const Home = () => {
                 <ImageSlider imageUrls = {Images} />
             </div>
             <div className={homestyle.welcome}>
-                <h1>WELCOME TO JD & SONS AUTO BROKER</h1>
+                <h1>WELCOME TO JD & SONS AUTO BROKERS</h1>
             </div>
             <div className={homestyle.browserVisitContainer}>
 

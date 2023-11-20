@@ -6,8 +6,6 @@ import {faLocationDot, faPhoneVolume, faMagnifyingGlass} from '@fortawesome/free
 import navbarstyle from "../styles/navbarstyle.module.css"
 
 
-
-
 const Navbar = () => {
     return (
         <div className={navbarstyle.container}>
@@ -21,7 +19,9 @@ const Navbar = () => {
                 <div className={navbarstyle.addressAndContactContainer}>
                     <div className={navbarstyle.addressWrapper}>
                         <FontAwesomeIcon icon={faLocationDot} style={{fontSize: "2rem", color: '#ec712e'}} />
+                        <NavLink to="/ContactUs">
                         <p>4005 Wetherburn Way Ste D-61 <br /> Peachtree Corners, GA 30092</p>
+                        </NavLink>
                     </div>
                     <div className={navbarstyle.contactWrapper}>
                         <FontAwesomeIcon icon={faPhoneVolume} style={{fontSize: "2rem", color: "#ec712e"}} />

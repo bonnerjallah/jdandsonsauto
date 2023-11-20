@@ -94,12 +94,28 @@
 .filterTypeWrapper{
     display: flex;
     justify-content: space-between;
+    height: 5rem;
+    overflow: hidden;
 }
 
 .filterTypeWrapper div{
     padding: 0 1rem;
     cursor: pointer;
 }
+
+.filterTypeWrapper div p{
+    margin: .5rem 0;
+}
+
+.count p{
+    background-color: #ec712e;
+    border-radius: 50%;
+    font-size: 1rem;
+    width: 1rem;
+    text-align: center;
+}
+
+
 
 .yearFilterWrapper button, 
 .makeModelFilterWrapper button,

@@ -177,7 +177,9 @@ const Applyform = () => {
 
                     <label htmlFor="AtAddress">Years at Address</label>
                     <input type="number" name="yearsataddress" id="AtAddress" placeholder='Year' required />
-                    <input type="number" name="monthataddress" id="AtAddress" placeholder='Month'/>
+
+                    <label htmlFor="mthAtAddress"></label>
+                    <input type="number" name="monthataddress" id="mthAtAddress" placeholder='Month'/>
                 </fieldset>
 
                 <fieldset className={applyformstyle.thirdfieldset}>
@@ -261,7 +263,9 @@ const Applyform = () => {
 
                     <label htmlFor="prevAtAddress">Years at Address</label>
                     <input type="number" name="prevyearsataddress" id="prevAtAddress" placeholder='Year' required />
-                    <input type="number" name="prevmonthataddress" id="prevAtAddress" placeholder='Month' />
+
+                    <label htmlFor="prevMthAtAddress"></label>
+                    <input type="number" name="prevmonthataddress" id="prevMthAtAddress" placeholder='Month' />
                 </fieldset>
 
                 <fieldset className={applyformstyle.forthfieldset}>
