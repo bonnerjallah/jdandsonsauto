@@ -14,7 +14,6 @@ import applyonline from "../styles/applyonlinestyle.module.css"
 
 const ApplyOnLine = () => {
 
-
     //Toogle between two components
     const[showApplyForm, setShowApplyForm] = useState(true)
 

@@ -1,8 +1,34 @@
+import { useState } from 'react';
 import filterstyle from '../styles/filterstyle.module.css'
 
 
 
 const Filter = ({carDiscription}) => {
+
+    const [yearExpended, setyearExpended] = useState(false)
+    const [makeExpended, setmakeExpended] = useState(false)
+    const [milesExpended, setmilesExpended] = useState(false)
+    const [priceExpended, setpriceExpended] = useState(false)
+
+    const handleYearExpend = () => {
+        setyearExpended(!yearExpended)
+    }
+
+    const handleMakeExpent = () => {
+        setmakeExpended(!makeExpended)
+    }
+
+    const handleMilesExpended = () => {
+        setmilesExpended(!milesExpended)
+    }
+
+    const handlePriceExpended = () => {
+        setpriceExpended(!priceExpended)
+    }
+
+    const handleResetFilters = () => {
+        window.location.reload();
+    };
 
     //Year count
     const yearCount = carDiscription.reduce((acc, elem) => {
@@ -48,7 +74,6 @@ const Filter = ({carDiscription}) => {
 
     const milesArray = carDiscription.map((car) => {
         const miles = parseInt(car.miles.replace(/,/g, ''), 10); // Convert to number, remove commas
-        console.log(miles);
 
         if (miles <= 50000) {
             lessThanFifty.push(miles);
@@ -73,22 +98,49 @@ const Filter = ({carDiscription}) => {
         }
     });
 
+    //Amount sorting
+    const fiveThousandOrLess = []
+    const fiveToTenThousand = []
+    const tenToFifteenThousand = []
+    const fifteenToTwentyThousand = []
+    const twentyToThirtyThousand = []
+    const thirtyToFortyThousannd = []
+    const fortyToFiftyThousand = []
+    const overFiftyThousand = []
 
-    //Body type count
-    const bodyType = carDiscription.reduce((acc, car) => {
-        const { trim } = car;
-    
-        acc[trim] = (acc[trim] || 0) + 1;
-        return acc;
-    }, {});
+    const carAmount = carDiscription.map((elem) => {
+        const amount = parseInt(elem.priceamount.replace(/,/g, ""), 10)
+        if(amount < 5000) {
+            fiveThousandOrLess.push(amount)
+        } else if(amount >= 5000 && amount <= 10000 ) {
+            fiveToTenThousand.push(amount)
+        } else if (amount > 10000 && amount <= 15000 ) {
+            tenToFifteenThousand.push(amount)
+        } else if (amount > 15000 && amount <= 20000) {
+            fifteenToTwentyThousand.push(amount)
+        } else if (amount > 20000 && amount <= 30000) {
+            twentyToThirtyThousand.push(amount)
+        } else if(amount > 30000 && amount <= 40000) {
+            thirtyToFortyThousannd.push(amount)
+        } else if (amount > 40000 && amount <= 50000) {
+            fortyToFiftyThousand.push(amount)
+        } else (
+            overFiftyThousand.push(amount)
+        )
+    })
+
+    console.log("5,000", fiveThousandOrLess)
+    console.log("10,000",fiveToTenThousand)
+    console.log("15,000", tenToFifteenThousand)
+    console.log("20,000", fifteenToTwentyThousand)
     
 
     return (
         <div className={filterstyle.filterContainer}>
-            <div className={filterstyle.yearFilterWrapper}>
+            <div className={filterstyle.yearFilterWrapper} >
                 <h3>Year</h3>
                 <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
+                <div className={filterstyle.filterTypeWrapper} style={{height: yearExpended ? "auto" : '9rem', overflow: 'hidden'}}>
                     <div className={filterstyle.years}>
                         {Object.entries(yearCount).map(([year]) => (
                             <p key={year}>
@@ -104,13 +156,13 @@ const Filter = ({carDiscription}) => {
                         ))}
                     </div>
                 </div>
-                <button>View More...</button>
+                <button onClick={()=> handleYearExpend()}>{yearExpended ? "Show Less..." : "View More..."}</button>
             </div>
             <div className={filterstyle.makeModelFilterWrapper}>
                 <h3>Make / Model</h3>
                 <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
-                    <div>
+                <div className={filterstyle.filterTypeWrapper} style={{height: makeExpended ? "auto" : '9rem', overflow: 'hidden'}}>
+                    <div className={filterstyle.years}>
                         {Object.entries(makeAndModal).map(([carname, count]) => {
                             const firstname = carname.split(' ')[0]; //get just the first word
                             return (
@@ -128,13 +180,13 @@ const Filter = ({carDiscription}) => {
                         ))}
                     </div>
                 </div>
-                <button>View More...</button>
+                <button onClick={()=> handleMakeExpent()}>{makeExpended ? "Show Less..." : "View More..."}</button>
             </div>
             <div className={filterstyle.DrivetrainFilterWrapper}>
                 <h3>Drivetrain</h3>
                 <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
-                    <div>
+                <div className={filterstyle.filterTypeWrapper} >
+                    <div className={filterstyle.years}>
                         {Object.entries(drivetrainCount).map(([drivetrain, count]) => (
                             <p key={drivetrain}> 
                                 {drivetrain}
@@ -154,8 +206,8 @@ const Filter = ({carDiscription}) => {
             <div className={filterstyle.transmissionFilterWrapper}>
                 <h3>Transmission</h3>
                 <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
-                    <div>
+                <div className={filterstyle.filterTypeTransWrapper}>
+                    <div className={filterstyle.years}>
                         {Object.entries(transmissionCount).map(([transmission, count]) => (
                             <p key={transmission}>
                                 {transmission}
@@ -174,7 +226,7 @@ const Filter = ({carDiscription}) => {
             <div className={filterstyle.mileageFilterWrapper}>
                 <h3>Mileage</h3>
                 <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
+                <div className={filterstyle.filterTypeWrapper} style={{height: milesExpended ? "auto" : '9rem', overflow: 'hidden'}}>
                     <div className={filterstyle.milesRange}>
                         <p>0 - 50,000 <span>{lessThanFifty.length}</span></p>
                         <p>50,000 - 60,000 <span>{fiftySixty.length}</span></p>
@@ -182,61 +234,32 @@ const Filter = ({carDiscription}) => {
                         <p>70,000 - 80,000 <span>{seventyEighty.length}</span></p>
                         <p>80,000 - 90,000 <span>{eightyNinety.length}</span></p>
                         <p>90,000 - 100,000 <span>{ninetyHundred.length}</span></p>
-                        <p>120,000 - 130,000 <span>{oneTwentyOneThirty.lenght}</span></p>
+                        <p>120,000 - 130,000 <span>{oneTwentyOneThirty.length}</span></p>
                         <p>130,000 - 140,000 <span>{oneThirtyOneForty.length}</span></p>
                         <p>140,000 - 150,000 <span>{oneFortyOneFifty.length}</span></p>
                         <p>Over 150,000 <span>{overOneFifty.length}</span></p>
                     </div>
-                    
-
                 </div>
-                <button>View More...</button>
-            </div>
-            <div className={filterstyle.bodyTypeFilterWrapper}> 
-                <h3>Body Type</h3>
-                <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
-                    <div>
-                    {Object.entries(bodyType).map(([trim, count]) => {
-                        const words = trim.split(' ');
-
-                        let displayWord = words.length === 2 ? words[1] : words[0];
-
-                        return (
-                            <div key={trim}>
-                                <p>
-                                    Word: {displayWord}
-                                </p>
-                                <p>
-                                    Count: {count}
-                                </p>
-                            </div>
-                        );
-                    })}
-
-                    </div>
-                    <div className={filterstyle.count}>
-                        {Object.entries(bodyType).map(([trim, count]) => (
-                            <p key={trim}>
-                                {count}
-                            </p>
-                        ))}
-                    </div>
-                </div>
+                <button onClick={()=> handleMilesExpended()}>{milesExpended ? "Show Less..." : "View More..."}</button>
             </div>
             <div className={filterstyle.priceRangeWrapper}>
                 <h3>Price Range</h3>
                 <hr style={{color:'black'}} />
-                <div className={filterstyle.filterTypeWrapper}>
-                    <div>
-                        <p>$ - $5,000</p>
-                    </div>
-                    <div className={filterstyle.count}>
-                        <p>2</p>
+                <div className={filterstyle.filterTypeWrapper} style={{height: priceExpended ? "auto" : '9rem', overflow: 'hidden'}}>
+                    <div className={filterstyle.priceRange}>
+                        <p>$0 - $5,000 <span>{fiveThousandOrLess.length}</span></p>
+                        <p>$5,000 - $10,000 <span>{fiveToTenThousand.length}</span></p>
+                        <p>$10,000 - $15,000 <span>{tenToFifteenThousand.length}</span></p>
+                        <p>$15,000 - $20,000 <span>{fifteenToTwentyThousand.length}</span></p>
+                        <p>$20,000 - 30,000 <span>{twentyToThirtyThousand.length}</span></p>
+                        <p>$30,000 - 40,000 <span>{thirtyToFortyThousannd.length}</span></p>
+                        <p>$40,000 - 50,000 <span>{fortyToFiftyThousand.length}</span></p>
+                        <p>$50,000 - Above <span>{overFiftyThousand.length}</span></p>
                     </div>
                 </div>
+                <button onClick={()=> handlePriceExpended()}>{priceExpended ? "Show Less..." : "View More..."}</button>
             </div>
-            <button>
+            <button className={filterstyle.filterbutton} type='button' onClick={handleResetFilters}>
                 RESET FILTERS
             </button>
         </div>

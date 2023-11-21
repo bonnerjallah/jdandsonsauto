@@ -56,6 +56,7 @@
     height: 2rem;
     border: none;
     margin-left: 1rem;
+    transition: transform 0.3s ease;
 }
 
 .mainContainer form button:hover{

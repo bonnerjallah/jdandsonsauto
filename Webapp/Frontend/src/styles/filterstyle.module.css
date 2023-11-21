@@ -4,7 +4,8 @@
 
 .yearFilterWrapper,
 .makeModelFilterWrapper,
-.mileageFilterWrapper{
+.mileageFilterWrapper,
+.priceRangeWrapper{
     display: flex;
     flex-direction: column;
     position: relative;
@@ -17,22 +18,36 @@
     margin-bottom: 1rem;
 }
 
-.filterTypeWrapper div p{
+
+
+.filterTypeTransWrapper{
+    display: flex;
+    justify-content: space-between; 
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+.filterTypeWrapper div p,
+.filterTypeTransWrapper p{
     margin: 1rem 0;
 }
 
-.milesRange{
+.milesRange,
+.priceRange{
     width: 100%;
 }
 
-.milesRange p{
+.milesRange p,
+.priceRange p{
     width: 100%;
     display: flex;
     justify-content: space-between;
     row-gap: -2rem;
 }
 
-.milesRange p span{
+.milesRange p span,
+.priceRange p span,
+.years span{
     background-color: #ec712e;
     border-radius: 50%;
     font-size: 1rem;
@@ -42,13 +57,15 @@
 
 .yearFilterWrapper button,
 .makeModelFilterWrapper button,
-.mileageFilterWrapper button{
+.mileageFilterWrapper button,
+.priceRangeWrapper button{
     width: 5rem;
     height: 1rem;
     position: absolute;
     bottom: 0;
     right: 0;
     border: none;
+    cursor: pointer;
 }
 
 .filterContainer div h3{
@@ -69,4 +86,26 @@
     font-size: 1rem;
     width: 1rem;
     text-align: center;
+    cursor: pointer;
+}
+
+.years p,
+.milesRange,
+.priceRange{
+    cursor: pointer;
+}
+
+.filterbutton{
+    width: 7rem;
+    height: 2rem;
+    background-color: #ec712e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.filterbutton:hover{
+    color: black;
+    transform: scale(1.1);
 }

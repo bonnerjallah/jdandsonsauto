@@ -33,7 +33,7 @@ const Navbar = () => {
             <div className={navbarstyle.linksWrapper}>
                 <ul className={navbarstyle.links}>
                     <NavLink to='/'><li>Home</li></NavLink>
-                    <NavLink to="Inventory"><li>Inventory</li></NavLink>
+                    <NavLink to="InventoryPage"><li>Inventory</li></NavLink>
                     <NavLink to="CarFinder"><li>Car Finder</li></NavLink>
                     <NavLink to="ApplyOnLine"><li>Apply Online</li></NavLink>
                     <NavLink to="AboutUs"><li>About Us</li></NavLink>

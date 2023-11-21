@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { NavLink } from "react-router-dom"
-
+import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
@@ -12,8 +11,9 @@ import AvailabilityModal from '../components/AvailabilityModal'
 
 import Filter from '../components/Filter'
 
-const Inventory = () => {
-    
+
+const InventoryPage = () => {
+
     //Use State for fetching data and images
     const [carDiscription, setCarDiscription] = useState([])
 
@@ -95,10 +95,6 @@ const Inventory = () => {
         setOpenAvalModal(true);
         setAvaliData(elem);
     };
-    
-    
-
-
 
     return (
         <div>
@@ -227,7 +223,7 @@ const Inventory = () => {
                                     <div>
                                         <button onClick={() => handleAvailabilityModal(elem)}>CONFIRM AVAILABILITY</button>
                                         <button onClick={() => handleAvailabilityModal(elem)} >REQUEST A QUOTE</button>
-                                        <NavLink to='/ApplyOnLine'>
+                                        <NavLink to={'/ApplyOnLine'}>
                                             <button>APPLY ONLINE</button>
                                         </NavLink>
                                         <NavLink to='/ViewDetails'>
@@ -284,4 +280,4 @@ const Inventory = () => {
     )
 }
 
-export default Inventory
+export default InventoryPage
