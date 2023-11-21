@@ -2,7 +2,7 @@ import applyformstyle from '../styles/applyformstyle.module.css'
 
 const Applyform = () => {
     return (
-        <div>
+        <>
             <form>
                 <fieldset className={applyformstyle.firstfieldset}>
                     <h4>CLIENT INFORMATION</h4>
@@ -369,7 +369,7 @@ const Applyform = () => {
                 <button className={applyformstyle.applybutton}>Submit</button>
                 
             </form>
-        </div>
+        </>
     )
 }
 

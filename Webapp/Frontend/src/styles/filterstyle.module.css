@@ -1,0 +1,72 @@
+.filterContainer{
+    width: 100%;
+}
+
+.yearFilterWrapper,
+.makeModelFilterWrapper,
+.mileageFilterWrapper{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.filterTypeWrapper{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+.filterTypeWrapper div p{
+    margin: 1rem 0;
+}
+
+.milesRange{
+    width: 100%;
+}
+
+.milesRange p{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    row-gap: -2rem;
+}
+
+.milesRange p span{
+    background-color: #ec712e;
+    border-radius: 50%;
+    font-size: 1rem;
+    width: 1rem;
+    text-align: center;
+}
+
+.yearFilterWrapper button,
+.makeModelFilterWrapper button,
+.mileageFilterWrapper button{
+    width: 5rem;
+    height: 1rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: none;
+}
+
+.filterContainer div h3{
+    margin-top: .5rem;
+    padding-left: .5rem;
+    width: 1rem;
+    width: 50%;
+    color: #ec712e;
+}
+
+.makeModelFilterWrapper h3{
+    display: flex;
+}
+
+.count p{
+    background-color: #ec712e;
+    border-radius: 50%;
+    font-size: 1rem;
+    width: 1rem;
+    text-align: center;
+}

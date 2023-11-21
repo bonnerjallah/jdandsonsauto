@@ -76,25 +76,15 @@
 }
 
 
-.filterContainer div h3{
-    margin-bottom: .5rem;
-}
 
-.yearFilterWrapper,
-.makeModelFilterWrapper,
-.DrivetrainFilterWrapper,
-.transmissionFilterWrapper,
-.mileageFilterWrapper,
-.bodyTypeFilterWrapper,
-.priceRangeWrapper {
-    margin-bottom: 3rem;
-    position: relative;
+.mileageFilterWrapper{
+    width: 20rem
 }
 
 .filterTypeWrapper{
     display: flex;
     justify-content: space-between;
-    height: 5rem;
+    height: auto;
     overflow: hidden;
 }
 
@@ -227,5 +217,27 @@
 .recentlyViewedContainer{
     border-top: 1px solid black;
     margin: 5rem 0;
+}
+
+/* .milesRange{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+} */
+
+.milesCount{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    line-height: -1rem;
+    
+}
+
+.milesRange p{
+    width: 100%;
+    background-color: #ec712e;
+
+    
 }
 
