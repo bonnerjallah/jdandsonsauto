@@ -93,15 +93,27 @@ app.post('/message', async (req, res) => {
 
 app.post('/availabilityAndQuote', async (req, res) => {
     const { first_name, last_name, phone_number, availability_email, availability_message, car_id } = req.body;
+        console.log("received with data", req.body)
+
+        //Get checkbox value to insert
+        const contactPref = [];
+
+        for(const key in req.body) {
+            const value = req.body[key]
+
+            if(key !== 'first_name' && key !== 'last_name' && value === true ) {
+                contactPref.push(req.body[key + '_discription'])
+            }
+        }
 
     try {
-        if (!first_name || !last_name || !phone_number || !availability_email || !availability_message || !car_id) {
+        if (!first_name || !last_name || !phone_number || !availability_email || !contactPref || !availability_message || !car_id) {
             return res.status(400).json({ error: "All fields require" });
         }
 
-        const sql = "INSERT INTO `availabilityAndQuote`(`first_name`, `last_name`, `phone_number`, `availability_email`, `availability_message`, `car_id`) VALUES (?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO `availabilityAndQuote`(`first_name`, `last_name`, `phone_number`, `availability_email`, `contactPref`, `availability_message`, `car_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        const result = await db.promise().query(sql, [first_name, last_name, phone_number, availability_email, availability_message, car_id]);
+        const result = await db.promise().query(sql, [first_name, last_name, phone_number, availability_email, contactPref, availability_message, car_id]);
 
         if (result[0].affectedRows > 0) {
             return res.status(200).json({ message: "Message sent successfully" });

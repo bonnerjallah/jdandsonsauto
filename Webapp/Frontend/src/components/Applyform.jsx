@@ -313,19 +313,23 @@ const Applyform = () => {
                         <h3>VEHICLE INTERESTED</h3>
 
                         <label htmlFor="intrestedvehistock"></label>
-                        <input type="text" name="vehistock" id="intrestedvehistock" />
+                        <input type="text" name="vehistock" id="intrestedvehistock" placeholder='Stock Number' />
 
                         <label htmlFor="intrestedvihiname"></label>
-                        <input type="text" name="vehiname" id="intrestedvihiname" />
+                        <input type="text" name="vehiname" id="intrestedvihiname" placeholder='Make' />
 
                         <label htmlFor="intrestedvehitype"></label>
-                        <input type="text" name="vehitype" id="intrestedvehitype" />
+                        <input type="text" name="vehitype" id="intrestedvehitype" placeholder='Model' />
 
                         <label htmlFor="intrestedvehiyear"></label>
-                        <input type="text" name="vehiyear" id="intrestedvehiyear" />
+                        <input type="text" name="vehiyear" id="intrestedvehiyear" placeholder='Year' />
+
+                        <label htmlFor="intrestedvehiprice"></label>
+                        <input type="text" name='vehiprice' id='intrestedvehiprice' placeholder='Vehicle Price' />
 
                         <label htmlFor="downpaymentamount"></label>
-                        <input type="number" name="downpayment" id="downpaymentamount"/>
+                        <input type="number" name="downpayment" id="downpaymentamount" placeholder='Down Payment'/>
+                        
                     </div>
                     <div className={applyformstyle.tradeInContainer}>
                         <h3>TRADE-IN</h3>

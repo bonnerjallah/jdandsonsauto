@@ -64,9 +64,12 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
 
     console.log(quoteAndAvail)
     console.log(contactType)
+
+    const [errorMessage, setErrorMessage] = useState('')
     
 
-    const handleFormSubmit = async () => {
+    const handleFormSubmit = async (e) => {
+        e.preventDefault()
         try {
             const response = await axios.post(
                 "http://localhost:3001/availabilityAndQuote",
@@ -87,7 +90,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
                     availability_message: "",
                     car_id: "",
                 });
-    
+                
                 setContactType({
                     byEmail: false,
                     byPhone: false,
@@ -96,11 +99,9 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
             } else {
                 console.log("Error sending message", response.data);
             }
-        } catch (error) {
-            console.log("Error", error);
-    
+        } catch (error) {    
             if (error.response) {
-                console.log("Error response:", error.response.data);
+                setErrorMessage(error.response.data.error)
             }
         }
     };
@@ -159,6 +160,9 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
                     <label htmlFor="availabilitymessagemessage"></label>
                     <textarea name="availability_message" id="availabilitymessagemessage" cols="30" rows="10" placeholder="Comments" onChange={handleFormInput} style={{width: '100%', marginBottom: '.5rem'}}></textarea>
                     <p>By clicking "SUBMIT", I consent to be contacted by the dealer at any telephone number or Email I provide, including, without limitation, communications sent via text message to my cell phone or communications sent using an autodialer or prerecorded message. This acknowledgment constitutes my written consent to receive such communications. I have read and agree to the Privacy Policy of this dealer.</p>
+
+                    {errorMessage && <p className={availabilitymodalstyle.errorMessage}>{errorMessage}</p>}
+
                     <button type="submit">Submit</button>
                 </form>
             </div>
