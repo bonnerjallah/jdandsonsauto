@@ -66,6 +66,31 @@ app.get('/carImages', async (req, res) => {
     }
 })
 
+app.post('/message', async (req, res) => {
+    const {firstname, lastname, email, phonenumber, message} = req.body
+    console.log("received data", req.data)
+    try {
+        if(!firstname || !lastname || !email || !phonenumber || !message) {
+            return res.status(400).json({error: "All fields require"})
+        } 
+
+        const sql = "INSERT INTO message (firstname, lastname, email, phonenumber, message) VALUES (?, ?, ?, ?, ?)"
+
+        const result = await db.promise().query(sql,[firstname, lastname, email, phonenumber, message])
+
+        if(result[0].affectedRows > 0 ) {
+            return res.status(200).json({message: "Customer Message sent successfully"})
+        } else {
+            return res.status(500).json({message: "Internal server issues"})
+        }
+
+        
+    } catch (error) {
+        console.error("Error inserting message data", error);
+        res.status(500).json({message: "Internal server issues"})
+    }
+})
+
 
 app.listen(3001, () => {
     console.log("listining to port 3001")

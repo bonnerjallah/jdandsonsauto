@@ -23,7 +23,10 @@ const ServiceMaintenance = () => {
         e.preventDefault()
         const {name, value} = e.target
 
-        setMaintInputData((prevData) => ({...prevData, [name]: value}))
+        setMaintInputData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }))
     }
 
     const handleDataSubmit = async (e) => {
@@ -34,7 +37,7 @@ const ServiceMaintenance = () => {
                 headers: { "Content-Type": 'application/json' }
             });
     
-            if (response.status === 200) { // Check response.status, not response === 200
+            if (response.status === 200) { 
                 console.log("Maintenance created successfully");
     
                 setMaintInputData({

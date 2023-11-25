@@ -5,9 +5,9 @@ import axios from "axios"
 
 const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
 
-    console.log(avaliData)
+    console.log("data", avaliData)
 
-    const [modalVehicleImage, setModalVehicleImage] = useState(avaliData.images.image_url);
+    const [modalVehicleImage, setModalVehicleImage] = useState(' ');
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -46,8 +46,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
                             <h2>{avaliData.carname}</h2>
                         </div>
                         <p style={{ marginBottom: '.5rem'}}>{avaliData.priceamount}</p>
-                        <p style={{letterSpacing: '.2rem'}}>Stock# {avaliData.stocknum}</p>
-                        
+                        <p style={{letterSpacing: '.2rem'}}>Stock# {avaliData.stocknum}</p>                 
                     </div>
                 </div>
             </div>

@@ -58,7 +58,6 @@ const Filter = ({carDiscription}) => {
         return acc
     }, {})
 
-    console.log(carDiscription)
 
     // Miles sorting
     const lessThanFifty = [];
@@ -128,11 +127,6 @@ const Filter = ({carDiscription}) => {
             overFiftyThousand.push(amount)
         )
     })
-
-    console.log("5,000", fiveThousandOrLess)
-    console.log("10,000",fiveToTenThousand)
-    console.log("15,000", tenToFifteenThousand)
-    console.log("20,000", fifteenToTwentyThousand)
     
 
     return (

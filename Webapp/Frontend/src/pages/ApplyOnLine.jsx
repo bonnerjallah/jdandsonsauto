@@ -22,7 +22,7 @@ const ApplyOnLine = () => {
     }
 
     return (
-        <div>
+        <>
             <div className={applyonline.header}>
             </div>
             <div className={applyonline.headertext}>
@@ -51,7 +51,7 @@ const ApplyOnLine = () => {
             <div>
                 <Footer />
             </div>
-        </div>
+        </>
     )
 }
 
