@@ -68,7 +68,7 @@ app.get('/carImages', async (req, res) => {
 
 app.post('/message', async (req, res) => {
     const {firstname, lastname, email, phonenumber, message} = req.body
-    console.log("received data", req.data)
+
     try {
         if(!firstname || !lastname || !email || !phonenumber || !message) {
             return res.status(400).json({error: "All fields require"})
@@ -90,6 +90,31 @@ app.post('/message', async (req, res) => {
         res.status(500).json({message: "Internal server issues"})
     }
 })
+
+app.post('/availabilityAndQuote', async (req, res) => {
+    const { first_name, last_name, phone_number, availability_email, availability_message, car_id } = req.body;
+
+    try {
+        if (!first_name || !last_name || !phone_number || !availability_email || !availability_message || !car_id) {
+            return res.status(400).json({ error: "All fields require" });
+        }
+
+        const sql = "INSERT INTO `availabilityAndQuote`(`first_name`, `last_name`, `phone_number`, `availability_email`, `availability_message`, `car_id`) VALUES (?, ?, ?, ?, ?, ?)";
+
+        const result = await db.promise().query(sql, [first_name, last_name, phone_number, availability_email, availability_message, car_id]);
+
+        if (result[0].affectedRows > 0) {
+            return res.status(200).json({ message: "Message sent successfully" });
+        } else {
+            return res.status(500).json({ message: "Message data entry was not successful" });
+        }
+
+    } catch (error) {
+        console.error("Error inserting message into database", error);
+        return res.status(500).json({ message: "Internal server issue" });
+    }
+});
+
 
 
 app.listen(3001, () => {

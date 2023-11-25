@@ -10,7 +10,7 @@ const ViewDetails = () => {
     return (
         <>
             <div>
-                <NavLink to="/Inventory">
+                <NavLink to="/InventoryPage">
                     <h4 style={{color: '#ec712e', margin: "1rem"}}>Back to listing</h4>
                 </NavLink>
             </div>
