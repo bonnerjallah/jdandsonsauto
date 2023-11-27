@@ -66,6 +66,18 @@ app.get('/carImages', async (req, res) => {
     }
 })
 
+app.get('/equip', async (req, res) => {
+    try {
+        const sql = 'SELECT * FROM vehiclefeatures'
+        const [rows] = await db.promise().query(sql)
+        return res.json(rows)
+        
+    } catch (error) {
+        console.log("Error fetching equiptment", error)
+        res.status(500).json({message: 'Internal server error', error})
+    }
+})
+
 app.post('/message', async (req, res) => {
     const {firstname, lastname, email, phonenumber, message} = req.body
 

@@ -13,7 +13,10 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
             try {
                 const res = await axios.get('http://localhost:3001/carImages');
                 if (res.status === 200) {
-                    const filteredImage = avaliData.images.find((image, index) => index === 3);
+                    const avaliDataImage = avaliData.images.find((image, index) => index === 3);
+
+                    const filteredImage = avaliDataImage 
+
                     if (filteredImage) {
                         setModalVehicleImage(filteredImage.image_url);
                     }
@@ -63,8 +66,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
         }
     };
 
-    console.log(quoteAndAvail)
-    console.log(contactType)
+ 
 
     const [errorMessage, setErrorMessage] = useState('')
     

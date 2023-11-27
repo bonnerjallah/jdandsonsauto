@@ -8,7 +8,7 @@ import homestyle from "../styles/homestyle.module.css"
 
 const ImageSlider = ({carImagesUrls}) => {
 
-    console.log("car images url", carImagesUrls )
+    // console.log("car images url", carImagesUrls )
 
 
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -33,9 +33,9 @@ const ImageSlider = ({carImagesUrls}) => {
         <div style={{ width: "100%", height: "30rem", position: "relative" }}>
             <div style={{width: "100%", height: "100%", display: "flex", overflow: 'hidden'}}>
                 {carImagesUrls.map((elemUrl, index) => (
-                    <img src={elemUrl} 
+                    <img key={index} src={elemUrl} 
                     className={homestyle.imageSliderImages}
-                    style={{translate: `${-100 * currentIndex}%`}}
+                    style={{ transform: `translateX(${-100 * currentIndex}%)` }}
                     />
                 ))}
             </div>
@@ -48,7 +48,7 @@ const ImageSlider = ({carImagesUrls}) => {
 
             <div className={homestyle.smallImagesWrapper}>
                 {carImagesUrls.map((elemUrl, index) => (
-                    <button key={index} onClick={ () => setCurrentIndex(index)}>
+                    <button key={index} onClick={() => setCurrentIndex(index)}>
                         <img
                         src={elemUrl}
                         alt={`Image ${index}`}

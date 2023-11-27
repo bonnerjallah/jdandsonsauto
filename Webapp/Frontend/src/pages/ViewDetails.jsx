@@ -24,35 +24,43 @@ const ViewDetails = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-
             try {
-                //Fetch car data
-                const response = await axios.get('http://localhost:3001/cardiscrip')
-                const carinfo = response.data
-
-                //Compare car data to the id in the params
-                const filtercar = carinfo.filter((elem) => elem.id === parseInt(id))
-
-                //Fetch images 
-                const imagesResponse = await axios.get('http://localhost:3001/carImages')
-                const carImage = imagesResponse.data
-
-                //Combine car data with corresponding image
+                // Fetch car data
+                const carResponse = await axios.get('http://localhost:3001/cardiscrip');
+                const carinfo = carResponse.data;
+    
+                // Compare car data to the id in the params
+                const filtercar = carinfo.filter((elem) => elem.id === parseInt(id));
+    
+                // Fetch images
+                const imagesResponse = await axios.get('http://localhost:3001/carImages');
+                const carImage = imagesResponse.data;
+    
+                // Fetch vehicle features (equip)
+                const equipWithResponse = await axios.get('http://localhost:3001/equip');
+                const vehicleFeatures = equipWithResponse.data;
+    
+                // Combine car data with corresponding image
                 const combinedData = filtercar.map((carElem) => {
-                    const imagesForCar = carImage.filter((imageElem) => imageElem.car_id === carElem.id)
-                    carElem.images = imagesForCar
-                    return carElem
-                })
-
-                setCar(combinedData)
-
+                    const imagesForCar = carImage.filter((imageElem) => imageElem.car_id === carElem.id);
+                    carElem.images = imagesForCar;
+    
+                    // Find vehicle features for the car
+                    const featuresForCar = vehicleFeatures.filter((featureElem) => featureElem.car_id === carElem.id);
+                    carElem.vehicleFeatures = featuresForCar;
+    
+                    return carElem;
+                });
+    
+                setCar(combinedData);
             } catch (error) {
-                console.log("Error fetching data", error)
+                console.log('Error fetching data', error);
             }
-            
-        }
-        fetchData()
-    }, [id])
+        };
+    
+        fetchData();
+    }, [id]);
+    
 
     console.log("car", car)
 
@@ -62,8 +70,6 @@ const ViewDetails = () => {
         .filter((elem) => elem.image_url)
         .map((filtercarelem) => `http://localhost:3001/carImages/${filtercarelem.image_url}`)
     : [];
-
-    console.log("carimage urls", carImagesUrls)
 
     //Modal logic
     const [openAvalModal, setOpenAvalModal] = useState(false)
@@ -164,10 +170,13 @@ const ViewDetails = () => {
 
                         <div className={viewdetailsstyle.equipAndSimilarContainer}>
                             <div className={viewdetailsstyle.equipmentListWrapper}>
-                                <div>
-                                    <h3>Vehicle Equipment List</h3>
+                                <h2>Vehicle Equipment List</h2>
+                                <div className={viewdetailsstyle.featuresList}>
+                                    <ul >{car && car[0] && car[0].vehicleFeatures && car[0].vehicleFeatures.map((elem) => (
+                                            <li key={elem.id}>{elem.features}</li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                equip goes here
                             </div>
 
                             <div className={viewdetailsstyle.similarVehicleWrapper}>

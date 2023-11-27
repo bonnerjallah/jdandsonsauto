@@ -1,5 +1,6 @@
 .mainContainer{
     padding: 0 3rem;
+    margin-bottom: 3rem;
 }
 
 .headerContainer{
@@ -125,20 +126,37 @@
 .equipAndSimilarContainer{
     display: grid;
     grid-template-columns: 75% 25%;
-    border: 1px solid black;
     height: auto;
+    margin-bottom: 3rem;
+    
+}
+.equipmentListWrapper{
+    margin-top: 1rem;
+}
+
+.equipmentListWrapper h2{
+    padding: .5rem;
+    color: #ec712e;
+}
+
+.featuresList{
+    border-top: 1px dotted #ec712e;
+
+}
+
+.featuresList li{
+    width: max-content;
+    display: inline-block;
+    margin: 1rem;
+    font-size: 1.2rem;
 }
 
 .similarVehicleWrapper{
-    background-color: rgb(211, 209, 209);
+    background-color: rgb(241, 239, 239);
 }
 
-.imageSliderImages{
-    width: 100%;
-    height: 100%;
-    margin-top: -3rem;
-    object-fit: cover;
-    flex-shrink: 0;
-    flex-grow: 0;
-    transition: translate 2s ease-in-out;
+.similarVehicleWrapper h3{
+    margin: 1rem;
 }
+
+
