@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleQuestion, faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +10,39 @@ import Cobuyerform from '../components/Cobuyerform';
 import Footer from "../components/Footer"
 
 import applyonline from "../styles/applyonlinestyle.module.css"
+import axios from 'axios';
 
 
 
 const ApplyOnLine = () => {
+
+    const {id} = useParams()
+
+    const [car, setCar] = useState()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/cardiscrip')
+                const carinfo = response.data
+
+                const filterCar = carinfo.filter((elem) => elem.id === parseInt(id));
+
+                if(filterCar.length > 0) {
+                    setCar(filterCar[0])
+                }
+
+
+
+            } catch (error) {
+                console.log("error fetching cardata")
+            }
+        }
+        fetchData()
+    }, [id])
+
+
+
 
     //Toogle between two components
     const[showApplyForm, setShowApplyForm] = useState(true)
@@ -22,7 +52,7 @@ const ApplyOnLine = () => {
     }
 
     return (
-        <>
+        <div>
             <div className={applyonline.header}>
             </div>
             <div className={applyonline.headertext}>
@@ -36,7 +66,7 @@ const ApplyOnLine = () => {
                 </div>
                 <hr style={{marginBottom: '1rem'}} />
                 <div >
-                    {showApplyForm ? <Applyform /> : <Cobuyerform />}
+                    {showApplyForm ? <Applyform car={car} /> : <Cobuyerform />}
                 </div>
             </div>
             <div className={applyonline.callUsWrapper}>
@@ -51,7 +81,7 @@ const ApplyOnLine = () => {
             <div>
                 <Footer />
             </div>
-        </>
+        </div>
     )
 }
 

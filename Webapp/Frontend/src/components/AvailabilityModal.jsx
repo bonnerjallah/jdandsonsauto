@@ -3,12 +3,10 @@ import { useEffect, useState } from "react"
 import availabilitymodalstyle from "../styles/availabilitymodalstyle.module.css"
 import axios from "axios"
 
-const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
-
-    console.log("data", avaliData)
+const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
 
     //image fetch
-    const [modalVehicleImage, setModalVehicleImage] = useState(' ');
+    const [modalVehicleImage, setModalVehicleImage] = useState('');
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -26,7 +24,10 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
         };
 
         fetchImages();
-    }, [avaliData]); 
+    }, [avaliData, car]); 
+
+    console.log('avail data', avaliData)
+    console.log("modal car", car)
 
     //handling form
     const [quoteAndAvail, setQuoteAndAvail] = useState({
@@ -35,7 +36,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
         phone_number: '',
         availability_email: '',
         availability_message: '',
-        car_id: avaliData.id,
+        car_id: (avaliData && avaliData.id) || (car && car.length > 0 && car[0].id) || null,
     })
 
     const [contactType, setContactType] = useState({
@@ -122,11 +123,12 @@ const AvailabilityModal = ({ avaliData, closeAvilModal}) => {
                     </div>
                     <div>
                         <div style={{display: 'flex', columnGap: '1rem', marginBottom: '.5rem'}}>
-                            <h2>{avaliData.caryear}</h2>
-                            <h2>{avaliData.carname}</h2>
+                        <h2>{avaliData && avaliData.caryear ? avaliData.caryear : (car[0] && car[0].caryear)}</h2>
+                        <h2>{avaliData && avaliData.carname ? avaliData.carname : (car[0] && car[0].carname)}</h2>
+
                         </div>
-                        <p style={{ marginBottom: '.5rem'}}>{avaliData.priceamount}</p>
-                        <p style={{letterSpacing: '.2rem'}}>Stock# {avaliData.stocknum}</p>                 
+                        <p style={{ marginBottom: '.5rem'}}>{avaliData && avaliData.priceamount ? avaliData.priceamount : (car[0] && car[0].priceamount)}</p>
+                        <p style={{letterSpacing: '.2rem'}}>Stock# {avaliData && avaliData.stocknum ? avaliData.stocknum : (car[0] && car[0].stocknum)}</p>                 
                     </div>
                 </div>
             </div>

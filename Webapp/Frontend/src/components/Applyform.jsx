@@ -1,8 +1,10 @@
 import applyformstyle from '../styles/applyformstyle.module.css'
 
-const Applyform = () => {
+const Applyform = ({car}) => {
+
+    
     return (
-        <>
+        <div>
             <form>
                 <fieldset className={applyformstyle.firstfieldset}>
                     <h4>CLIENT INFORMATION</h4>
@@ -313,19 +315,19 @@ const Applyform = () => {
                         <h3>VEHICLE INTERESTED</h3>
 
                         <label htmlFor="intrestedvehistock"></label>
-                        <input type="text" name="vehistock" id="intrestedvehistock" placeholder='Stock Number' />
+                        <input type="text" name="vehistock" id="intrestedvehistock" defaultValue={car ? car.stocknum || '' : ''} placeholder='Stock Number' />
 
                         <label htmlFor="intrestedvihiname"></label>
-                        <input type="text" name="vehiname" id="intrestedvihiname" placeholder='Make' />
+                        <input type="text" name="vehiname" id="intrestedvihiname" defaultValue={car ? car.carname.split(' ')[0] || '' : ''}  placeholder='Make' />
 
                         <label htmlFor="intrestedvehitype"></label>
-                        <input type="text" name="vehitype" id="intrestedvehitype" placeholder='Model' />
+                        <input type="text" name="vehitype" id="intrestedvehitype" defaultValue={car ? car.carname.split(' ')[1] || '' : ''} placeholder='Model' />
 
                         <label htmlFor="intrestedvehiyear"></label>
-                        <input type="text" name="vehiyear" id="intrestedvehiyear" placeholder='Year' />
+                        <input type="text" name="vehiyear" id="intrestedvehiyear" defaultValue={car ? car.caryear || '' : ''} placeholder='Year' />
 
                         <label htmlFor="intrestedvehiprice"></label>
-                        <input type="text" name='vehiprice' id='intrestedvehiprice' placeholder='Vehicle Price' />
+                        <input type="text" name='vehiprice' id='intrestedvehiprice' defaultValue={car ? parseFloat(car.priceamount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}placeholder='Vehicle Price' />
 
                         <label htmlFor="downpaymentamount"></label>
                         <input type="number" name="downpayment" id="downpaymentamount" placeholder='Down Payment'/>
@@ -373,7 +375,7 @@ const Applyform = () => {
                 <button className={applyformstyle.applybutton}>Submit</button>
                 
             </form>
-        </>
+        </div>
     )
 }
 

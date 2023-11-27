@@ -96,6 +96,8 @@ const InventoryPage = () => {
         setAvaliData(elem);
     };
 
+    console.log("car discription", carDiscription)
+
     return (
         <div>
             <div className={inventorystyle.headerContainer}>
@@ -163,10 +165,9 @@ const InventoryPage = () => {
                         <div>
                             {currentCarInfos.map((elem, id) => (
                                 <div key={id} className={inventorystyle.carInfomainBox}>
-
                                     <div className={inventorystyle.carDiscriptionContainer}>
                                         <div className={inventorystyle.carDiscriptionImageWrapper}>
-                                            <NavLink to="/ViewDetails">
+                                            <NavLink to={`/ViewDetails/${elem.id}`}>
                                                 {elem.images && elem.images
                                                     .filter((image) => image.car_id === elem.id)  // Filter images based on car_id
                                                     .slice(3, 4)  // Take only the forth image
@@ -223,10 +224,10 @@ const InventoryPage = () => {
                                     <div>
                                         <button onClick={() => handleAvailabilityModal(elem)}>CONFIRM AVAILABILITY</button>
                                         <button onClick={() => handleAvailabilityModal(elem)} >REQUEST A QUOTE</button>
-                                        <NavLink to={'/ApplyOnLine'}>
+                                        <NavLink to={`/ApplyOnLine/${elem.id}`}>
                                             <button>APPLY ONLINE</button>
                                         </NavLink>
-                                        <NavLink to='/ViewDetails'>
+                                        <NavLink to={ `/ViewDetails/${elem.id}`}>
                                             <button>VIEW DETAILS</button>
                                         </NavLink>
                                     </div>

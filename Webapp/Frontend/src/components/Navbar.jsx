@@ -35,12 +35,14 @@ const Navbar = () => {
                     <NavLink to='/'><li>Home</li></NavLink>
                     <NavLink to="InventoryPage"><li>Inventory</li></NavLink>
                     <NavLink to="CarFinder"><li>Car Finder</li></NavLink>
-                    <NavLink to="ApplyOnLine"><li>Apply Online</li></NavLink>
+                    <NavLink to="/ApplyOnLine/:"><li>Apply Online</li></NavLink>
                     <NavLink to="AboutUs"><li>About Us</li></NavLink>
                     <NavLink to="ContactUs"><li>Contact Us</li></NavLink>
                 </ul>
 
-                <FontAwesomeIcon icon={faMagnifyingGlass} className={navbarstyle.magnifyingGlass} />
+                <NavLink to='CarFinder'>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className={navbarstyle.magnifyingGlass} />
+                </NavLink>
 
             </div>
 
