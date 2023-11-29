@@ -47,10 +47,10 @@ const Footer = () => {
             <div className={homestyle.footerWrapper}>
                 <div className={homestyle.footerLinksWrapper}>
                     <ul>
-                        <NavLink><li>HOME</li></NavLink>
-                        <NavLink><li>PRE OWNED VEHICLES</li></NavLink>
-                        <NavLink><li>CONTACT US</li></NavLink>
-                        <NavLink><li>ABOUT US</li></NavLink>
+                        <NavLink to='/'><li>HOME</li></NavLink>
+                        <NavLink to='/InventoryPage'><li>PRE OWNED VEHICLES</li></NavLink>
+                        <NavLink to='/ContactUs'><li>CONTACT US</li></NavLink>
+                        <NavLink to='/AboutUs'><li>ABOUT US</li></NavLink>
                         <NavLink><li>PRIVACY POLICY</li></NavLink>
                     </ul>
                 </div>

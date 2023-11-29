@@ -9,6 +9,7 @@ import Footer from "../components/Footer"
 import applyonline from "../styles/applyonlinestyle.module.css"
 
 import contactusstyle from '../styles/contactusstyle.module.css'
+import ScrollToTopOnMont from "../components/ScrollToTopOnMont"
 
 
 
@@ -67,6 +68,7 @@ const ContactUs = () => {
 
     return (
         <div>
+            <ScrollToTopOnMont />
             <div className={contactusstyle.header}>
 
             </div>

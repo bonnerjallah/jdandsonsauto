@@ -1,0 +1,36 @@
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ec712e;
+}
+
+.vehicleDataWrapper{
+    display: flex;
+
+}
+
+.imageWrapperAndDetails{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    row-gap: 1rem;
+    width: 100%;
+}
+
+.vechileImageAndDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: .5rem;
+    width: 100%;
+    border: 1px dotted #ec712e;
+
+}
+
+.vechileImageAndDetails span{
+    display: flex;
+    flex-direction: column;
+    font-size: .9rem;
+}
+

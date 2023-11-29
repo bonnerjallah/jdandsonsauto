@@ -5,11 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import Footer from "../components/Footer"
-
 import inventorystyle from '../styles/inventorystyle.module.css'
 import AvailabilityModal from '../components/AvailabilityModal'
-
 import Filter from '../components/Filter'
+import ScrollToTopOnMont from '../components/ScrollToTopOnMont'
 
 
 const InventoryPage = () => {
@@ -39,6 +38,7 @@ const InventoryPage = () => {
     //Change page function
     const paginate = (numberElem) => {
         setCurrentPage(numberElem)
+        window.scrollTo(0, 0); // Scroll to the top when changing the page
     }
 
 
@@ -100,6 +100,7 @@ const InventoryPage = () => {
 
     return (
         <div>
+            <ScrollToTopOnMont />
             <div className={inventorystyle.headerContainer}>
                 <div className={inventorystyle.header}>
                 </div>

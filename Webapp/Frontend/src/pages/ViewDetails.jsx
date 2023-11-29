@@ -8,6 +8,7 @@ import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import AvailabilityModal from "../components/AvailabilityModal"
 import Footer from "../components/Footer"
 import ImageSlider from "../components/ImageSlider"
+import SimilarVehicle from "../components/SimilarVehicle"
 
 import viewdetailsstyle from '../styles/viewdetailsstyle.module.css'
 
@@ -49,10 +50,21 @@ const ViewDetails = () => {
                     const featuresForCar = vehicleFeatures.filter((featureElem) => featureElem.car_id === carElem.id);
                     carElem.vehicleFeatures = featuresForCar;
     
+                    // Format priceamount
+                    carElem.formattedPrice = parseFloat(carElem.priceamount).toLocaleString("en-us", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    });
+
+                    
+
+
+    
                     return carElem;
                 });
     
                 setCar(combinedData);
+                
             } catch (error) {
                 console.log('Error fetching data', error);
             }
@@ -61,8 +73,7 @@ const ViewDetails = () => {
         fetchData();
     }, [id]);
     
-
-    console.log("car", car)
+    
 
     //Image slider urls
     const carImagesUrls = car && car[0] && car[0].images
@@ -131,7 +142,7 @@ const ViewDetails = () => {
 
                                     <h4>Vehicle Price</h4>
                                     <div className={viewdetailsstyle.inputWrapper}>
-                                        <label htmlFor="vehiclePrice">$ </label><input type="text" name="vehiprice" value={parseFloat(car[0].priceamount).toLocaleString("en-us", {minimumFractionDigits: 2, maximumFractionDigits: 2})} id="vehiclePrice" />
+                                        <label htmlFor="vehiclePrice">$ </label><input type="text" name="vehiprice" value={car[0].formattedPrice} id="vehiclePrice" readOnly />
                                     </div>
 
                                     <h4>Down Payment</h4>
@@ -180,10 +191,9 @@ const ViewDetails = () => {
                             </div>
 
                             <div className={viewdetailsstyle.similarVehicleWrapper}>
-                                <h3>Similar Vehicle</h3>
-                                <div className={viewdetailsstyle.simiVehicleImageWrapper}>
-                                    images goes here
-                                </div>
+
+                                <SimilarVehicle car={car} />
+                                
                             </div>
                         </div>
                     </div>
