@@ -102,7 +102,7 @@ const Home = () => {
                     <div className={homestyle.faCarWraper}>
                         <FontAwesomeIcon icon={faCar} />
                     </div>
-                    <NavLink to="Inventory"><h2>BROWSE INVENTORY</h2></NavLink>
+                    <NavLink to="InventoryPage"><h2>BROWSE INVENTORY</h2></NavLink>
                 </div>
                 <div className={homestyle.locationWrapper}>
                     <div className={homestyle.faLocationDotWrapper}>

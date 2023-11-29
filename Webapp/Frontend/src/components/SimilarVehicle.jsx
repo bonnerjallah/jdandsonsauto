@@ -71,7 +71,7 @@ const SimilarVehicle = ({car}) => {
     return (
         <div className={similarvehiclestyle.Container}>
             <div className={similarvehiclestyle.header}>
-                <h3>Similar Vehicle</h3>
+                <h3>Similar Vehicles</h3>
             </div>
 
             <div className={similarvehiclestyle.vehicleDataWrapper}>

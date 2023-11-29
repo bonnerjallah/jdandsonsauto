@@ -9,6 +9,7 @@ import AvailabilityModal from "../components/AvailabilityModal"
 import Footer from "../components/Footer"
 import ImageSlider from "../components/ImageSlider"
 import SimilarVehicle from "../components/SimilarVehicle"
+import ScrollToTopOnMount from "../components/ScrollToTopOnMont"
 
 import viewdetailsstyle from '../styles/viewdetailsstyle.module.css'
 
@@ -91,8 +92,59 @@ const ViewDetails = () => {
         setCarData(car)
     }
 
+    //Calculator Logic
+
+    const [calculator, setCalculator] = useState({
+        vehidownpayment: "",
+        paymntterm: "",
+        aprnum: ""
+    })
+
+    const [amount, setAmount] = useState(null);
+
+    const handleCalculateInput = (e) => {
+        e.preventDefault()
+
+        const {name, value} = e.target;
+
+        setCalculator((prevData) => ({
+            ...prevData, 
+            [name]: value
+        }))
+    }
+
+    const handleCalcuSumbit = (e) => {
+        e.preventDefault()
+
+        const {vehidownpayment, paymntterm, aprnum} = calculator
+
+        if(car && car[0] && vehidownpayment && paymntterm && aprnum) {
+
+            //Calculation 
+            const principle = parseFloat(car[0].priceamount)
+            const downPayment = parseFloat(vehidownpayment)
+            const term = parseFloat(paymntterm)
+            const apr = parseFloat(aprnum)
+
+            //Simple intrest formular for monthly payments
+            const interest = (principle - downPayment) * (apr / 100) * (1 / 12)
+            const monthlyPayment = (principle - downPayment + interest) / term
+
+            //Formatted Amount
+            const formattedAmount = parseFloat(monthlyPayment).toLocaleString('en-us', {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            })
+
+            // Update state
+            setAmount(formattedAmount);        
+        }
+    }
+
+
     return (
         <>
+            <ScrollToTopOnMount />
             <div>
                 <NavLink to="/InventoryPage">
                     <h4 style={{color: '#ec712e', margin: "1rem"}}>Back to listing</h4>
@@ -136,29 +188,33 @@ const ViewDetails = () => {
                                 
                             
                             <div className={viewdetailsstyle.calWrapper}>
-                                <form action="">
+                                <form onSubmit={handleCalcuSumbit}>
                                     <h2 style={{backgroundColor: "#ec712e", padding: '.5rem'}}>Payment Calculator</h2>
                                     <hr />
 
                                     <h4>Vehicle Price</h4>
                                     <div className={viewdetailsstyle.inputWrapper}>
-                                        <label htmlFor="vehiclePrice">$ </label><input type="text" name="vehiprice" value={car[0].formattedPrice} id="vehiclePrice" readOnly />
+                                        <label htmlFor="vehiclePrice">$ </label><input type="text" name="vehiprice" value={car[0].formattedPrice || ''} id="vehiclePrice" readOnly />
                                     </div>
 
                                     <h4>Down Payment</h4>
                                     <div className={viewdetailsstyle.inputWrapper}>
-                                        <label htmlFor="downpaymnt">$ </label><input type="number" name='vehidownpayment' id='downpaymnt' />
+                                        <label htmlFor="downpaymnt">$ </label><input type="number" name='vehidownpayment' id='downpaymnt' onChange={handleCalculateInput} />
                                     </div>
 
                                     <div>
                                         <h4>Term</h4>
-                                        <label htmlFor="term"></label> <input type="number" name="paymntterm" id="term" />
+                                        <label htmlFor="term"></label> <input type="number" name="paymntterm" id="term" onChange={handleCalculateInput} />
                                     </div>
                                     
 
                                     <h4>APR</h4>
                                     <div className={viewdetailsstyle.inputWrapper}>
-                                        <input type="number" name="aprnum" id="apr" /><label htmlFor="apr">%</label>
+                                        <input type="number" name="aprnum" id="apr" onChange={handleCalculateInput} /><label htmlFor="apr">%</label>
+                                    </div>
+
+                                    <div className={viewdetailsstyle.Amount} style={{visibility: amount ? "visible" : "hidden"}}>
+                                        {amount && <p>$ {amount} <small style={{fontSize: '.5rem', color: 'white'}}>A Month</small></p>}
                                     </div>
 
                                     <button> <FontAwesomeIcon icon={faCalculator} /> CALCULATE PAYMENT</button>
@@ -193,7 +249,7 @@ const ViewDetails = () => {
                             <div className={viewdetailsstyle.similarVehicleWrapper}>
 
                                 <SimilarVehicle car={car} />
-                                
+
                             </div>
                         </div>
                     </div>
