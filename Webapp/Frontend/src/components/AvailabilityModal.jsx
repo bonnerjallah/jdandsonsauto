@@ -29,8 +29,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
         fetchImages();
     }, [avaliData, car]); 
 
-    console.log('avail data', avaliData)
-    console.log("modal car", car)
+
 
     //handling form
     const [quoteAndAvail, setQuoteAndAvail] = useState({

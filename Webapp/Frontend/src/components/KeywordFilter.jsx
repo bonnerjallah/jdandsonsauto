@@ -1,0 +1,128 @@
+import { useState, useEffect, useRef} from 'react'
+
+import isEqual from 'lodash/isEqual';
+
+import inventorystyle from '../styles/inventorystyle.module.css'
+
+const KeywordFilter = ({carDiscription, applyFilters}) => {
+
+    //KeyWord search logic
+    const [keyWordValue, setKeyWordValue] = useState('')
+
+    const handleKeyWordSearch = (e) => {
+        const { value } = e.target;
+
+        setKeyWordValue(value)
+    }
+
+    const keyWord = carDiscription.filter((elem) => elem.carname.toLowerCase().includes(keyWordValue.toLowerCase()))
+
+
+
+    //Sorting data logic
+    const [sortedCars, setSortedCars] = useState([])
+
+    const handleSortChange = (e) => {
+        const sortBy = e.target.value;
+    
+        const newSortedCars = carDiscription.slice().sort((a, b) => {
+            switch (sortBy) {
+                case "Price: Low - High":
+                    return parseFloat(a.priceamount) - parseFloat(b.priceamount);
+    
+                case "Price: High - Low":
+                    return parseFloat(b.priceamount) - parseFloat(a.priceamount);
+    
+                case "Miles: Low - High":
+                    return parseFloat(a.miles) - parseFloat(b.miles)
+    
+                case "Miles: High - Low":
+                    return parseFloat(b.miles) - parseFloat(a.miles)
+    
+                case "Year: Old - New":
+                    return a.caryear.localeCompare(b.caryear);
+    
+                case "Year: New - Old":
+                    return b.caryear.localeCompare(a.caryear);
+    
+                case "Make: A-Z":
+                    return a.carname.localeCompare(b.carname);
+    
+                case "Make: Z-A":
+                    return b.carname.localeCompare(a.carname);
+    
+                default:
+                    return 0;
+            }
+        });
+
+        setSortedCars(newSortedCars)
+    };
+
+    console.log("sorted cars", sortedCars)
+
+
+
+    // Use a ref to store the previous values
+    const prevKeyWordValue = useRef(keyWordValue);
+    const prevSortedCars = useRef(sortedCars);
+    const prevCarDiscription = useRef(carDiscription);
+    
+    // Apply filters when either keyword or sorting changes
+    useEffect(() => {
+        // Check if keyWordValue has changed
+        const keyWordValueChanged = prevKeyWordValue.current !== keyWordValue;
+    
+        // Check if sortedCars has changed
+        const sortedCarsChanged = !isEqual(prevSortedCars.current, sortedCars);
+    
+        // Check if carDiscription has changed
+        const carDiscriptionChanged = !isEqual(prevCarDiscription.current, carDiscription);
+    
+        // Update the previous values
+        prevKeyWordValue.current = keyWordValue;
+        prevSortedCars.current = sortedCars;
+        prevCarDiscription.current = carDiscription;
+    
+        // Only apply filters if there's an actual change
+        if (keyWordValueChanged || sortedCarsChanged || carDiscriptionChanged) {
+        const filteredData = carDiscription.filter((elem) =>
+            elem.carname.toLowerCase().includes(keyWordValue.toLowerCase())
+        );
+    
+        // If sorting is applied, use the sorted data
+        const finalData = sortedCars.length > 0 ? sortedCars : filteredData;
+    
+        // Pass the filtered and sorted data to the parent component
+        applyFilters(finalData);
+        }
+    }, [keyWordValue, sortedCars, carDiscription, applyFilters]);
+
+
+
+    return (
+        <>
+            <div className={inventorystyle.searchBarWrapper}>
+                <input type="text" name='keywordSearch' onChange={handleKeyWordSearch} placeholder='Keyword Search' />
+            </div>
+            <div className={inventorystyle.pageSizeAndSortWrapper}>
+                <div className={inventorystyle.sortByWrapper}>
+                    <p>Sort By</p>
+                    <select onChange={handleSortChange}>
+                        <option value="Default">Default</option>
+                        <option value="Price: Low - High">Price: Low - High</option>
+                        <option value="Price: High - Low">Price: High - Low</option>
+                        <option value="Miles: Low - High">Miles: Low - High</option>
+                        <option value="Miles: High - Low">Miles: High - Low</option>
+                        <option value="Year: Old - New">Year: Old - New</option>
+                        <option value="Year: New - Old">Year: New - Old</option>
+                        <option value="Make: A-Z">Make: A-Z</option>
+                        <option value="Make: Z-A">Make: Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default KeywordFilter
