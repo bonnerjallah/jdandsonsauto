@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import filterstyle from '../styles/filterstyle.module.css'
 
+import { isEqual } from 'lodash';
 
 
-const Filter = ({carDiscription}) => {
+
+const Filter = ({carDiscription, sidebarFilterData, filterByMilesData}) => {
 
     const [yearExpended, setyearExpended] = useState(false)
     const [makeExpended, setmakeExpended] = useState(false)
@@ -127,7 +129,95 @@ const Filter = ({carDiscription}) => {
             overFiftyThousand.push(amount)
         )
     })
+
+
+
+    const filterByData = (target) => {
+        return target.textContent;
+    };
     
+    const handleFilterByClick = (e) => {
+        e.preventDefault();
+    
+        console.log("clicked data", e.target);
+        
+        // Use filterByData with the clicked element
+        const filterValue = filterByData(e.target).toLowerCase().trim();
+    
+        console.log("to lower", filterValue);
+    
+        // Filter the data based on the selected value
+        const filtered = carDiscription.filter((elem) => {
+            const carNameWords = elem.carname.toLowerCase().split(' ');
+            const  drivetrain = elem.drivetrain.toLowerCase();
+            const transmiss = elem.transmiss.toLowerCase();
+
+            // Return the element itself if none of the conditions match
+            return (
+                elem.caryear === filterValue ||
+                carNameWords[0] === filterValue ||
+                drivetrain === filterValue ||
+                transmiss === filterValue 
+            );
+        });
+    
+        // Pass the filtered data to the parent component
+        sidebarFilterData(filtered);
+    };
+    
+
+
+
+    //Milage Filter logic
+    const milesFilterBy = (target) => {
+        const fullText = target.textContent.toLowerCase();
+        const filterMilesValue = fullText.slice(0, fullText.indexOf('<')).replace(/,/g, '').trim();
+        return filterMilesValue;
+    };
+    
+    const handleMilesCLick = (e) => {
+        e.preventDefault(e)
+
+        const filterMilesValue = milesFilterBy(e.target)
+
+
+        const cars = carDiscription.filter((elem) => {
+            if (filterMilesValue === "0 - 50000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 0 && parseInt(elem.miles.replace(/,/g, '')) <= 50000;
+            } else if (filterMilesValue === "50000 - 60000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 50000 && parseInt(elem.miles.replace(/,/g, '')) <= 60000; 
+            } else if (filterMilesValue === "60000 - 70000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 60000 && parseInt(elem.miles.replace(/,/g, '')) <= 70000;
+            } else if (filterMilesValue === "70000 - 80000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 70000 && parseInt(elem.miles.replace(/,/g, '')) <= 80000;
+            } else if (filterMilesValue === "80000 - 90000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 80000 && parseInt(elem.miles.replace(/,/g, '')) <= 90000;
+            } else if (filterMilesValue === "90000 - 100000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 90000 && parseInt(elem.miles.replace(/,/g, '')) <= 100000;
+            } else if (filterMilesValue === "100000 - 120000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 100000 && parseInt(elem.miles.replace(/,/g, '')) <= 120000;
+            } else if (filterMilesValue === "120000 - 130000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 120000 && parseInt(elem.miles.replace(/,/g, '')) <= 130000;
+            } else if (filterMilesValue === "130000 - 140000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 130000 && parseInt(elem.miles.replace(/,/g, '')) <= 140000;
+            } else if (filterMilesValue === "140000 - 150000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 140000 && parseInt(elem.miles.replace(/,/g, '')) <= 150000;
+            } else {
+                return elem
+            }
+        
+            // Add more conditions for other cases if needed
+        
+            return true; // If no specific condition is met, include the element in the result
+        });
+        
+        filterByMilesData(cars);
+    };
+
+
+
+
+
 
     return (
         <div className={filterstyle.filterContainer}>
@@ -137,7 +227,7 @@ const Filter = ({carDiscription}) => {
                 <div className={filterstyle.filterTypeWrapper} style={{height: yearExpended ? "auto" : '9rem', overflow: 'hidden'}}>
                     <div className={filterstyle.years}>
                         {Object.entries(yearCount).map(([year]) => (
-                            <p key={year}>
+                            <p key={year} onClick={handleFilterByClick}>
                                 {year}
                             </p>
                         ))}
@@ -160,7 +250,7 @@ const Filter = ({carDiscription}) => {
                         {Object.entries(makeAndModal).map(([carname, count]) => {
                             const firstname = carname.split(' ')[0]; //get just the first word
                             return (
-                                <p key={carname}>
+                                <p key={carname} onClick={handleFilterByClick}>
                                     {firstname}
                                 </p>
                             )
@@ -182,7 +272,7 @@ const Filter = ({carDiscription}) => {
                 <div className={filterstyle.filterTypeWrapper} >
                     <div className={filterstyle.years}>
                         {Object.entries(drivetrainCount).map(([drivetrain, count]) => (
-                            <p key={drivetrain}> 
+                            <p key={drivetrain} onClick={handleFilterByClick}> 
                                 {drivetrain}
                             </p>
                         ))}
@@ -203,7 +293,7 @@ const Filter = ({carDiscription}) => {
                 <div className={filterstyle.filterTypeTransWrapper}>
                     <div className={filterstyle.years}>
                         {Object.entries(transmissionCount).map(([transmission, count]) => (
-                            <p key={transmission}>
+                            <p key={transmission} onClick={handleFilterByClick}>
                                 {transmission}
                             </p>
                         ))}
@@ -222,16 +312,16 @@ const Filter = ({carDiscription}) => {
                 <hr style={{color:'black'}} />
                 <div className={filterstyle.filterTypeWrapper} style={{height: milesExpended ? "auto" : '9rem', overflow: 'hidden'}}>
                     <div className={filterstyle.milesRange}>
-                        <p>0 - 50,000 <span>{lessThanFifty.length}</span></p>
-                        <p>50,000 - 60,000 <span>{fiftySixty.length}</span></p>
-                        <p>60,000 - 70,000 <span>{sixtySeventy.length}</span></p>
-                        <p>70,000 - 80,000 <span>{seventyEighty.length}</span></p>
-                        <p>80,000 - 90,000 <span>{eightyNinety.length}</span></p>
-                        <p>90,000 - 100,000 <span>{ninetyHundred.length}</span></p>
-                        <p>120,000 - 130,000 <span>{oneTwentyOneThirty.length}</span></p>
-                        <p>130,000 - 140,000 <span>{oneThirtyOneForty.length}</span></p>
-                        <p>140,000 - 150,000 <span>{oneFortyOneFifty.length}</span></p>
-                        <p>Over 150,000 <span>{overOneFifty.length}</span></p>
+                        <p onClick={handleMilesCLick}>0 - 50,000  <span>{lessThanFifty.length}</span></p>
+                        <p onClick={handleMilesCLick}>50,000 - 60,000 <span>{fiftySixty.length}</span></p>
+                        <p onClick={handleMilesCLick}>60,000 - 70,000 <span>{sixtySeventy.length}</span></p>
+                        <p onClick={handleMilesCLick}>70,000 - 80,000 <span>{seventyEighty.length}</span></p>
+                        <p onClick={handleMilesCLick}>80,000 - 90,000 <span>{eightyNinety.length}</span></p>
+                        <p onClick={handleMilesCLick}>90,000 - 100,000 <span>{ninetyHundred.length}</span></p>
+                        <p onClick={handleMilesCLick}>120,000 - 130,000 <span>{oneTwentyOneThirty.length}</span></p>
+                        <p onClick={handleMilesCLick}>130,000 - 140,000 <span>{oneThirtyOneForty.length}</span></p>
+                        <p onClick={handleMilesCLick}>140,000 - 150,000 <span>{oneFortyOneFifty.length}</span></p>
+                        <p onClick={handleMilesCLick}>Over 150,000 <span>{overOneFifty.length}</span></p>
                     </div>
                 </div>
                 <button onClick={()=> handleMilesExpended()}>{milesExpended ? "Show Less..." : "View More..."}</button>

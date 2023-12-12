@@ -1,10 +1,8 @@
-import { useState, useEffect, useRef} from 'react'
-
-import isEqual from 'lodash/isEqual';
+import { useState, useEffect, useMemo} from 'react'
 
 import inventorystyle from '../styles/inventorystyle.module.css'
 
-const KeywordFilter = ({carDiscription, applyFilters}) => {
+const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, filterByMiles}) => {
 
     //KeyWord search logic
     const [keyWordValue, setKeyWordValue] = useState('')
@@ -14,9 +12,6 @@ const KeywordFilter = ({carDiscription, applyFilters}) => {
 
         setKeyWordValue(value)
     }
-
-    const keyWord = carDiscription.filter((elem) => elem.carname.toLowerCase().includes(keyWordValue.toLowerCase()))
-
 
 
     //Sorting data logic
@@ -59,45 +54,29 @@ const KeywordFilter = ({carDiscription, applyFilters}) => {
         setSortedCars(newSortedCars)
     };
 
-    console.log("sorted cars", sortedCars)
+
+    console.log("Miles filter data", filterByMiles)
 
 
-
-    // Use a ref to store the previous values
-    const prevKeyWordValue = useRef(keyWordValue);
-    const prevSortedCars = useRef(sortedCars);
-    const prevCarDiscription = useRef(carDiscription);
-    
-    // Apply filters when either keyword or sorting changes
-    useEffect(() => {
-        // Check if keyWordValue has changed
-        const keyWordValueChanged = prevKeyWordValue.current !== keyWordValue;
-    
-        // Check if sortedCars has changed
-        const sortedCarsChanged = !isEqual(prevSortedCars.current, sortedCars);
-    
-        // Check if carDiscription has changed
-        const carDiscriptionChanged = !isEqual(prevCarDiscription.current, carDiscription);
-    
-        // Update the previous values
-        prevKeyWordValue.current = keyWordValue;
-        prevSortedCars.current = sortedCars;
-        prevCarDiscription.current = carDiscription;
-    
-        // Only apply filters if there's an actual change
-        if (keyWordValueChanged || sortedCarsChanged || carDiscriptionChanged) {
-        const filteredData = carDiscription.filter((elem) =>
-            elem.carname.toLowerCase().includes(keyWordValue.toLowerCase())
+    const filteredData = useMemo(() => {
+        return carDiscription.filter(
+            (elem) => elem.carname.toLowerCase().includes(keyWordValue.toLowerCase())
         );
+    }, [keyWordValue, carDiscription]);
     
+    useEffect(() => {
         // If sorting is applied, use the sorted data
-        const finalData = sortedCars.length > 0 ? sortedCars : filteredData;
+        const finalData = sortedCars.length > 0 ? sortedCars : sideFilters.length > 0 ? sideFilters : filterByMiles.length > 0 ? filterByMiles : filteredData;
+    
+        console.log("final data", finalData)
     
         // Pass the filtered and sorted data to the parent component
-        applyFilters(finalData);
-        }
-    }, [keyWordValue, sortedCars, carDiscription, applyFilters]);
+        keyWordFilterAndPaginate(finalData);
+    
+    }, [sortedCars, sideFilters, filterByMiles, filteredData]);
+    
 
+    
 
 
     return (

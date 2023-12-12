@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import Footer from "../components/Footer"
-import AvailabilityModal from '../components/AvailabilityModal'
 import Filter from '../components/Filter'
 import ScrollToTopOnMont from '../components/ScrollToTopOnMont'
 import KeywordFilter from '../components/KeywordFilter'
@@ -65,12 +64,29 @@ const InventoryPage = () => {
     }, []);
 
 
-    //Filter data callback function logic
-    const [filteredData, setFilterData] = useState([])
+    //Keword filter data callback function logic
+    const [keyWordFilteredData, setFilterData] = useState([])
 
     // Callback function to receive filtered data from KeywordFilter
-    const handleFilterAndPaginate = (filteredData) => {
-        setFilterData(filteredData)
+    const keyWordFilterAndPaginate = (keyWordFilteredData) => {
+        setFilterData(keyWordFilteredData)
+    }
+
+
+
+
+    //Side bar Filter callbacks function logic
+    const [sideFilters, setSideFilter] = useState([])
+
+    //calback function for sidebar filter
+    const sidebarFilterData = (sideFilters) => {
+        setSideFilter(sideFilters)
+    }
+
+    const [filterByMiles, setfilterByMiles] = useState([])
+
+    const filterByMilesData = (filterByMiles) => {
+        setfilterByMiles(filterByMiles)
     }
 
 
@@ -91,16 +107,16 @@ const InventoryPage = () => {
 
             <main>
                 <div className={inventorystyle.KeywordSearchBarAndSortByContainer}>
-                    <KeywordFilter  carDiscription={carDiscription} applyFilters={handleFilterAndPaginate} />
+                    <KeywordFilter  carDiscription={carDiscription} keyWordFilterAndPaginate={keyWordFilterAndPaginate} sideFilters={sideFilters} filterByMiles={filterByMiles} />
                 </div>
 
                 <div className={inventorystyle.mainContainer}>
                     <div>
-                        <Filter carDiscription={carDiscription} />
+                        <Filter carDiscription={carDiscription} sidebarFilterData={sidebarFilterData} filterByMilesData={filterByMilesData} />
                     </div>
 
                     <div>
-                        <Pagination carDiscription={carDiscription} filteredData={filteredData} />
+                        <Pagination carDiscription={carDiscription} keyWordFilteredData={keyWordFilteredData}  />
                     </div>
                 </div>
             </main>

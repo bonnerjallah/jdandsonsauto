@@ -1,25 +1,29 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import KeywordFilter from './KeywordFilter'
 import AvailabilityModal from '../components/AvailabilityModal'
 
 
 import inventorystyle from '../styles/inventorystyle.module.css'
 
-const Pagination = ({carDiscription, filteredData}) => {
+const Pagination = ({carDiscription, keyWordFilteredData}) => {
 
     //Use State for pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [carDiscriptionPerPage] = useState(5)
 
-    //Determine which dataset to use
-    const dataToPaginate = filteredData.length > 0 ? filteredData : carDiscription
+
+    // Determine which dataset to use
+    const dataToPaginate = keyWordFilteredData.length > 0 ? keyWordFilteredData : carDiscription;
 
     //Get current cars info for pagination
     const indexOfLastCarInfos = currentPage * carDiscriptionPerPage
     const indexOfFirstCarInfos = indexOfLastCarInfos - carDiscriptionPerPage
-    const currentCarInfos = dataToPaginate.slice(indexOfFirstCarInfos, indexOfLastCarInfos)
+    const currentCarInfos = dataToPaginate.slice(indexOfFirstCarInfos, indexOfLastCarInfos) 
+
+    
+    
+    console.log('curent car infos', currentCarInfos)
 
     //Pagination
     const pageNumbers = []
@@ -73,7 +77,7 @@ const Pagination = ({carDiscription, filteredData}) => {
                             </div>
                         </div>
 
-                        <div>
+                        <div>   
                             {currentCarInfos.map((elem, id) => (
                                 <div key={id} className={inventorystyle.carInfomainBox}>
                                     <div className={inventorystyle.carDiscriptionContainer}>
