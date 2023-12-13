@@ -5,7 +5,7 @@ import { isEqual } from 'lodash';
 
 
 
-const Filter = ({carDiscription, sidebarFilterData, filterByMilesData}) => {
+const Filter = ({carDiscription, sidebarFilterData, filterByMilesData, filterByPriceData}) => {
 
     const [yearExpended, setyearExpended] = useState(false)
     const [makeExpended, setmakeExpended] = useState(false)
@@ -171,14 +171,16 @@ const Filter = ({carDiscription, sidebarFilterData, filterByMilesData}) => {
     //Milage Filter logic
     const milesFilterBy = (target) => {
         const fullText = target.textContent.toLowerCase();
-        const filterMilesValue = fullText.slice(0, fullText.indexOf('<')).replace(/,/g, '').trim();
-        return filterMilesValue;
+        const filteredMiles = fullText.slice(0, fullText.indexOf('<')).replace(/,/g, '').trim();
+        return filteredMiles;
     };
     
     const handleMilesCLick = (e) => {
         e.preventDefault(e)
 
         const filterMilesValue = milesFilterBy(e.target)
+
+        console.log("filter miles", filterMilesValue)
 
 
         const cars = carDiscription.filter((elem) => {
@@ -202,17 +204,75 @@ const Filter = ({carDiscription, sidebarFilterData, filterByMilesData}) => {
                 return parseInt(elem.miles.replace(/,/g, '')) > 130000 && parseInt(elem.miles.replace(/,/g, '')) <= 140000;
             } else if (filterMilesValue === "140000 - 150000") {
                 return parseInt(elem.miles.replace(/,/g, '')) > 140000 && parseInt(elem.miles.replace(/,/g, '')) <= 150000;
+            } else if (filterMilesValue === "over 150000") {
+                return parseInt(elem.miles.replace(/,/g, '')) > 150000;
             } else {
                 return elem
             }
-        
-            // Add more conditions for other cases if needed
         
             return true; // If no specific condition is met, include the element in the result
         });
         
         filterByMilesData(cars);
     };
+
+
+    //Filter by price
+    const priceFilterBy = (target) => {
+        const completeText = target.textContent.toLowerCase()
+
+        // Extract the price range without the dollar sign
+        const filteredPrice = completeText.slice(1, completeText.indexOf('<'))
+            .replace(/\$/, '')
+            .replace(/,/g, '')
+            .trim()
+
+        return filteredPrice
+    }
+
+
+    const handlePriceClick = (e) => {
+        e.preventDefault()
+
+        const filteredPriceValue = priceFilterBy(e.target)
+
+        console.log("price clicked value", filteredPriceValue)
+
+
+        const filterCarPrice = carDiscription.filter((elem) => {
+
+            // Convert the price amount to a number
+            const numericPrice = parseFloat(elem.priceamount.replace(/,/g, ''));
+
+    
+            // Check if the numeric price is within the specified range
+            if (filteredPriceValue === "0 - 5000") {
+                return numericPrice >= 0 && numericPrice <= 5000;
+            } else if (filteredPriceValue === "5000 - 10000") {
+                return numericPrice > 5000 && numericPrice <= 10000;
+            } else if (filteredPriceValue === "10000 - 15000") {
+                return numericPrice > 10000 && numericPrice <= 15000;
+            } else if (filteredPriceValue === "15000 - 20000") {
+                return numericPrice > 15000 && numericPrice <= 20000;
+            } else if (filteredPriceValue === "20000 - 30000") {
+                return numericPrice > 20000 && numericPrice <= 30000;
+            } else if (filteredPriceValue === "30000 - 40000") {
+                return numericPrice > 30000 && numericPrice <= 40000
+            } else if (filteredPriceValue === "40000 - 50000") {
+                return numericPrice > 40000 && numericPrice <= 50000;
+            } else if (filteredPriceValue === "50000 - above") {
+                return numericPrice > 50000
+            } else {
+                return numericPrice
+            }
+
+            return true
+        })
+
+        filterByPriceData(filterCarPrice)
+
+        console.log("filter car price", filterCarPrice)
+    }
 
 
 
@@ -331,14 +391,14 @@ const Filter = ({carDiscription, sidebarFilterData, filterByMilesData}) => {
                 <hr style={{color:'black'}} />
                 <div className={filterstyle.filterTypeWrapper} style={{height: priceExpended ? "auto" : '9rem', overflow: 'hidden'}}>
                     <div className={filterstyle.priceRange}>
-                        <p>$0 - $5,000 <span>{fiveThousandOrLess.length}</span></p>
-                        <p>$5,000 - $10,000 <span>{fiveToTenThousand.length}</span></p>
-                        <p>$10,000 - $15,000 <span>{tenToFifteenThousand.length}</span></p>
-                        <p>$15,000 - $20,000 <span>{fifteenToTwentyThousand.length}</span></p>
-                        <p>$20,000 - 30,000 <span>{twentyToThirtyThousand.length}</span></p>
-                        <p>$30,000 - 40,000 <span>{thirtyToFortyThousannd.length}</span></p>
-                        <p>$40,000 - 50,000 <span>{fortyToFiftyThousand.length}</span></p>
-                        <p>$50,000 - Above <span>{overFiftyThousand.length}</span></p>
+                        <p onClick={handlePriceClick}>$0 - $5,000 <span>{fiveThousandOrLess.length}</span></p>
+                        <p onClick={handlePriceClick}>$5,000 - $10,000 <span>{fiveToTenThousand.length}</span></p>
+                        <p onClick={handlePriceClick}>$10,000 - $15,000 <span>{tenToFifteenThousand.length}</span></p>
+                        <p onClick={handlePriceClick}>$15,000 - $20,000 <span>{fifteenToTwentyThousand.length}</span></p>
+                        <p onClick={handlePriceClick}>$20,000 - 30,000 <span>{twentyToThirtyThousand.length}</span></p>
+                        <p onClick={handlePriceClick}>$30,000 - 40,000 <span>{thirtyToFortyThousannd.length}</span></p>
+                        <p onClick={handlePriceClick}>$40,000 - 50,000 <span>{fortyToFiftyThousand.length}</span></p>
+                        <p onClick={handlePriceClick}>$50,000 - Above <span>{overFiftyThousand.length}</span></p>
                     </div>
                 </div>
                 <button onClick={()=> handlePriceExpended()}>{priceExpended ? "Show Less..." : "View More..."}</button>

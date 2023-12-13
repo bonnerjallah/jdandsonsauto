@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo} from 'react'
 
 import inventorystyle from '../styles/inventorystyle.module.css'
 
-const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, filterByMiles}) => {
+const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, filterByMiles, filterByPrice}) => {
 
     //KeyWord search logic
     const [keyWordValue, setKeyWordValue] = useState('')
@@ -66,14 +66,18 @@ const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, f
     
     useEffect(() => {
         // If sorting is applied, use the sorted data
-        const finalData = sortedCars.length > 0 ? sortedCars : sideFilters.length > 0 ? sideFilters : filterByMiles.length > 0 ? filterByMiles : filteredData;
+        const finalData = sortedCars.length > 0 ? sortedCars :
+                        sideFilters.length > 0 ? sideFilters :
+                        filterByMiles.length > 0 ? filterByMiles :
+                        filterByPrice.length > 0 ? filterByPrice :
+        filteredData;
+
     
-        console.log("final data", finalData)
     
         // Pass the filtered and sorted data to the parent component
         keyWordFilterAndPaginate(finalData);
     
-    }, [sortedCars, sideFilters, filterByMiles, filteredData]);
+    }, [sortedCars, sideFilters, filterByMiles, filteredData, filterByPrice]);
     
 
     

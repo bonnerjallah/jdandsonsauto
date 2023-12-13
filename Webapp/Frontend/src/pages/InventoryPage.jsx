@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { NavLink } from "react-router-dom"
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -75,18 +74,27 @@ const InventoryPage = () => {
 
 
 
-    //Side bar Filter callbacks function logic
+    //Side bar Filter callbacks functions logic
+
+    //calback function for sidebar year, make/model, drivetrain, transmission filter
     const [sideFilters, setSideFilter] = useState([])
 
-    //calback function for sidebar filter
     const sidebarFilterData = (sideFilters) => {
         setSideFilter(sideFilters)
     }
 
+    //callback function for sidebar milleage filter
     const [filterByMiles, setfilterByMiles] = useState([])
 
     const filterByMilesData = (filterByMiles) => {
         setfilterByMiles(filterByMiles)
+    }
+
+    //callback function for sidebar price filter
+    const [filterByPrice, setFilterByPrice] = useState([])
+
+    const filterByPriceData = (filterByPrice) => {
+        setFilterByPrice(filterByPrice)
     }
 
 
@@ -107,12 +115,12 @@ const InventoryPage = () => {
 
             <main>
                 <div className={inventorystyle.KeywordSearchBarAndSortByContainer}>
-                    <KeywordFilter  carDiscription={carDiscription} keyWordFilterAndPaginate={keyWordFilterAndPaginate} sideFilters={sideFilters} filterByMiles={filterByMiles} />
+                    <KeywordFilter  carDiscription={carDiscription} keyWordFilterAndPaginate={keyWordFilterAndPaginate} sideFilters={sideFilters} filterByMiles={filterByMiles} filterByPrice={filterByPrice} />
                 </div>
 
                 <div className={inventorystyle.mainContainer}>
                     <div>
-                        <Filter carDiscription={carDiscription} sidebarFilterData={sidebarFilterData} filterByMilesData={filterByMilesData} />
+                        <Filter carDiscription={carDiscription} sidebarFilterData={sidebarFilterData} filterByMilesData={filterByMilesData} filterByPriceData={filterByPriceData} />
                     </div>
 
                     <div>

@@ -11,6 +11,7 @@ import AboutUs from './pages/AboutUs'
 import ContactUs from './pages/ContactUs'
 import ViewDetails from './pages/ViewDetails'
 import InventoryPage from './pages/InventoryPage'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="/AboutUs" element={<AboutUs />} />
       <Route path="ContactUs" element={<ContactUs /> } />
       <Route path="ViewDetails/:id" element={<ViewDetails /> } />
+      <Route path="PrivacyPolicy" element={<PrivacyPolicy /> } />
     </Route>
   )
 )

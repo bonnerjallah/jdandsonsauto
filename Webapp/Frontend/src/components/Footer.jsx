@@ -51,7 +51,7 @@ const Footer = () => {
                         <NavLink to='/InventoryPage'><li>PRE OWNED VEHICLES</li></NavLink>
                         <NavLink to='/ContactUs'><li>CONTACT US</li></NavLink>
                         <NavLink to='/AboutUs'><li>ABOUT US</li></NavLink>
-                        <NavLink><li>PRIVACY POLICY</li></NavLink>
+                        <NavLink to='/PrivacyPolicy'><li>PRIVACY POLICY</li></NavLink>
                     </ul>
                 </div>
                 <div className={homestyle.copyrigtWrapper}>
