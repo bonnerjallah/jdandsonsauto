@@ -38,7 +38,7 @@ const Footer = () => {
                 </div>
                 <div className={homestyle.contactUs}>
                     <h3>CONTACT US</h3>
-                    <div>
+                    <div className={homestyle.phoneNumberWrapper}>
                         <span><FontAwesomeIcon icon={faPhone} /></span>
                         <p>470-552-2433</p>
                     </div>

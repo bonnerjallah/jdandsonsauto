@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import AvailabilityModal from '../components/AvailabilityModal'
-import ScrollToTopOnMont from '../components/ScrollToTopOnMont'
+import ScrollToTopOnMount from '../components/ScrollToTopOnMont'
 
 
 
@@ -58,7 +58,7 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
 
     return (
         <div>
-            <ScrollToTopOnMont />
+            <ScrollToTopOnMount />
 
             <div className={inventorystyle.paginationListWrapper}>
                 <div>

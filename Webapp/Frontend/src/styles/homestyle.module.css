@@ -177,11 +177,17 @@
 .contactUs h3{
     margin-bottom: 1rem;
     color: #ec712e;
+    text-align: center;
 }
 
 .businessHoursSecondWrapper{
     display: flex;
     flex-direction: column;
+}
+
+.phoneNumberWrapper{
+    display: flex;
+    justify-content: center;
 }
 
 .howToReachUsWrapper div, 

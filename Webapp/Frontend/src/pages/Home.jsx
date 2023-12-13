@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowCircleLeft, faArrowCircleRight, faCar, faLocationDot, faHandshakeAngle, faUserTie, faPhone } from "@fortawesome/free-solid-svg-icons"
 
 import Footer from "../components/Footer"
-import ScrollToTopOnMont from "../components/ScrollToTopOnMont"
+import ScrollToTopOnMount from "../components/ScrollToTopOnMont"
 
 import homestyle from "../styles/homestyle.module.css"
 
@@ -88,7 +88,7 @@ const Home = () => {
     return (
         <div>
 
-            <ScrollToTopOnMont />
+            <ScrollToTopOnMount />
 
             <div>
                 <ImageSlider imageUrls = {Images} />

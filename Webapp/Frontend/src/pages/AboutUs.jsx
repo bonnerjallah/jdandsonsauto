@@ -3,7 +3,7 @@ import aboutusstyle from '../styles/aboutusstyle.module.css'
 
 import Footer from "../components/Footer"
 import MapComponent from "../components/Map"
-import ScrollToTopOnMont from '../components/ScrollToTopOnMont'
+import ScrollToTopOnMount from '../components/ScrollToTopOnMont'
 
 
 
@@ -12,7 +12,7 @@ import ScrollToTopOnMont from '../components/ScrollToTopOnMont'
 const AboutUs = () => {
     return (
         <div className={aboutusstyle.mainContainer}>
-            <ScrollToTopOnMont />
+            <ScrollToTopOnMount />
             <div className={aboutusstyle.header}>
 
             </div>

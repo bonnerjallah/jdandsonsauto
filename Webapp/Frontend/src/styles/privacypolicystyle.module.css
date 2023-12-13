@@ -1,0 +1,19 @@
+
+
+.header{
+    color: #ec712e;
+    text-align: center;
+    margin: 2rem;
+}
+
+
+
+.mainContainer{
+    margin-bottom: 2rem;
+    margin: 2rem;
+}
+
+.maincontainer main ol{
+    margin-left: 1rem;
+    line-height: 1.5rem;
+}

@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import Footer from "../components/Footer"
 import Filter from '../components/Filter'
-import ScrollToTopOnMont from '../components/ScrollToTopOnMont'
+import ScrollToTopOnMount from '../components/ScrollToTopOnMont'
 import KeywordFilter from '../components/KeywordFilter'
 import Pagination from '../components/Pagination'
 
@@ -100,7 +100,7 @@ const InventoryPage = () => {
 
     return (
         <div>
-            <ScrollToTopOnMont />
+            <ScrollToTopOnMount />
 
             <div className={inventorystyle.headerContainer}>
                 <div className={inventorystyle.header}>
