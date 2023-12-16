@@ -19,6 +19,7 @@ import AddNewVehicle from "./pages/AddNewVehicle"
 import SalesAnalytics from "./pages/SalesAnalytics"
 import Uploadprofilepic from "./pages/uploadprofilepic"
 import VehicleUpdate from "./pages/VehicleUpdate"
+import MessageCenter from "./pages/MessageCenter"
 
 
 const router = createBrowserRouter(
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         <Route path="/AddNewVehicle" element={<AddNewVehicle /> } />
         <Route path="/SalesAnalytics" element={<SalesAnalytics /> } />
         <Route path="/Uploadprofilepic" element={<Uploadprofilepic /> } />
+        <Route path="/MessageCenter" element={<MessageCenter /> } />
       </Route> 
     </Route>
   )

@@ -11,6 +11,7 @@ import LineGraph from "../components/LineGraph"
 import RecentTransactions from "../components/RecentTransactions"
 import FinancialGains from "../components/FinancialGains"
 import ApptModal from '../components/ApptModal';
+import Messages from '../components/Messages';
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -126,6 +127,9 @@ const Dashboard = () => {
 
     }
 
+
+
+
     return (
         <div className={dashboardstyletwo.mainContainer}>
             <div>
@@ -136,6 +140,9 @@ const Dashboard = () => {
                     <div>
                         <h2>DASHBOARD</h2>
                         <p>Welcome {member.firstName}</p>
+                    </div>
+                    <div>
+                        <Messages />
                     </div>
                 </div>
                 <div className={dashboardstyletwo.dataBosexWrapper}>

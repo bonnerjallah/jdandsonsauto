@@ -40,8 +40,8 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin:['http://localhost:5174'] ,
-    methods: ['GET', 'POST', 'DELETE', 'PUT', 'HEAD', 'PATCH'],
+    origin:['http://localhost:5173'] ,
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true
 }))
 
@@ -101,6 +101,29 @@ const profilePicUpload = multer({
 })
 
 
+
+app.get('/availabilityandquote', async (req, res) =>{
+    try {
+        const sql = "SELECT * FROM availabilityandquote";
+        const [rows] = await db.promise().query(sql)
+        return res.json(rows)
+    } catch (error) {
+        console.error("Error fetching acailibality data", error)
+        return res.status(500).json({error: "Internal server error"})
+    }
+})
+
+app.get("/carfinder", async (req, res) => {
+    try {
+        const sql = "SELECT * FROM carfinder";
+        const [rows] = await db.promise().query(sal)
+        return res.json(rows)
+    } catch (error) {
+        console.error("Error fetching carfinder", error)
+        return res.status(500).json({error: "Internal server error"})
+    }
+})
+
 app.get("/cardiscrip/:id?", async (req, res) => {
     try{
         if(req.params.id) {
@@ -124,8 +147,19 @@ app.get('/purchases', async (req, res) => {
         const [rows] = await db.promise().query(sql);
         return res.json(rows)
     } catch (error) {
-        console.error("Error fetching purchase data")
+        console.error("Error fetching purchase data", error)
         return res.status(500).json({error: "Internal server error"})
+    }
+})
+
+app.get("/message", async (req, res) => {
+    try {
+        const sql = "SELECT * FROM message";
+        const [rows] = await db.promise().query(sql)
+        return res.json(rows)
+    } catch (error) {
+        console.error("Error fetching message", error)
+        return res.status(500).json({error: 'Internal server error'})
     }
 })
 
@@ -158,7 +192,7 @@ app.get("/calander", async(req, res) => {
         return res.json(rows)
     } catch (error) {
         console.error("Error fetching appointment", error)
-        return res.status(500).json({message: 'Internal server error'})
+        return res.status(500).json({error: 'Internal server error'})
     }
 })
 
@@ -169,7 +203,7 @@ app.get('/images', async(req, res) => {
         return res.json(rows)
     } catch (error) {
         console.error("Error fetching imaage data", error)
-        return res.status(500).json({message: "Internal server error"})
+        return res.status(500).json({error: "Internal server error"})
     }
 })
 

@@ -139,6 +139,30 @@ app.post('/availabilityAndQuote', async (req, res) => {
     }
 });
 
+app.post('/carfinder', async (req, res) => {
+    const { searchyear, searchmake, searchmodal, searchmileage, searchprice, desiredfeature, searchcustname, searchcustphone, searchcustemail, searchreachyou } = req.body
+
+    try {
+        if(!searchyear || !searchmake || !searchmodal || !searchmileage || !searchprice || !desiredfeature || !searchcustname || !searchcustphone || !searchcustemail || !searchreachyou) {
+            return res.status(400).json({error: 'All fields require'})
+        }
+
+        const sql = "INSERT INTO carfinder (searchyear, searchmake, searchmodal, searchmileage, searchprice, desiredfeature, searchcustname, searchcustphone, searchcustemail, searchreachyou) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+
+        const result = await db.promise().query(sql,[searchyear, searchmake, searchmodal, searchmileage, searchprice, desiredfeature, searchcustname, searchcustphone, searchcustemail, searchreachyou])
+
+        if (result[0].affectedRows > 0) {
+            return res.status(200).json({message: 'search data inserted successfully'})
+        } else {
+            return res.status(500).json({message: 'search data entry was not successfull'})
+        }
+        
+    } catch (error) {
+        console.error("Error inserting data into database", error)
+        res.status(500).json({message: 'Internal server issue'})
+    }
+})
+
 
 
 app.listen(3001, () => {
