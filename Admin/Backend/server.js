@@ -116,7 +116,7 @@ app.get('/availabilityandquote', async (req, res) =>{
 app.get("/carfinder", async (req, res) => {
     try {
         const sql = "SELECT * FROM carfinder";
-        const [rows] = await db.promise().query(sal)
+        const [rows] = await db.promise().query(sql)
         return res.json(rows)
     } catch (error) {
         console.error("Error fetching carfinder", error)

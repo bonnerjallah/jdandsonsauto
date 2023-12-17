@@ -29,7 +29,7 @@ const Messages = () => {
     }, [])
 
     useEffect(() => {
-        axios.get("http//localhost:3001/carfinder")
+        axios.get("http://localhost:3001/carfinder")
             .then((res) => {
                 if(res.status === 200) {
                     setCarFinder(res.data)
