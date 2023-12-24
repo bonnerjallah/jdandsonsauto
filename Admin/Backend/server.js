@@ -40,7 +40,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin:['http://localhost:5173'] ,
+    origin:['http://localhost:5175'] ,
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true
 }))
@@ -206,6 +206,35 @@ app.get('/images', async(req, res) => {
         return res.status(500).json({error: "Internal server error"})
     }
 })
+
+app.delete('/deleteMessage/:messageType/:id', async (req, res) => {
+    const { messageType, id } = req.params;
+
+    try {
+        let result;
+        let sql;
+
+        if (messageType === 'availability') {
+            sql = 'DELETE FROM availabilityandquote WHERE ID = ?';
+        } else if (messageType === 'carfinder') {
+            sql = 'DELETE FROM carfinder WHERE ID = ?';
+        } else if (messageType === 'message') {
+            sql = 'DELETE FROM message WHERE ID = ?';
+        }
+
+        [result] = await db.promise().query(sql, [id]);
+
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: 'Deleted successfully' });
+        } else {
+            return res.status(400).json({ message: 'Record not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 
 app.delete("/deleteSvcMaint/:id", async (req, res) => {
     const {id} = req.params

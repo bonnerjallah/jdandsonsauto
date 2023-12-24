@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from "axios"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faInbox, faCommentDollar, faMagnifyingGlassDollar } from "@fortawesome/free-solid-svg-icons"
+import { faInbox, faCommentDollar, faMagnifyingGlassDollar, faBell} from "@fortawesome/free-solid-svg-icons"
 
 
 import dashboardstyletwo from '../style/dashboardstyletwo.module.css';
@@ -10,70 +10,37 @@ import { NavLink } from 'react-router-dom';
 
 const Messages = () => {
 
-    const [availability, setAvailability] = useState([])
-    const [carfinder, setCarFinder] = useState([])
     const [message, setMessage] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3001/availabilityandquote")
-            .then((res) => {
-                if(res.status === 200 ) {
-                    setAvailability(res.data)
-                } else {
-                    console.log("Invalid response data", res.data)
-                }
-            })
-            .catch ((error) => {
-                console.log("Error fetching data", error)
-            })
+        const fetchData = async () => {
+            try {
+                const availabilityResponse = await axios.get("http://localhost:3001/availabilityandquote")
+                const availMessage = availabilityResponse.data
+
+                const carfinderResponse = await axios.get("http://localhost:3001/carfinder")
+                const carfinderMessage = carfinderResponse.data
+
+                const messageResponse = await axios.get("http://localhost:3001/message")
+                const messageData = messageResponse.data
+
+                const combineAllMessageData = availMessage.concat(carfinderMessage, messageData)
+
+                setMessage(combineAllMessageData)
+            } catch (error) {
+                console.log("error fetching data", error)
+            }
+        }
+        fetchData()
     }, [])
 
-    useEffect(() => {
-        axios.get("http://localhost:3001/carfinder")
-            .then((res) => {
-                if(res.status === 200) {
-                    setCarFinder(res.data)
-                } else {
-                    console.log("Invalid response data", res.data)
-                }
-            })
-            .catch((error) => {
-                console.log("Error fetching data", error)
-            })
-    },[])
-
-    useEffect(() => {
-        axios.get("http://localhost:3001/message")
-            .then((res) => {
-                if(res.status === 200) {
-                    setMessage(res.data)
-                } else {
-                    console.log("Incalid response data", res.data)
-                }
-            })
-            .catch((error) => {
-                console.log("Error fetching data", error)
-            })
-    })
 
     return (
         <div className={dashboardstyletwo.messagewrapper}>
             <div className={dashboardstyletwo.messagecounter}>
-                <span>{availability.length}</span>
+                {message.length > 0 ? <span>{message.length}</span> : '' }
                 <NavLink to="/MessageCenter">
-                    <FontAwesomeIcon icon={faInbox} className={dashboardstyletwo.fainbox}/>
-                </NavLink>
-            </div>
-            <div className={dashboardstyletwo.messagecounter}>
-                <span>{message.length}</span>
-                <NavLink to="/MessageCenter">
-                    <FontAwesomeIcon icon={faCommentDollar} className={dashboardstyletwo.facomment} />
-                </NavLink>
-            </div>
-            <div className={dashboardstyletwo.messagecounter}>
-                <span>{carfinder.length}</span>
-                <NavLink to="/MessageCenter">
-                    <FontAwesomeIcon icon={faMagnifyingGlassDollar} className={dashboardstyletwo.magglass} />
+                    <FontAwesomeIcon icon={faBell}  className={`${dashboardstyletwo.fainbox} ${message.length > 0 ? dashboardstyletwo.bellanimation : ''}`}/>
                 </NavLink>
             </div>
         </div>

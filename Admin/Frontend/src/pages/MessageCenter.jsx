@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInbox, faCommentDollar, faMagnifyingGlassDollar, faSquareCaretDown } from "@fortawesome/free-solid-svg-icons"
 
 import Sidebar from "../components/Sidebar"
+import MessageModal from "../components/MessageModal"
 
 import messagecenterstyle from '../style/messagecenterstyle.module.css'
 
@@ -79,6 +80,29 @@ const MessageCenter = () => {
     }
 
 
+    //Message Modal Logic
+    const [openMessageModal, setOpenMessageModal] = useState(false)
+    const [messageData, setMessageData] = useState()
+
+
+    const handleModalOpen = ( elem ) => {
+        setOpenMessageModal(true)
+
+        //Pass message type to messagedata prop
+        setMessageData({...elem, messageType: determineMessageType(elem)})
+        
+    }
+    //Adding message type to messagedata 
+    const determineMessageType = (elem) => {
+        if(elem.availability_message) {
+            return "availability"
+        } else if (elem.searchmake) {
+            return "carfinder"
+        } else if (elem.message) {
+            return "message"    
+        }
+        return "unknown"
+    }
 
     return (
         <div className={messagecenterstyle.mainContainer}>
@@ -92,7 +116,7 @@ const MessageCenter = () => {
                 <div className={messagecenterstyle.titlesWrapper}>
                     <div className={messagecenterstyle.title}>
                         <div className={messagecenterstyle.iconWrapper}>
-                            <span>{availabilityMessage.length}</span>
+                            { availabilityMessage.length > 0 ? <span>{availabilityMessage.length}</span> : ''}
                             <FontAwesomeIcon icon={faInbox} />
                         </div>
                         <h3>Vehicle Availibality Message</h3>
@@ -101,7 +125,7 @@ const MessageCenter = () => {
 
                     <div className={messagecenterstyle.title}>
                         <div className={messagecenterstyle.iconWrapper}>
-                            <span>{carfinderMessage.length}</span>
+                            { carfinderMessage.length > 0 ? <span>{carfinderMessage.length}</span> : ''}
                             <FontAwesomeIcon icon={faMagnifyingGlassDollar} />
                         </div>
                         <h3>Vehicle Finder Message</h3>
@@ -110,7 +134,7 @@ const MessageCenter = () => {
 
                     <div className={messagecenterstyle.title}>
                         <div  className={messagecenterstyle.iconWrapper}>
-                            <span>{message.length}</span>
+                            {message.length > 0 ? <span>{message.length}</span> : ''}
                             <FontAwesomeIcon icon={faCommentDollar} />
                         </div>
                         <h3>Message</h3>
@@ -122,7 +146,7 @@ const MessageCenter = () => {
                     <div className={`${messagecenterstyle.availabilityMessageWrapper} ${dropDownAvailibality ? messagecenterstyle.openavalibalityDrop : messagecenterstyle.availabilityMessage}`}>
                         <ol>
                             {availabilityMessage && availabilityMessage.map((elem, index) => (
-                                <li key={index}>
+                                <li key={index} onClick={() => handleModalOpen(elem)}>
                                     {elem.availability_message && typeof elem.availability_message === 'string'
                                     ? elem.availability_message.split(' ').slice(0, 3).join(' ')
                                     : elem.availability_message} ..
@@ -133,7 +157,7 @@ const MessageCenter = () => {
                     <div className={`${messagecenterstyle.carfinderMessageWrapper} ${dropDownCarfinder ? messagecenterstyle.openDropDownCarfinder: messagecenterstyle.carfinderMessage} `}>
                         <ol>
                             {carfinderMessage && carfinderMessage.map((elem, index) => (
-                                <li key={index}>
+                                <li key={index} onClick={() => handleModalOpen(elem)}>
                                     {elem.searchmake}.. 
                                 </li>
                             ))}
@@ -143,7 +167,7 @@ const MessageCenter = () => {
                     <div className={`${messagecenterstyle.messageSentWrapper} ${isDropDownOpen ? messagecenterstyle.openDropDownMessage : messagecenterstyle.messageSentWrapper}`}>
                         <ol>
                             {message && message.map((elem, index) => (
-                                <li key={index} className={messagecenterstyle.dropdwonmessage} >
+                                <li key={index} className={messagecenterstyle.dropdwonmessage} onClick={() => handleModalOpen(elem)} >
                                     {elem.message && typeof elem.message === "string"
                                     ? elem.message.split(' ').slice(0, 3).join(' ')
                                 : elem.message} ..
@@ -153,6 +177,8 @@ const MessageCenter = () => {
                     </div>
 
                 </div>
+
+                {openMessageModal && (<MessageModal messageData={messageData} closeMessageModal={setOpenMessageModal}/> )}
 
             </div>
         </div>

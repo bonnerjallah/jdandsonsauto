@@ -25,6 +25,29 @@
     box-shadow: 5px 5px 5px 0px black;
 }
 
+.bellWrapper{
+    width: 2rem;
+    color: white;
+}
+
+.bellanimation {
+    animation: shake 500ms ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    25%, 75% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+}
+
+
+
 .dataBosexWrapper{
     display: flex;
     justify-content: center;

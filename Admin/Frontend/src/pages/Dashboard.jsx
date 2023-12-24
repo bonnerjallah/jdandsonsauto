@@ -64,7 +64,6 @@ const Dashboard = () => {
                         sport : 0,
                         truck: 0,
                         suv: 0,
-                        van: 0
                     }
 
                     data.forEach((elem) => {
@@ -79,7 +78,7 @@ const Dashboard = () => {
                             } else if (lowerTrim.includes('suv')) {
                                 totalCount.suv++
                             } else if (lowerTrim.includes('van')) {
-                                totalCount.van++
+                                totalCount.suv++
                             }
                         }
                     })
@@ -91,6 +90,8 @@ const Dashboard = () => {
                 console.error("Error fetching inventory data", error);
             });
     }, []);
+
+    console.log(inventoryData)
 
     const [allEvents, setAllEvents] = useState([])
 
@@ -141,7 +142,7 @@ const Dashboard = () => {
                         <h2>DASHBOARD</h2>
                         <p>Welcome {member.firstName}</p>
                     </div>
-                    <div>
+                    <div className={dashboardstyletwo.bellWrapper}>
                         <Messages />
                     </div>
                 </div>

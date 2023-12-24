@@ -5,6 +5,8 @@ import axios from "axios"
 
 const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
 
+    console.log("CAR", car)
+
     //image fetch
     const [modalVehicleImage, setModalVehicleImage] = useState('');
 
@@ -14,6 +16,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
                 const res = await axios.get('http://localhost:3001/carImages');
                 if (res.status === 200) {
                     const avaliDataImage = avaliData.images.find((image, index) => index === 3);
+                    
 
                     const filteredImage = avaliDataImage 
 
@@ -66,7 +69,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
     };
 
  
-
+    //Handle error message to display to user
     const [errorMessage, setErrorMessage] = useState('')
     
 

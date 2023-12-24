@@ -55,9 +55,6 @@ const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, f
     };
 
 
-    console.log("Miles filter data", filterByMiles)
-
-
     const filteredData = useMemo(() => {
         return carDiscription.filter(
             (elem) => elem.carname.toLowerCase().includes(keyWordValue.toLowerCase())

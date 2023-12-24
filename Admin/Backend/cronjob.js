@@ -6,10 +6,11 @@ const cronJob = new CronJob('0 0 * * *', async () => {
     const today = new Date();
 
     // Fetch the list of appointments
-    const appointments = await axios.get('http://localhost:3001/calander');
+    const response = await axios.get('http://localhost:3001/calander');
+    const appointments = response.data; // Use response.data to get the array of appointments
 
     // Iterate through the fetched appointments and delete those that are in the past
-    for (appointment of appointments) {
+    for (const appointment of appointments) {
         const appointmentDate = new Date(appointment.date);
 
         if (appointmentDate <= today) {
@@ -28,9 +29,11 @@ const cronJob = new CronJob('0 0 * * *', async () => {
 const afternoonCronJob = new CronJob('0 12 * * *', async () => {
     const today = new Date();
 
-    const appointments = await axios.get('http://localhost:3001/calander');
+    const response = await axios.get('http://localhost:3001/calander');
+    const appointments = response.data
 
-    for (appointment of appointments) {
+
+    for (const appointment of appointments) {
         const appointmentDate = new Date(appointment.date);
 
         if (appointmentDate <= today) {

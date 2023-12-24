@@ -25,9 +25,6 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
     const indexOfFirstCarInfos = indexOfLastCarInfos - carDiscriptionPerPage
     const currentCarInfos = dataToPaginate.slice(indexOfFirstCarInfos, indexOfLastCarInfos) 
 
-    
-    
-    console.log('curent car infos', currentCarInfos)
 
     //Pagination
     const pageNumbers = []
