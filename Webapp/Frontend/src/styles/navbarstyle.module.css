@@ -50,8 +50,6 @@
     column-gap: .5rem;
 }
 
-
-
 .linksWrapper{
     background-color: #ec712e; 
     display: flex;
@@ -86,6 +84,11 @@ a.focus{
     color: black
 }
 
+.faBars{
+    color: white;
+    visibility: hidden;
+}
+
 .magnifyingGlass{
     color: white;
     font-size: 2rem;
@@ -94,5 +97,68 @@ a.focus{
 
 .magnifyingGlass:hover{
     color: black;
+}
+
+.modalMainContainer{
+    transform: translate(-15%, 46%);
+    background-color: #ec712e;
+    height: max-content;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.closeWrapper p{
+    font-size: 2rem;
+    border: 1px solid black;
+    width: max-content;
+    margin-top: .5rem;
+    cursor: pointer;
+}
+
+.modalLinks{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    font-size: 2rem;
+    padding: .5rem;
+}
+
+@media(max-width: 850px) {
+    .addressAndContactContainer {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    @media(max-width:810px) {
+        .addressWrapper p,
+        .contactWrapper p{
+            font-size: .5rem;
+        }
+
+        .addressAndContactContainer{
+            margin-left: -2rem;
+        }
+    }
+}
+
+@media(max-width: 905px) {
+    .links{
+        width: 80%;
+    }
+
+    @media(max-width: 650px) {
+        .links{
+            visibility: hidden;
+        }
+
+        .faBars{
+            visibility: visible;
+            font-size: 2rem;
+        }
+
+        
+    }
 }
 

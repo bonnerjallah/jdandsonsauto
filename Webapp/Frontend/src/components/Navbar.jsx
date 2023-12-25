@@ -1,12 +1,22 @@
+import { useState } from "react"
 import { NavLink, Outlet } from "react-router-dom"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faLocationDot, faPhoneVolume, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import {faLocationDot, faPhoneVolume, faMagnifyingGlass, faBars} from '@fortawesome/free-solid-svg-icons'
 
 
 import navbarstyle from "../styles/navbarstyle.module.css"
 
+import WebNavBarModal from "./WebNavBarModal"
 
 const Navbar = () => {
+
+
+    const [openWebNavbarModal, setOpenWebNavbarModal] = useState(false)
+
+    const handleNaveModal = () => {
+        setOpenWebNavbarModal(true)
+    }
+
     return (
         <div className={navbarstyle.container}>
             <div to="/" className={navbarstyle.logoAndContactWrapper}>
@@ -31,6 +41,12 @@ const Navbar = () => {
             </div>
 
             <div className={navbarstyle.linksWrapper}>
+                <NavLink>
+                    <FontAwesomeIcon icon={faBars} className={navbarstyle.faBars} onClick={() => {handleNaveModal()}}/>
+                </NavLink>
+
+                {openWebNavbarModal && <WebNavBarModal closeNavBarModal={setOpenWebNavbarModal} />}
+
                 <ul className={navbarstyle.links}>
                     <NavLink to='/'><li>Home</li></NavLink>
                     <NavLink to="InventoryPage"><li>Inventory</li></NavLink>
@@ -39,6 +55,8 @@ const Navbar = () => {
                     <NavLink to="AboutUs"><li>About Us</li></NavLink>
                     <NavLink to="ContactUs"><li>Contact Us</li></NavLink>
                 </ul>
+
+                
 
                 <NavLink to='CarFinder'>
                     <FontAwesomeIcon icon={faMagnifyingGlass} className={navbarstyle.magnifyingGlass} />

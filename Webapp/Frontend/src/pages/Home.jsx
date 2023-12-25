@@ -122,15 +122,15 @@ const Home = () => {
             <div className={homestyle.helpHealthyCarContainer}>
                 <div className={homestyle.helpWrapper}>
                     <div>
-                        <FontAwesomeIcon icon={faHandshakeAngle} style={{fontSize: '4rem', position: 'absolute', top: '30'}}  />
+                        <FontAwesomeIcon className={homestyle.fontIcons} icon={faHandshakeAngle} style={{ position: 'absolute', top: '30'}}  />
                     </div>
-                    <p><span style={{fontSize: '1.5rem', color: '#ec712e', fontWeight: "bold"}}>WE ARE HERE TO HELP!</span> <br /><br /> JD and Sons Auto Broker, your top choice for premium, previously-owned vehicles in Atlanta! Our dedicated team is committed to delivering an outstanding car-buying experience. Leveraging our exclusive connections in the dealer community, we acquire a diverse selection of lease returns and new car trades at remarkable prices, which we gladly pass on to you. Additionally, we ensuring you can drive home your dream car, regardless of your financial situation. Explore our online inventory of used cars, set up a test drive, or make an offer now.</p>
+                    <p><span>WE ARE HERE TO HELP!</span> <br /><br /> JD and Sons Auto Broker, your top choice for premium, previously-owned vehicles in Atlanta! Our dedicated team is committed to delivering an outstanding car-buying experience. Leveraging our exclusive connections in the dealer community, we acquire a diverse selection of lease returns and new car trades at remarkable prices, which we gladly pass on to you. Additionally, we ensuring you can drive home your dream car, regardless of your financial situation. Explore our online inventory of used cars, set up a test drive, or make an offer now.</p>
                 </div>
                 <div className={homestyle.HealthyCarWrapper}>
                     <div>
-                        <FontAwesomeIcon icon={faUserTie} style={{fontSize: '4rem', position: 'absolute', top: '30'}} />
+                        <FontAwesomeIcon className={homestyle.fontIcons} icon={faUserTie} style={{ position: 'absolute', top: '30'}} />
                     </div>
-                    <p><span style={{fontSize: '1.5rem', color: '#ec712e', fontWeight: "bold"}}>JD & SONS AUTO BROKER</span> <br /> <br />
+                    <p><span>JD & SONS AUTO BROKER</span> <br /> <br />
                     Our Sales team are available to help you with all your automobile needs. Feel free to come by the store any time to meet us in person. We invite you to take a tour of our facility and enjoy a pressure free car buying experience.
                     </p>
                 </div>
