@@ -129,3 +129,22 @@ form input:focus{
     height: 2rem;
     width: 15rem;
 }
+
+@media (max-width: 1250px) {
+    .tradeInInputWrapper input {
+        width: 20rem;
+    }
+}
+
+@media (max-width: 960px) {
+    .tradeInInputWrapper input {
+        width: 15rem;
+    }
+}
+
+@media (max-width: 780px) {
+    .tradeInInputWrapper input {
+        width: 10rem;
+    }
+}
+
