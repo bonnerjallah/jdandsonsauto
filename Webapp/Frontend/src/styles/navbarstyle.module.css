@@ -68,6 +68,7 @@
     justify-content: space-between;
     align-items: center;
     padding-left: 1rem;
+    margin-left: -30rem;
 }
 
 a{
@@ -143,9 +144,10 @@ a.focus{
     }
 }
 
-@media(max-width: 905px) {
+@media(max-width: 1105px) {
     .links{
         width: 80%;
+        margin-left: -10rem;
     }
 
     @media(max-width: 650px) {

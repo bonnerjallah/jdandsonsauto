@@ -100,7 +100,7 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
                                     <h4>{elem.carname}</h4>
                                 </div>
                                 <div className={inventorystyle.otherDisCripContainer}>
-                                    <div style={{display: "flex"}}>
+                                    <div className={inventorystyle.smallSectionWrapper} style={{display: "flex"}}>
                                         <div className={inventorystyle.smallSection}>
                                             <small>Drivetrain</small>
                                             <p>{elem.drivetrain}</p>

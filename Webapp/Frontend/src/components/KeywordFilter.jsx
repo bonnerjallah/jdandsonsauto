@@ -1,5 +1,8 @@
 import { useState, useEffect, useMemo} from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+
 import inventorystyle from '../styles/inventorystyle.module.css'
 
 const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, filterByMiles, filterByPrice}) => {
@@ -75,8 +78,6 @@ const KeywordFilter = ({carDiscription, keyWordFilterAndPaginate, sideFilters, f
         keyWordFilterAndPaginate(finalData);
     
     }, [sortedCars, sideFilters, filterByMiles, filteredData, filterByPrice]);
-    
-
     
 
 

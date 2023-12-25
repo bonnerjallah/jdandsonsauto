@@ -72,8 +72,6 @@ const InventoryPage = () => {
     }
 
 
-
-
     //Side bar Filter callbacks functions logic
 
     //calback function for sidebar year, make/model, drivetrain, transmission filter
@@ -119,7 +117,7 @@ const InventoryPage = () => {
                 </div>
 
                 <div className={inventorystyle.mainContainer}>
-                    <div>
+                    <div className={inventorystyle.sidebarfilterWrapper}>
                         <Filter carDiscription={carDiscription} sidebarFilterData={sidebarFilterData} filterByMilesData={filterByMilesData} filterByPriceData={filterByPriceData} />
                     </div>
 

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import filterstyle from '../styles/filterstyle.module.css'
 
-import { isEqual } from 'lodash';
 
 
 
@@ -271,11 +270,7 @@ const Filter = ({carDiscription, sidebarFilterData, filterByMilesData, filterByP
 
         filterByPriceData(filterCarPrice)
 
-        console.log("filter car price", filterCarPrice)
     }
-
-
-
 
 
 

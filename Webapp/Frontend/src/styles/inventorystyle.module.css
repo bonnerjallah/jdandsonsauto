@@ -65,6 +65,8 @@
     column-gap: .5rem;
 }
 
+
+
 /**
 *! Mian Container style
 **/
@@ -230,7 +232,55 @@
 .milesRange p{
     width: 100%;
     background-color: #ec712e;
-
-    
 }
 
+
+@media(max-width: 1130px) {
+    .priceAmountWrapper{
+        font-size: .7rem;
+        width: max-content;
+    }
+
+    .smallSectionWrapper{
+        font-size: .8rem;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 1021px) {
+    .KeywordSearchBarAndSortByContainer {
+        width: 50%;
+        height: 3rem;    
+    }
+
+    .searchBarWrapper input {
+        width: 15rem;
+        height: 2rem;
+    }
+}
+
+@media(max-width:810px) {
+    .sidebarfilterWrapper{
+        visibility: hidden;
+    }
+
+    .filterOptionIcon{
+        visibility: hidden;
+    }
+
+    .KeywordSearchBarAndSortByContainer{
+        margin-left: 2rem;
+        width: 70%;
+        height: 4rem;
+    }
+
+    .searchBarWrapper input {
+        width: 10rem;
+        height: 2rem;
+    }
+
+    .carInfomainBox{
+        margin-left: -10rem ;
+    }
+}

@@ -16,7 +16,8 @@ const WebNavBarModal = ({closeNavBarModal}) => {
                 <NavLink to="/AboutUs" onClick={() => { closeNavBarModal(false) }}>ABOUT US</NavLink>
                 <NavLink to="/ContactUs" onClick={() => { closeNavBarModal(false) }}>CONTACT US</NavLink>
             </ul>
-        </div>    )
+        </div>    
+    )
 }
 
 export default WebNavBarModal
