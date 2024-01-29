@@ -179,12 +179,7 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
                 </div>
             </div>
 
-            <div className={inventorystyle.recentlyViewedContainer}>
-                <h2>RECENTLY VIEWED</h2>
-                <div>
-
-                </div>
-            </div>
+           
         </div>
     )
 }

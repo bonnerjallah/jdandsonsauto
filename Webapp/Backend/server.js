@@ -29,7 +29,7 @@ db.connect((err) => {
 })
 
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['https://jdnsonsautobrokers.com'],
     methods: ['GET', 'POST', ]
 }));
 
