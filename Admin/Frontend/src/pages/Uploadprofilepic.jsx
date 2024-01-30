@@ -37,7 +37,7 @@ const Uploadprofilepic = () => {
 
     
         try {
-            const res = await axios.put('http://localhost:3001/profilepic', formData, {
+            const res = await axios.put('http://jdadmin.jdnsonsautobrokers.com/profilepic', formData, {
                 headers: { "Content-Type": 'multipart/form-data' }
             });
     

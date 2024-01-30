@@ -9,7 +9,7 @@ const RecentTransactions = () => {
     const [purchase, setPurchase] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/purchases')
+        axios.get('http://jdadmin.jdnsonsautobrokers.com/purchases')
             .then((res) => {
                 if (res.status === 200) {
                     setPurchase(res.data); 

@@ -46,7 +46,7 @@ const VehicleUpdate = () => {
     useEffect(() => {
         const carInformation = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/cardiscrip/${id}`);
+                const response = await axios.get(`http://jdadmin.jdnsonsautobrokers.com/cardiscrip/${id}`);
                 if (response.status === 200) {
                     setCarData(response.data[0]);
                 }
@@ -86,7 +86,7 @@ const VehicleUpdate = () => {
 
         try {
             if(action === 'edit') {
-                const response = await axios.put('http://localhost:3001/cardiscripupdate', carData, {
+                const response = await axios.put('http://jdadmin.jdnsonsautobrokers.com/cardiscripupdate', carData, {
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -127,7 +127,7 @@ const VehicleUpdate = () => {
 
                 console.log("data being sent to the server", requestData)
 
-                const response = await axios.delete(`http://localhost:3001/deletecardata/${id}`, {
+                const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deletecardata/${id}`, {
                     headers: {
                         "Content-Type": "application/json"
                     },

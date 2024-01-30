@@ -36,7 +36,7 @@ const Sidebar = () => {
     if (user) {
         const token = Cookies.get('token'); // Retrieve the access token from the cookie
 
-        axios.get('http://localhost:3001/user', {
+        axios.get('http://jdadmin.jdnsonsautobrokers.com/user', {
             headers: {
                 'Authorization': `Bearer ${token}`, // Include the actual access token
             }
@@ -64,7 +64,7 @@ const Sidebar = () => {
             if (member && typeof member === 'object' && member.profilePic) {
                 const imagePicPromises = [member.profilePic].map(async (elem) => {
                     if (elem) {
-                        return `http://localhost:3001/profilepic/${elem}`;
+                        return `http://jdadmin.jdnsonsautobrokers.com/profilepic/${elem}`;
                     }
                     return null;
                 });

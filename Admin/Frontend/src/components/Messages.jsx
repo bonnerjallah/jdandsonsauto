@@ -15,13 +15,13 @@ const Messages = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const availabilityResponse = await axios.get("http://localhost:3001/availabilityandquote")
+                const availabilityResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/availabilityandquote")
                 const availMessage = availabilityResponse.data
 
-                const carfinderResponse = await axios.get("http://localhost:3001/carfinder")
+                const carfinderResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/carfinder")
                 const carfinderMessage = carfinderResponse.data
 
-                const messageResponse = await axios.get("http://localhost:3001/message")
+                const messageResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/message")
                 const messageData = messageResponse.data
 
                 const combineAllMessageData = availMessage.concat(carfinderMessage, messageData)

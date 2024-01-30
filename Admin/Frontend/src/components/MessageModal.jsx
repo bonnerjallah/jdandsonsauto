@@ -22,10 +22,10 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/cardiscrip");
+                const response = await axios.get("http://jdadmin.jdnsonsautobrokers.com/cardiscrip");
                 const carinfo = response.data;
     
-                const imageResponse = await axios.get("http://localhost:3001/images");
+                const imageResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/images");
                 const carImages = imageResponse.data;
     
                 const combinedData = carinfo.map((carElem) => {
@@ -44,7 +44,7 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
                     const imageDataArray = await Promise.all(
                         carToInquireAbout.images.map(async(elem) => {
                             if(elem) {
-                                const imageUrl = `http://localhost:3001/carimages/${elem.image_url}`
+                                const imageUrl = `http://jdadmin.jdnsonsautobrokers.com/carimages/${elem.image_url}`
                                 return imageUrl
                             }
                             return null
@@ -73,7 +73,7 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
 
         try {
             if(messageData && messageData.messageType && messageData.id) {
-                const response = await axios.delete(`http://localhost:3001/deleteMessage/${messageData.messageType}/${messageData.id}`)
+                const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deleteMessage/${messageData.messageType}/${messageData.id}`)
                 
                 if(response.status === 200) {
                     console.log("Deleted message successfully")

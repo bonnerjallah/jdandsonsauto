@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     async function refreshAccessToken({ setLoggedIn, setUser }) {
         try {
             const response = await axios.post(
-                'http://localhost:3001/refresh_token',
+                'http://jdadmin.jdnsonsautobrokers.com/refresh_token',
                 {},
                 {
                     headers: {

@@ -51,7 +51,7 @@ const ApptCalendar = () => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:3001/calander")
+        axios.get("http://jdadmin.jdnsonsautobrokers.com/calander")
         .then((res) => {
             if (res.status === 200) {
             const formattedData = res.data.map((elem) => ({
@@ -81,7 +81,7 @@ const ApptCalendar = () => {
         const formattedEndDate = format(newEvent.end, "yyyy-MM-dd'T'HH:mm:ss")
 
         try {
-            const response = await axios.post("http://localhost:3001/calander", {
+            const response = await axios.post("http://jdadmin.jdnsonsautobrokers.com/calander", {
                 title: newEvent.title,
                 start: formattedStartDate,
                 end: formattedEndDate

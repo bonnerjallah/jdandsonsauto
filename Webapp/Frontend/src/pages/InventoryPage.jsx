@@ -18,46 +18,46 @@ const InventoryPage = () => {
     //Use State for fetching data and images
     const [carDiscription, setCarDiscription] = useState([])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {    
-                // Fetch car details
-                const response = await axios.get('http://localhost:3001/cardiscrip');
-                const vehicleDiscriptionData = response.data;
-    
-                // Format miles and priceamount properties for each car
-                const formatedDataWithCommas = vehicleDiscriptionData.map((vehicleElem) => {
-                    // Format miles property
-                    vehicleElem.miles = parseFloat(vehicleElem.miles).toLocaleString();
-    
-                    // Format priceamount property
-                    vehicleElem.priceamount = parseFloat(vehicleElem.priceamount).toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
+        useEffect(() => {
+            const fetchData = async () => {
+                try {    
+                    // Fetch car details
+                    const response = await axios.get('http://localhost:3001/cardiscrip');
+                    const vehicleDiscriptionData = response.data;
+        
+                    // Format miles and priceamount properties for each car
+                    const formatedDataWithCommas = vehicleDiscriptionData.map((vehicleElem) => {
+                        // Format miles property
+                        vehicleElem.miles = parseFloat(vehicleElem.miles).toLocaleString();
+        
+                        // Format priceamount property
+                        vehicleElem.priceamount = parseFloat(vehicleElem.priceamount).toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        });
+        
+                        return vehicleElem;
                     });
-    
-                    return vehicleElem;
-                });
-    
-                const carInformation = formatedDataWithCommas;
-    
-                // Fetch car Images
-                const imagesResponse = await axios.get('http://localhost:3001/carImages');
-                const carImage = imagesResponse.data;
-    
-                // Combine data
-                const combinedData = carInformation.map((carElem) => {
-                    const imagesForCar = carImage.filter((imageElem) => imageElem.car_id === carElem.id);
-                    carElem.images = imagesForCar;
-                    return carElem;
-                });
-    
-                setCarDiscription(combinedData);
-    
-            } catch (error) {
-                console.error("Error fetching car discription from database", error);
-            }
-        };
+        
+                    const carInformation = formatedDataWithCommas;
+        
+                    // Fetch car Images
+                    const imagesResponse = await axios.get('http://localhost:3001/carImages');
+                    const carImage = imagesResponse.data;
+        
+                    // Combine data
+                    const combinedData = carInformation.map((carElem) => {
+                        const imagesForCar = carImage.filter((imageElem) => imageElem.car_id === carElem.id);
+                        carElem.images = imagesForCar;
+                        return carElem;
+                    });
+        
+                    setCarDiscription(combinedData);
+        
+                } catch (error) {
+                    console.error("Error fetching car discription from database", error);
+                }
+            };
     
         fetchData();
     }, []);

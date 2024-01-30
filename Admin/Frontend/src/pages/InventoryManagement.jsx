@@ -25,7 +25,7 @@ const InventoryManagement = () => {
         
     useEffect(() => {
         axios
-            .get("http://localhost:3001/cardiscrip" + (id ? `/${id}` : "" ))
+            .get("http://jdadmin.jdnsonsautobrokers.com/cardiscrip" + (id ? `/${id}` : "" ))
             .then((res) => {
                 if (res.status === 200) {
                     const data = res.data;

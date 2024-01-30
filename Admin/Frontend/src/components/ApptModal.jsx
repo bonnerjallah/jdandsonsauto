@@ -48,7 +48,7 @@ const ApptModal = ({closeApptModal, apptData}) => {
 
         try {
             console.log("Data being sent", localApptEditData)
-            const response = await axios.put("http://localhost:3001/calander", {
+            const response = await axios.put("http://jdadmin.jdnsonsautobrokers.com/calander", {
                 id: localApptEditData.id,
                 title: localApptEditData.title,
                 start: formattedStartDate,
@@ -91,7 +91,7 @@ const ApptModal = ({closeApptModal, apptData}) => {
 
         try {
             console.log("data sent to be deleted", formattedStartDate, formattedEndDate)
-            const response = await axios.delete(`http://localhost:3001/deleteappt`, {
+            const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deleteappt`, {
                 id: localApptEditData.id,
                 title: localApptEditData.title,
                 start: formattedStartDate,

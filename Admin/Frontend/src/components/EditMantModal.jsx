@@ -26,7 +26,7 @@ const EditMantModal = ({closeModal, editData}) => {
         }
 
         try {
-            const response = await axios.put("http://localhost:3001/updateSvcMaint", localEditData, {
+            const response = await axios.put("http://jdadmin.jdnsonsautobrokers.com/updateSvcMaint", localEditData, {
                 headers: {"Content-Type": "application/json"}
             })
             if(response.status === 200) {

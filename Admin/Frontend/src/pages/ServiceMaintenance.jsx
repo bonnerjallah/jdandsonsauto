@@ -33,7 +33,7 @@ const ServiceMaintenance = () => {
         e.preventDefault();
     
         try {
-            const response = await axios.post("http://localhost:3001/servicemaintenance", maintInputData, {
+            const response = await axios.post("http://jdadmin.jdnsonsautobrokers.com/servicemaintenance", maintInputData, {
                 headers: { "Content-Type": 'application/json' }
             });
     
@@ -61,7 +61,7 @@ const ServiceMaintenance = () => {
     const [maintenanceData, setMaintenanceData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3001/servicemaintenance')
+        axios.get('http://jdadmin.jdnsonsautobrokers.com/servicemaintenance')
             .then((res) => {
                 if(res.status === 200) {
                     setMaintenanceData(res.data)
@@ -91,7 +91,7 @@ const ServiceMaintenance = () => {
         }
 
         try {
-            const response = await axios.delete(`http://localhost:3001/deleteSvcMaint/${id}`)
+            const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deleteSvcMaint/${id}`)
 
             if (response.status === 200) {
                 console.log("Deleted successfully")

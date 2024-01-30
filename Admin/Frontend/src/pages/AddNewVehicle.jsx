@@ -142,7 +142,7 @@ const AddNewVehicle = () => {
         }
 
         try{   
-            const res = await axios.post("http://localhost:3001/cardiscrip", formData, {
+            const res = await axios.post("http://jdadmin.jdnsonsautobrokers.com/cardiscrip", formData, {
                 headers: { 'Content-Type': 'multipart/form-data' } // Use 'multipart/form-data' for FormData
             })
 

@@ -19,7 +19,7 @@ const Navbar = () => {
 
     const handleLogOut = async () => {
         try {
-            const res = axios.post("http://localhost:3001/logout", {}, {
+            const res = axios.post("http://jdadmin.jdnsonsautobrokers.com/logout", {}, {
                 withCredential: true
             })
         } catch (error) {

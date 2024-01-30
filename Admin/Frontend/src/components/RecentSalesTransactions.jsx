@@ -8,7 +8,7 @@ const RecentSalesTransactions = () => {
     const [customerData, setCustomerData] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3001/customers')
+        axios.get('http://jdadmin.jdnsonsautobrokers.com/customers')
         .then((res) => {
             if (res.status === 200) {
             const formattedData = res.data.map((elem) => {

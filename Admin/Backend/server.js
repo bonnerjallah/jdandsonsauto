@@ -22,7 +22,7 @@ const jwtSec = process.env.VITE_jwtSecret
 const refTok = process.env.VITE_jwtRefreshSecret
 
 const db = mysql2.createConnection({
-    host: 'localhost',
+    host: 'jdadmin.jdnsonsautobrokers.com',
     user: 'root',
     password: dbpassword,
     database: 'jdandsonsauto'
@@ -40,7 +40,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-    origin:['http://localhost:5173'] ,
+    origin:['https://jdadmin.jdnsonsautobrokers.com'] ,
     methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true
 }))

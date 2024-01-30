@@ -17,7 +17,7 @@ const MessageCenter = () => {
     const[message, setMessage] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3001/availabilityandquote")
+        axios.get("http://jdadmin.jdnsonsautobrokers.com/availabilityandquote")
             .then((res) => {
                 if(res.status === 200) {
                     setAvailabilityMessage(res.data)
@@ -32,7 +32,7 @@ const MessageCenter = () => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:3001/carfinder")
+        axios.get("http://jdadmin.jdnsonsautobrokers.com/carfinder")
             .then((res) => {
                 if(res.status === 200) {
                     setCarFinderMessage(res.data)
@@ -47,7 +47,7 @@ const MessageCenter = () => {
 
     
     useEffect(() => {
-        axios.get("http://localhost:3001/message")
+        axios.get("http://jdadmin.jdnsonsautobrokers.com/message")
             .then((res) => {
                 if(res.status === 200) {
                     setMessage(res.data)
