@@ -28,18 +28,18 @@ const ViewDetails = () => {
         const fetchData = async () => {
             try {
                 // Fetch car data
-                const carResponse = await axios.get('http://localhost:3001/cardiscrip');
+                const carResponse = await axios.get('http://jdnsonsautobrokers.com/cardiscrip');
                 const carinfo = carResponse.data;
     
                 // Compare car data to the id in the params
                 const filtercar = carinfo.filter((elem) => elem.id === parseInt(id));
     
                 // Fetch images
-                const imagesResponse = await axios.get('http://localhost:3001/carImages');
+                const imagesResponse = await axios.get('http://jdnsonsautobrokers.com/carImages');
                 const carImage = imagesResponse.data;
     
                 // Fetch vehicle features (equip)
-                const equipWithResponse = await axios.get('http://localhost:3001/equip');
+                const equipWithResponse = await axios.get('http://jdnsonsautobrokers.com/equip');
                 const vehicleFeatures = equipWithResponse.data;
     
                 // Combine car data with corresponding image
@@ -80,7 +80,7 @@ const ViewDetails = () => {
     const carImagesUrls = car && car[0] && car[0].images
     ? car[0].images
         .filter((elem) => elem.image_url)
-        .map((filtercarelem) => `http://localhost:3001/carImages/${filtercarelem.image_url}`)
+        .map((filtercarelem) => `http://jdnsonsautobrokers.com/carImages/${filtercarelem.image_url}`)
     : [];
 
     //Modal logic

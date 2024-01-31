@@ -14,7 +14,7 @@ const SimilarVehicle = ({car}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/cardiscrip');
+                const response = await axios.get('http://jdnsonsautobrokers.com/cardiscrip');
                 const fetchedCar = response.data;
         
                 let compareCars = [];
@@ -32,7 +32,7 @@ const SimilarVehicle = ({car}) => {
                     });
                 }
     
-                const imageResponse = await axios.get('http://localhost:3001/carImages');
+                const imageResponse = await axios.get('http://jdnsonsautobrokers.com/carImages');
                 const carImages = imageResponse.data;
     
                 const combinedData = compareCars.map((compareCarsElem) => {
@@ -80,7 +80,7 @@ const SimilarVehicle = ({car}) => {
                         sameKindOfCar
                             .map((filteredCar, id) => (
                                 <p key={id} className={similarvehiclestyle.vechileImageAndDetails} >
-                                        <img src={`http://localhost:3001/carImages/${filteredCar.images[3]?.image_url}`} width='80rem' />
+                                        <img src={`http://jdnsonsautobrokers.com/carImages/${filteredCar.images[3]?.image_url}`} width='80rem' />
                                         <span>
                                             {filteredCar.caryear}
                                             <br />

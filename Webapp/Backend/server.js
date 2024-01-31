@@ -11,13 +11,15 @@ app.use(express.urlencoded({extended: true }))
 
 
 const dbpassword = process.env.VITE_DBPWD
+const dbName = process.env.VITE_DatabaseName
+const dbUserName = process.env.VITE_UserName
 
 
 const db = mysql2.createConnection({
-    host : "localhost",
-    user : "root",
+    host : "jdnsonsautobrokers.com",
+    user : dbUserName,
     password : dbpassword,
-    database : "jdandsonsauto"
+    database : dbName
 })
 
 db.connect((err) => {

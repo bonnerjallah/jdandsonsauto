@@ -23,7 +23,7 @@ const ApplyOnLine = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/cardiscrip')
+                const response = await axios.get('http://jdnsonsautobrokers.com/cardiscrip')
                 const carinfo = response.data
 
                 const filterCar = carinfo.filter((elem) => elem.id === parseInt(id));
