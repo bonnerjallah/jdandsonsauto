@@ -17,6 +17,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true }))
 
+const dbHostName = process.env.VITE_HostName
 const dbName = process.env.VITE_DatabaseName
 const dbpassword = process.env.VITE_DBPWD
 const dbUserName = process.env.VITE_UserName
@@ -24,7 +25,7 @@ const jwtSec = process.env.VITE_jwtSecret
 const refTok = process.env.VITE_jwtRefreshSecret
 
 const db = mysql2.createConnection({
-    host: 'jdadmin.jdnsonsautobrokers.com',
+    host: dbHostName,
     user: dbUserName,
     password: dbpassword,
     database: dbName
