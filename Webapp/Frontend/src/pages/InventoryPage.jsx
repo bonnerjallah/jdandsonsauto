@@ -22,7 +22,7 @@ const InventoryPage = () => {
             const fetchData = async () => {
                 try {    
                     // Fetch car details
-                    const response = await axios.get('http://jdnsonsautobrokers.com/cardiscrip');
+                    const response = await axios.get('https://jdnsonsautobrokers.com/cardiscrip');
                     const vehicleDiscriptionData = response.data;
         
                     // Format miles and priceamount properties for each car
@@ -42,7 +42,7 @@ const InventoryPage = () => {
                     const carInformation = formatedDataWithCommas;
         
                     // Fetch car Images
-                    const imagesResponse = await axios.get('http://jdnsonsautobrokers.com/carImages');
+                    const imagesResponse = await axios.get('https://jdnsonsautobrokers.com/carImages');
                     const carImage = imagesResponse.data;
         
                     // Combine data

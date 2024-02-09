@@ -38,7 +38,7 @@ const ContactUs = () => {
         e.preventDefault()
 
         try {
-            const response = await axios.post("http://jdnsonsautobrokers.com/message", contactMessage, {
+            const response = await axios.post("https://jdnsonsautobrokers.com/message", contactMessage, {
                 headers: {"Content-Type": "application/json"}
             })
 

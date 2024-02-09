@@ -80,7 +80,7 @@ const SimilarVehicle = ({car}) => {
                         sameKindOfCar
                             .map((filteredCar, id) => (
                                 <p key={id} className={similarvehiclestyle.vechileImageAndDetails} >
-                                        <img src={`http://jdnsonsautobrokers.com/carImages/${filteredCar.images[3]?.image_url}`} width='80rem' />
+                                        <img src={`https://jdnsonsautobrokers.com/carImages/${filteredCar.images[3]?.image_url}`} width='80rem' />
                                         <span>
                                             {filteredCar.caryear}
                                             <br />

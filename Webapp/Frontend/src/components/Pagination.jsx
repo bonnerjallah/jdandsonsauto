@@ -90,7 +90,7 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
                                         .filter((image) => image.car_id === elem.id)  // Filter images based on car_id
                                         .slice(3, 4)  // Take only the forth image
                                         .map((filteredImage, index) => (
-                                        <img key={index} src={`http://jdnsonsautobrokers.com/carImages/${filteredImage.image_url}`} alt={`Image ${index}`} width="100%" height="100%" />
+                                        <img key={index} src={`https://jdnsonsautobrokers.com/carImages/${filteredImage.image_url}`} alt={`Image ${index}`} width="100%" height="100%" />
                                     ))}
                                 </NavLink>
                             </div>

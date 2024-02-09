@@ -13,7 +13,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const res = await axios.get('http://jdnsonsautobrokers.com/carImages');
+                const res = await axios.get('https://jdnsonsautobrokers.com/carImages');
                 if (res.status === 200) {
                     const avaliDataImage = avaliData.images.find((image, index) => index === 3);
                     
@@ -77,7 +77,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
         e.preventDefault()
         try {
             const response = await axios.post(
-                "http://jdnsonsautobrokers.com/availabilityAndQuote",
+                "https://jdnsonsautobrokers.com/availabilityAndQuote",
                 { ...quoteAndAvail, ...contactType }, // Combine quoteAndAvail and contactType into a single object
                 {
                     headers: { "Content-Type": "application/json" },
@@ -123,7 +123,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
                 <h4 style={{color: '#ec712e'}}>INTERESTED VEHICLE</h4>
                 <div className={availabilitymodalstyle.imageAndDiscriptionContainer}>
                     <div className={availabilitymodalstyle.imageWrapper}>
-                        <img src={`http://jdnsonsautobrokers.com/carImages/${modalVehicleImage}`} alt="Car Image"  width='100%' height='100%'/>
+                        <img src={`https://jdnsonsautobrokers.com/carImages/${modalVehicleImage}`} alt="Car Image"  width='100%' height='100%'/>
                     </div>
                     <div>
                         <div style={{display: 'flex', columnGap: '1rem', marginBottom: '.5rem'}}>
