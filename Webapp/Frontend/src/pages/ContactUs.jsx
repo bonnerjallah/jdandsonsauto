@@ -3,6 +3,8 @@ import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPhone, faEnvelopeOpen, faLocationDot, faCircleQuestion  } from "@fortawesome/free-solid-svg-icons"
 
+import { useNavigate } from "react-router-dom"
+
 import MapComponent from "../components/Map"
 import Footer from "../components/Footer"
 
@@ -12,8 +14,13 @@ import contactusstyle from '../styles/contactusstyle.module.css'
 import ScrollToTopOnMount from "../components/ScrollToTopOnMont"
 
 
+const backendUrl = import.meta.env.VITE_APP_BACKEND_URL
+
+
 
 const ContactUs = () => {
+
+    const navigate = useNavigate()
 
     const [contactMessage, setContactMessage] = useState({
         firstname: '',
@@ -34,27 +41,12 @@ const ContactUs = () => {
     };
     
 
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = async (e) => { 
         e.preventDefault()
 
         try {
-            const response = await axios.post("https://jdnsonsautobrokers.com/message", contactMessage, {
-                headers: {"Content-Type": "application/json"}
-            })
+            navigate('/')
 
-            if(response.status >= 200 && response.status < 300) {
-                console.log("Message sent successfully")
-
-                setContactMessage({
-                    firstname: '',
-                    lastname: '',
-                    phonenumber: '',
-                    email: '',
-                    message: ''
-                })
-            } else {
-                console.log('Error', response.data);
-            }
             
         } catch (error) {
             console.log("Error sending customer message", error)

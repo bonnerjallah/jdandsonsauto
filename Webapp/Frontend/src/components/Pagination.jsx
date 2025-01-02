@@ -27,8 +27,6 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
     const indexOfFirstCarInfos = indexOfLastCarInfos - carDiscriptionPerPage
     const currentCarInfos = dataToPaginate.slice(indexOfFirstCarInfos, indexOfLastCarInfos) 
 
-    console.log("carinofs",currentCarInfos)
-
 
     //Pagination
     const pageNumbers = []
@@ -52,8 +50,10 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
     const [avaliData, setAvaliData] = useState()
 
     const handleAvailabilityModal = (elem) => {
+
+        let carElem = elem
         setOpenAvalModal(true);
-        setAvaliData(elem);
+        setAvaliData(carElem);
     };
 
 
@@ -156,10 +156,10 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
                         <div>
                             <button onClick={() => handleAvailabilityModal(elem)}>CONFIRM AVAILABILITY</button>
                             <button onClick={() => handleAvailabilityModal(elem)} >REQUEST A QUOTE</button>
-                            <NavLink to={`/ApplyOnLine/${elem.id}`}>
+                            <NavLink to={`/ApplyOnLine/${elem._id}`}>
                                 <button>APPLY ONLINE</button>
                             </NavLink>
-                            <NavLink to={ `/ViewDetails/${elem.id}`}>
+                            <NavLink to={ `/ViewDetails/${elem._id}`}>
                                 <button>VIEW DETAILS</button>
                             </NavLink>
                         </div>

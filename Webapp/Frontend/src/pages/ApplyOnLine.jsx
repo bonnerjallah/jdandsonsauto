@@ -13,20 +13,23 @@ import applyonline from "../styles/applyonlinestyle.module.css"
 import axios from 'axios';
 
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+
 
 const ApplyOnLine = () => {
 
-    const {id} = useParams()
+    const {_id} = useParams()
 
     const [car, setCar] = useState()
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://jdnsonsautobrokers.com/cardiscrip')
+                const response = await axios.get(`${backendUrl}/getCarData`)
                 const carinfo = response.data
 
-                const filterCar = carinfo.filter((elem) => elem.id === parseInt(id));
+                const filterCar = carinfo.filter((elem) => elem._id === _id);
 
                 if(filterCar.length > 0) {
                     setCar(filterCar[0])
@@ -39,7 +42,7 @@ const ApplyOnLine = () => {
             }
         }
         fetchData()
-    }, [id])
+    }, [_id])
 
 
 

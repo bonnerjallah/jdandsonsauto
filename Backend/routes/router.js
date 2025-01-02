@@ -4,7 +4,7 @@ const path = require('path');
 
 const { createAdminUser, login, refreshAdminToken, validateAdminAccessToken, getAdminMember, adminLogOut } = require('../contorllers/controller');
 
-const {addCars, purchase, createCustomer, createServiceMaintenance, createCalendarEntry, createCarFinder} = require("./posts"); 
+const {addCars, purchase, createCustomer, createServiceMaintenance, createCalendarEntry, createCarFinder, createAvilibilityQuotes, createMessage} = require("./posts"); 
 const {updateCarDescription, updateProfilePic, updateCalendarEvent, updateServiceMaintenance} = require("./puts");  
 const {deleteCarData, deleteAppointment, deleteMessage, deleteSvcMaint } = require("./delets");
 const {getAppointments, getServiceMaintenance, getCustomers, getMessages, getPurchases, getCardiscripData, getSelectedCarData, getAvailabilityAndQuoteData, getCarFinderData } = require("./gets");
@@ -77,6 +77,8 @@ router.post('/createservicemaintenance', createServiceMaintenance);
 router.post('/createcalendarentry', createCalendarEntry);
 router.post('/adminlogout', adminLogOut);
 router.post('/createcarfinder', createCarFinder);
+router.post('/createavilibilityquotes', createAvilibilityQuotes);
+router.post('/createMessage', createMessage);
 
 
 router.put('/updatedescription', upload.array("editCarImages", 25), updateCarDescription);

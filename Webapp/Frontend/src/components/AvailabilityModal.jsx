@@ -2,37 +2,15 @@
 import { useEffect, useState } from "react"
 import availabilitymodalstyle from "../styles/availabilitymodalstyle.module.css"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
-const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
-
-    console.log("CAR", car)
-
-    //image fetch
-    const [modalVehicleImage, setModalVehicleImage] = useState('');
-
-    useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const res = await axios.get('https://jdnsonsautobrokers.com/carImages');
-                if (res.status === 200) {
-                    const avaliDataImage = avaliData.images.find((image, index) => index === 3);
-                    
-
-                    const filteredImage = avaliDataImage 
-
-                    if (filteredImage) {
-                        setModalVehicleImage(filteredImage.image_url);
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching images:', error);
-            }
-        };
-
-        fetchImages();
-    }, [avaliData, car]); 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 
+
+const AvailabilityModal = ({ avaliData, closeAvilModal, carData}) => {
+
+    const navigate = useNavigate()
 
     //handling form
     const [quoteAndAvail, setQuoteAndAvail] = useState({
@@ -41,7 +19,7 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
         phone_number: '',
         availability_email: '',
         availability_message: '',
-        car_id: (avaliData && avaliData.id) || (car && car.length > 0 && car[0].id) || null,
+        carData_id: (avaliData && avaliData._id) || (carData && carData.length > 0 && carData[0]._id) || null,
     })
 
     const [contactType, setContactType] = useState({
@@ -74,41 +52,23 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
     
 
     const handleFormSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await axios.post(
-                "https://jdnsonsautobrokers.com/availabilityAndQuote",
-                { ...quoteAndAvail, ...contactType }, // Combine quoteAndAvail and contactType into a single object
-                {
-                    headers: { "Content-Type": "application/json" },
-                }
-            );
-    
-            if (response.status >= 200 && response.status < 300) {
-                console.log("Message sent successfully");
-    
-                setQuoteAndAvail({
-                    first_name: "",
-                    last_name: "",
-                    phone_number: "",
-                    availability_email: "",
-                    availability_message: "",
-                    car_id: "",
-                });
-                
-                setContactType({
-                    byEmail: false,
-                    byPhone: false,
-                    SMS: false,
-                });
-            } else {
-                console.log("Error sending message", response.data);
-            }
-        } catch (error) {    
-            if (error.response) {
-                setErrorMessage(error.response.data.error)
-            }
-        }
+        e.preventDefault();
+
+
+        setQuoteAndAvail({
+            first_name: "",
+            last_name: "",
+            phone_number: "",
+            availability_email: "",
+            availability_message: "",
+            carData_id: "",
+        });
+
+        setTimeout(() => {
+            navigate('/');
+        }, 1000);
+        
+
     };
     
 
@@ -119,23 +79,25 @@ const AvailabilityModal = ({ avaliData, closeAvilModal, car}) => {
                 <h4 style={{color: '#ec712e'}}>CONFIRM AVAILABILITY / REQUEST A QUOTE</h4>
                 <p onClick={() => closeAvilModal(false)}>X</p>
             </div>
+
             <div className={availabilitymodalstyle.vehicleInfo}> 
                 <h4 style={{color: '#ec712e'}}>INTERESTED VEHICLE</h4>
                 <div className={availabilitymodalstyle.imageAndDiscriptionContainer}>
                     <div className={availabilitymodalstyle.imageWrapper}>
-                        <img src={`https://jdnsonsautobrokers.com/carImages/${modalVehicleImage}`} alt="Car Image"  width='100%' height='100%'/>
+                        <img src={`${backendUrl}/carimages/${avaliData?.carimages?.[0] || carData?.carimages?.[0]}`} alt="CarData Image"  width='100%' height='100%'/>
                     </div>
                     <div>
                         <div style={{display: 'flex', columnGap: '1rem', marginBottom: '.5rem'}}>
-                        <h2>{avaliData && avaliData.caryear ? avaliData.caryear : (car[0] && car[0].caryear)}</h2>
-                        <h2>{avaliData && avaliData.carname ? avaliData.carname : (car[0] && car[0].carname)}</h2>
+                        <h2>{avaliData && avaliData.caryear ? avaliData.caryear : (carData && carData.caryear)}</h2>
+                        <h2>{avaliData && avaliData.carname ? avaliData.carname : (carData && carData.carname)}</h2>
 
                         </div>
-                        <p style={{ marginBottom: '.5rem'}}>{avaliData && avaliData.priceamount ? avaliData.priceamount : (car[0] && car[0].priceamount)}</p>
-                        <p style={{letterSpacing: '.2rem'}}>Stock# {avaliData && avaliData.stocknum ? avaliData.stocknum : (car[0] && car[0].stocknum)}</p>                 
+                        <p style={{ marginBottom: '.5rem'}}>{avaliData && avaliData.priceamount ? avaliData.priceamount : (carData && carData.priceamount)}</p>
+                        <p style={{letterSpacing: '.2rem'}}>Stock# {avaliData && avaliData.stocknum ? avaliData.stocknum : (carData && carData.stocknum)}</p>                 
                     </div>
                 </div>
             </div>
+
             <div className={availabilitymodalstyle.formContainer}>
                 <h4 style={{color: '#ec712e'}}>HOW CAN WE REACH YOU</h4>
                 <form onSubmit={handleFormSubmit}>

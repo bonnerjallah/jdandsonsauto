@@ -26,6 +26,7 @@ const ViewDetails = () => {
 
     const [carImages, setCarImages] = useState('')
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -55,6 +56,8 @@ const ViewDetails = () => {
     const [carData, setCarData] = useState()
 
     const handleAvailabilityModal = (car) => {
+
+        console.log(car)
         setOpenAvalModal(true)
         setCarData(car)
     }
@@ -125,7 +128,8 @@ const ViewDetails = () => {
                             <p>{car[0].carname}</p>
                         </div>
                         <div className={viewdetailsstyle.vehiclePriceWrapper}>
-                            <p>$ {parseInt(car[0].priceamount).toLocaleString("en-us", {minimumFractionDigits:2, maximumFractionDigits:2})}</p>
+                        <p>Price: <span>${parseInt(car[0]?.priceamount || 0).toLocaleString("en-us", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
+
                         </div>
                     </div>
 
@@ -133,8 +137,8 @@ const ViewDetails = () => {
                         <div className={viewdetailsstyle.discripImageAndCalContainer}>
                                     <div className={viewdetailsstyle.dispriptionWrapper}>
                                         <p>Year: <span>{car[0].caryear}</span></p>
-                                        <p>Make: <span>{car[0]?.carname?.split(' ')[0] || ' '}</span></p>
-                                        <p>Modal: <span>{car[0]?.carname?.split(' ')[1] || ' '}</span></p>
+                                        <p>Make: <span>{car[0]?.carname?.split(' ')[0] || 'N/A '}</span></p>
+                                        <p>Modal: <span>{car[0]?.carname?.split(' ')[1] || 'N/A '}</span></p>
                                         <p>Trim: <span>{car[0].trim}</span></p>
                                         <p>Drivetrain: <span>{car[0].drivetrain}</span></p>
                                         <p>Transmission: <span>{car[0].transmiss}</span></p>
@@ -161,7 +165,7 @@ const ViewDetails = () => {
 
                                     <h4>Vehicle Price</h4>
                                     <div className={viewdetailsstyle.inputWrapper}>
-                                        <label htmlFor="vehiclePrice">$ </label><input type="text" name="vehiprice" value={car[0].formattedPrice || ''} id="vehiclePrice" readOnly />
+                                        <label htmlFor="vehiclePrice">$ </label><input type="text" name="vehiprice" value={car[0].priceamount || ''} id="vehiclePrice" readOnly />
                                     </div>
 
                                     <h4>Down Payment</h4>
@@ -189,7 +193,7 @@ const ViewDetails = () => {
                             </div>
                         </div>
 
-                        {openAvalModal && ( <AvailabilityModal car={car} closeAvilModal={setOpenAvalModal} />)}
+                        {openAvalModal && ( <AvailabilityModal carData={carData} closeAvilModal={setOpenAvalModal} />)}
 
                     <div className={viewdetailsstyle.buttonAndEquipContainer}>
                         <div className={viewdetailsstyle.buttonWrapper}>

@@ -2,7 +2,7 @@ import applyformstyle from '../styles/applyformstyle.module.css'
 
 const Applyform = ({car}) => {
 
-    
+            
     return (
         <div>
             <form>

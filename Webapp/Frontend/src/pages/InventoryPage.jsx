@@ -51,7 +51,6 @@ const InventoryPage = () => {
     fetchData();
     }, []);
 
-    console.log(carDiscription)
 
 
     //Keword filter data callback function logic

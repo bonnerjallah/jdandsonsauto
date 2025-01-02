@@ -4,6 +4,10 @@ const Customer = require("../models/customermodel");
 const ServiceMaintenance = require("../models/serviceMaintenanceModel");
 const Calendar = require("../models/calendarModel");
 const CustomerSearch = require("../models/carfindermodel");
+const AvilibilityQuotes = require("../models/avilibilityAndQuotesModel")
+const Message = require('../models/message')
+
+
 
 
 
@@ -212,10 +216,81 @@ const createCarFinder = async (req, res) => {
 };
 
 
+const createAvilibilityQuotes = async (req, res) => {
+
+    try {
+
+        const { first_name, last_name, phone_number, availability_email, availability_message, car_id, byEmail, byPhone, SMS } = req.body;
+
+        // Validate required fields
+        if (!first_name || !last_name || !phone_number || !availability_email || !availability_message || !car_id || !byEmail || !byPhone || !SMS) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        // Create a new customer search record
+        const newAvilibilityQuotes = new AvilibilityQuotes({
+            first_name,
+            last_name,
+            phone_number,
+            availability_email,
+            availability_message,
+            car_id,
+            byEmail,
+            byPhone,
+            SMS,
+        });
+
+        // Save the record to the database
+        const savedAvilibilityQuotes = await newAvilibilityQuotes.save();
+
+        // Respond with success
+        res.status(201).json({
+            message: "Customer search created successfully",
+            customerSearch: savedAvilibilityQuotes,
+        });
+
+    } catch (error) {
+        console.error("Error creating customer search", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+const createMessage = async (req, res) => {
+    try {
+        const { name, email, phone, message } = req.body;
+
+        // Validate required fields
+        if (!name || !email || !phone || !message) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        // Create a new message record
+        const newMessage = new Message({
+            name,
+            email,
+            phone,
+            message,
+        });
+
+        // Save the record to the database
+        const savedMessage = await newMessage.save();
+
+        // Respond with success
+        res.status(201).json({
+            message: "Message created successfully",
+            message: savedMessage,
+        });
+    } catch (error) {
+        console.error("Error creating message", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
 
 
 
 
 
 // Export the controllers
-module.exports = { addCars, purchase, createCustomer, createServiceMaintenance, createCalendarEntry, createCarFinder};
+module.exports = { addCars, purchase, createCustomer, createServiceMaintenance, createCalendarEntry, createCarFinder, createAvilibilityQuotes, createMessage};

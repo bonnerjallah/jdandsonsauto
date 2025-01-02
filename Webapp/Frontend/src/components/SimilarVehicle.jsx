@@ -18,8 +18,6 @@ useEffect(() => {
             const response = await axios.get(`${backendUrl}/getCarData`);
             const fetchedCar = response.data;
 
-            console.log("Fetched cars: ", fetchedCar);
-
             if (fetchedCar && fetchedCar.length > 0 && car && car.length > 0) {
                 const compareCars = fetchedCar.filter((elem) => 
                     elem.carname?.split?.(' ')[0] === car[0]?.carname?.split?.(' ')[0]
@@ -33,7 +31,6 @@ useEffect(() => {
                     }),
                 }));
 
-                console.log("Formatted cars: ", formattedCars);
                 setSameKindOfCar(formattedCars);
             }
         } catch (error) {
@@ -47,10 +44,6 @@ useEffect(() => {
 }, [car]);
 
     
-    
-    
-
-    console.log("sameKindOfCars", sameKindOfCar)
 
 
     return (

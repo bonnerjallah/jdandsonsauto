@@ -78,11 +78,6 @@ const CarFinder = () => {
     }
 
 
-
-
-
-
-
     return (
         <div>
             <div className={carfinderstyle.header}>
