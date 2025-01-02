@@ -31,6 +31,8 @@ const localizer = dateFnsLocalizer({
     locales
 })
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const ApptCalendar = () => {
 
@@ -51,7 +53,7 @@ const ApptCalendar = () => {
 
 
     useEffect(() => {
-        axios.get("http://jdadmin.jdnsonsautobrokers.com/calander")
+        axios.get(`${backendUrl}/getappointments`)
         .then((res) => {
             if (res.status === 200) {
             const formattedData = res.data.map((elem) => ({
@@ -81,7 +83,7 @@ const ApptCalendar = () => {
         const formattedEndDate = format(newEvent.end, "yyyy-MM-dd'T'HH:mm:ss")
 
         try {
-            const response = await axios.post("http://jdadmin.jdnsonsautobrokers.com/calander", {
+            const response = await axios.post(`${backendUrl}/calander`, {
                 title: newEvent.title,
                 start: formattedStartDate,
                 end: formattedEndDate

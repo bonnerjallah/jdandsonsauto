@@ -7,6 +7,8 @@ import Sidebar from "../components/Sidebar"
 
 import addvehiclestyle from '../style/addvehiclestyle.module.css'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const AddNewVehicle = () => {
 
@@ -142,7 +144,7 @@ const AddNewVehicle = () => {
         }
 
         try{   
-            const res = await axios.post("http://jdadmin.jdnsonsautobrokers.com/cardiscrip", formData, {
+            const res = await axios.post(`${backendUrl}/cardiscrip`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' } // Use 'multipart/form-data' for FormData
             })
 

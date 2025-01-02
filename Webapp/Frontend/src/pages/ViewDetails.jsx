@@ -14,57 +14,30 @@ import ScrollToTopOnMount from "../components/ScrollToTopOnMont"
 import viewdetailsstyle from '../styles/viewdetailsstyle.module.css'
 
 
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 
 
 
 const ViewDetails = () => {
-    const {id} = useParams()
+    const {_id} = useParams()
 
     const [car, setCar] = useState(' ')
+
+    const [carImages, setCarImages] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // Fetch car data
-                const carResponse = await axios.get('https://jdnsonsautobrokers.com/cardiscrip');
+                const carResponse = await axios.get(`${backendUrl}/getCarData`);
                 const carinfo = carResponse.data;
     
                 // Compare car data to the id in the params
-                const filtercar = carinfo.filter((elem) => elem.id === parseInt(id));
+                const filtercar = carinfo.filter((elem) => elem._id === _id);
     
-                // Fetch images
-                const imagesResponse = await axios.get('https://jdnsonsautobrokers.com/carImages');
-                const carImage = imagesResponse.data;
-    
-                // Fetch vehicle features (equip)
-                const equipWithResponse = await axios.get('https://jdnsonsautobrokers.com/equip');
-                const vehicleFeatures = equipWithResponse.data;
-    
-                // Combine car data with corresponding image
-                const combinedData = filtercar.map((carElem) => {
-                    const imagesForCar = carImage.filter((imageElem) => imageElem.car_id === carElem.id);
-                    carElem.images = imagesForCar;
-    
-                    // Find vehicle features for the car
-                    const featuresForCar = vehicleFeatures.filter((featureElem) => featureElem.car_id === carElem.id);
-                    carElem.vehicleFeatures = featuresForCar;
-    
-                    // Format priceamount
-                    carElem.formattedPrice = parseFloat(carElem.priceamount).toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                    });
-
-                    
-
-
-    
-                    return carElem;
-                });
-    
-                setCar(combinedData);
+                setCar(filtercar);
+                setCarImages(filtercar[0].carimages.map((image) => `${backendUrl}/carimages/${image}`));
                 
             } catch (error) {
                 console.log('Error fetching data', error);
@@ -72,16 +45,10 @@ const ViewDetails = () => {
         };
     
         fetchData();
-    }, [id]);
-    
-    
+    }, [_id]);
 
-    //Image slider urls
-    const carImagesUrls = car && car[0] && car[0].images
-    ? car[0].images
-        .filter((elem) => elem.image_url)
-        .map((filtercarelem) => `https://jdnsonsautobrokers.com/carImages/${filtercarelem.image_url}`)
-    : [];
+
+
 
     //Modal logic
     const [openAvalModal, setOpenAvalModal] = useState(false)
@@ -182,7 +149,7 @@ const ViewDetails = () => {
                                     <div className={viewdetailsstyle.imageWrapper}>
                                         
                                         <div className={viewdetailsstyle.largerImageWrapper}>
-                                            <ImageSlider carImagesUrls={carImagesUrls} />
+                                            <ImageSlider carImagesUrls={carImages} />
                                         </div>
                                     </div>
                                 

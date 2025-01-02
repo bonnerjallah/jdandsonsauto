@@ -34,7 +34,7 @@ const router = createBrowserRouter(
         <Route path="/SalesTransactions" element={<SalesTransactions /> } />
         <Route path="/CustomerManagement" element={<CustomerManagement /> } />
         <Route path="/ServiceMaintenance" element={<ServiceMaintenance /> } />
-        <Route path="/VehicleUpdate/:id" element={<VehicleUpdate />} />
+        <Route path="/VehicleUpdate/:_id" element={<VehicleUpdate />} />
         
         <Route path="/ApptCalendar" element={<ApptCalendar />} />
         <Route path="/AddNewVehicle" element={<AddNewVehicle /> } />

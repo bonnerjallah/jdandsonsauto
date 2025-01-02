@@ -10,6 +10,8 @@ import NavbarModal from "./NavbarModal";
 import navbarstyle from '../style/navbarstyle.module.css'
 import { useState } from "react";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const Navbar = () => {
 
@@ -19,18 +21,31 @@ const Navbar = () => {
 
     const handleLogOut = async () => {
         try {
-            const res = axios.post("http://jdadmin.jdnsonsautobrokers.com/logout", {}, {
-                withCredential: true
-            })
+            const response = await axios.post(`${backendUrl}/adminlogout`, {}, {
+                withCredentials: true,
+            });
+    
+            if (response.status === 200) {
+                console.log("Response data:", response.data);
+    
+                // Log out locally and redirect
+                logOut();
+                navigate("/");
+            }
         } catch (error) {
-            console.log("Error loging out user", error)
+            console.log("Error logging out user:", error);
+    
+            if (error.response) {
+                console.error("Error response data:", error.response.data);
+            } else if (error.request) {
+                console.error("No response received:", error.request);
+            } else {
+                console.error("Error setting up request:", error.message);
+            }
         }
-
-        logOut()
-        
-        navigate('/')
-
-    }
+    };
+    
+    
 
     const [openNavbarModal, setOpenNavbarModal] = useState(false)
 

@@ -9,6 +9,9 @@ import Sidebar from '../components/Sidebar'
 
 import inventmanastyle from '../style/inventmanastyle.module.css'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+
 
 
 const InventoryManagement = () => {
@@ -21,95 +24,58 @@ const InventoryManagement = () => {
         sport: [],
         suv: [],
     })
+
+    const [allCars, setAllCars] = useState([])
     
         
     useEffect(() => {
-        axios
-            .get("http://jdadmin.jdnsonsautobrokers.com/cardiscrip" + (id ? `/${id}` : "" ))
-            .then((res) => {
-                if (res.status === 200) {
-                    const data = res.data;
-    
-                    setCars((prevData) => {
-                        const updatedCars = { ...prevData };
 
-                        // Clear the arrays first
-                        updatedCars.sedan = [];
-                        updatedCars.truck = [];
-                        updatedCars.sport = [];
-                        updatedCars.suv = [];
-    
-                        data.forEach((elem) => {
-                            if (elem.trim && typeof elem.trim === "string") {
-                                const lowerTrim = elem.trim.toLowerCase();
-    
-                                if (lowerTrim.includes("sedan")) {
-                                    updatedCars.sedan.push(elem.carname + ' ' + elem.caryear);
-                                } else if (lowerTrim.includes("truck") || lowerTrim.includes('pickup')) {
-                                    updatedCars.truck.push(elem.carname + ' ' + elem.caryear);
-                                } else if (lowerTrim.includes("sport")) {
-                                    updatedCars.sport.push(elem.carname + ' ' + elem.caryear);
-                                } else if (lowerTrim.includes("suv") || lowerTrim.includes("van") || lowerTrim.includes("minivan")) {
-                                    updatedCars.suv.push(elem.carname + ' ' + elem.caryear);
-                                }
-                            }
-                        });
-    
-                        return updatedCars;
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching inventory data", error);
-            });
-    }, []);
-
-    const [imageArray, setImageArray] = useState([])
-    const [associatedData, setAssociatedData] = useState([]);
-
-
-    useEffect(() => {
         const fetchData = async () => {
             try {
-                //Fetch car details
-                const detailsResponse = await axios.get('http://localhost:3001/cardiscrip' + (id ? `/${id}` : ""));
-                const detailsData = detailsResponse.data;
+                const response = await axios.get(`${backendUrl}/getCarData`);
+                const data = response.data;
 
-                //Fetch car Images
-                const imagesResponse = await axios.get('http://localhost:3001/images');
-                const imagesData = imagesResponse.data;
+                setAllCars(data)
 
-                //Combine data
-                const updatedAssociatedData = detailsData.map((detailsElem) => {
-                    const imagesForCar = imagesData.filter((imagesElem) => imagesElem.car_id === detailsElem.id)
-                    detailsElem.images = imagesForCar
-                    return detailsElem
-                })
+                setCars((prevData) => {
+                const updatedCars = { ...prevData };
 
-                setAssociatedData(updatedAssociatedData)
+                // Clear the arrays first
+                updatedCars.sedan = [];
+                updatedCars.truck = [];
+                updatedCars.sport = [];
+                updatedCars.suv = [];
 
-                //Fetch images and create a object URLs
-                const imageDataArray = await Promise.all(
-                    updatedAssociatedData.map(async (elem) => {
-                        if(elem.images) {
-                            const imageURLs = await Promise.all(
-                                elem.images.map(async (imagesElem) => {
-                                    return `http://localhost:3001/carimages/${imagesElem.image_url}`;
-                                })
-                            )
-                            return imageURLs
+                data.forEach((elem) => {
+                    if (elem.trim && typeof elem.trim === "string") {
+                        const lowerTrim = elem.trim.toLowerCase();
+
+                        if (lowerTrim.includes("sedan")) {
+                            updatedCars.sedan.push(elem.carname + ' ' + elem.caryear);
+                        } else if (lowerTrim.includes("truck") || lowerTrim.includes('pickup')) {
+                            updatedCars.truck.push(elem.carname + ' ' + elem.caryear);
+                        } else if (lowerTrim.includes("sport")) {
+                            updatedCars.sport.push(elem.carname + ' ' + elem.caryear);
+                        } else if (lowerTrim.includes("suv") || lowerTrim.includes("van") || lowerTrim.includes("minivan")) {
+                            updatedCars.suv.push(elem.carname + ' ' + elem.caryear);
                         }
-                        return null
-                    })
-                )
-                setImageArray(imageDataArray)
+                    }
+                });
+
+                return updatedCars;
+            });
+
             } catch (error) {
                 console.log("Error fetch data or images", error)
             }
         }
-        fetchData()
-    }, [])
 
+        fetchData()
+
+    }, []);
+
+    const [imageArray, setImageArray] = useState([])
+    const [associatedData, setAssociatedData] = useState([]);
 
 
     //scroll function
@@ -148,20 +114,32 @@ const InventoryManagement = () => {
                     <h2>Vehicles in stock:</h2>
 
                     <div className={inventmanastyle.scrollItemWrapper}>
-                        {associatedData.map((elem, id) => (
-                            <NavLink key={id} to={`/vehicleUpdate/${elem.id}?images=${encodeURIComponent(JSON.stringify(elem.images))}`}>
-                                <div key={id} className={inventmanastyle.scrollItem} style={{ transform: `translateX(${scrollLeft}px) translateX(-${scrollRight}px)` }}>
-                                    <div className={inventmanastyle.carImage} >
-                                        {imageArray[id] && <img src={imageArray[id][3]} alt={`Image ${id}`} width={250} height={200} />}
-                                    </div>
-                                    <div>
-                                        <h3>{elem.carname}</h3>
-                                        <p>{elem.caryear}</p>
-                                    </div>
+                        {allCars.map((elem, id) => (
+                            <NavLink key={id} to={`/vehicleUpdate/${elem._id}`} className={inventmanastyle.scrollItemLink}>
+                            <div>
+                                {/* Other content */}
+                            </div>
+
+                            <div key={id} className={inventmanastyle.scrollItem} style={{ transform: `translateX(${scrollLeft}px) translateX(-${scrollRight}px)` }}>
+                                <div className={inventmanastyle.carImage}>
+                                    {elem.carimages && elem.carimages[3] && (
+                                        <img 
+                                        src={`${backendUrl}/carimages/${elem.carimages[3]}`} 
+                                        alt={`Image ${id}`} 
+                                        width={250} 
+                                        height={200} 
+                                        />
+                                    )}
                                 </div>
+                                <div>
+                                <h3>{elem.carname}</h3>
+                                <p>{elem.caryear}</p>
+                                </div>
+                            </div>
                             </NavLink>
                         ))}
                     </div>
+
 
                 </div>
 

@@ -1,106 +1,101 @@
 import { createContext, useContext, useState, useEffect} from "react";
-
 import axios from "axios";
 
+
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+
 const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
 
 
 export const AuthProvider = ({ children }) => {
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null)
+
 
     axios.defaults.withCredentials = true;
-    async function refreshAccessToken({ setLoggedIn, setUser }) {
+    const refreshAccessToken = async (authcontext) => {
+
+        if(!authcontext) return
+
+        const {setLoggedIn, setUser, logOut} = authcontext
+
         try {
-            const response = await axios.post(
-                'http://jdadmin.jdnsonsautobrokers.com/refresh_token',
-                {},
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            const response = await axios.post(`${backendUrl}/refreshadmintoken`, {}, {
+                headers: { "Content-Type": "application/json" }
+            });
 
             if (response.status === 200) {
-                // Token refresh successful
                 const userData = response.data;
 
                 setLoggedIn(true);
                 setUser(userData);
             } else {
-                // Token verification failed
-                console.error('Token verification failed');
-
-                logOut()
+                console.error("Token validation failed", response.status);
+                logOut();
             }
         } catch (error) {
-            console.log();
-            logOut()
+            console.log("Error refreshing access token", error);
+            logOut();
         }
     }
 
 
     useEffect(() => {
-        // Check for a token in local storage when the component mounts (for session persistence)
-        const storedToken = window.localStorage.getItem('token');
+         
+        const checkAuthStatus = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getadminmember`);
 
-        if (storedToken) {
-            setLoggedIn(true);
-
-
-            // Set up an interval to refresh the access token
-            const refreshAccessTokenInterval = setInterval(() => {
-                refreshAccessToken({
-                    setToken, // Make sure setToken is accessible here
-                    setLoggedIn,
-                    setUser,
-                });
-            }, 50 * 1000);
-
-            // Clear the interval when the component unmounts to prevent memory leaks
-            return () => {
-                clearInterval(refreshAccessTokenInterval);
-            };
-        } else {
-            // If there's no stored token, initiate the token refresh
-            refreshAccessToken({ setToken, setLoggedIn, setUser });
+                if (response.status === 200 && response.data.valid) {
+                    setLoggedIn(true);
+                    setUser(response.data.user);
+                } else {
+                    setLoggedIn(false);
+                    setUser(null)
+                    console.error("Invalid user session");
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    setLoggedIn(false);
+                    setUser(null);
+                } else {
+                    console.error("Error validating on page load", error);
+                }
+            }
         }
 
+        checkAuthStatus();
 
-    }, [loggedIn]);
+        const refreshAccessTokenInterval = setInterval(refreshAccessToken, 50 * 1000);
+
+        return () => clearInterval(refreshAccessTokenInterval);
+
+    }, []);
 
 
     const login = (userData, token) => {
-
         setLoggedIn(true);
         setUser(userData);
-
-        window.localStorage.setItem('token', token);
-
-        setToken(token)
     };
 
 
     const logOut = () => {
         setLoggedIn(false);
         setUser(null);
-        setToken(null)
-
-        // Remove the token from local storage
-        window.localStorage.removeItem('token');
     };
 
     return (
-        <AuthContext.Provider value={{ loggedIn, login, logOut, user, token }}>
+        <AuthContext.Provider value={{ loggedIn, login, logOut, user }}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-export const useAuth = () => useContext(AuthContext);
 
 
 

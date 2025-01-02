@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 
 import messagemodalstyle from "../style/messagemodalstyle.module.css"
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 const MessageModal = ( { messageData, closeMessageModal}) => {
 
     console.log("Message Data", messageData)
@@ -22,36 +24,38 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://jdadmin.jdnsonsautobrokers.com/cardiscrip");
+                const response = await axios.get(`${backendUrl}/getCarData`);
                 const carinfo = response.data;
     
-                const imageResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/images");
-                const carImages = imageResponse.data;
+                // const imageResponse = await axios.get(`${backendUrl}/images`);
+                // const carImages = imageResponse.data;
     
-                const combinedData = carinfo.map((carElem) => {
-                    const imageForCar = carImages.filter((imageElem) => imageElem.car_id === carElem.id);
-                    carElem.images = imageForCar;
-                    return carElem;
-                });
+                // const combinedData = carinfo.map((carElem) => {
+                //     const imageForCar = carImages.filter((imageElem) => imageElem.car_id === carElem.id);
+                //     carElem.images = imageForCar;
+                //     return carElem;
+                // });
     
-                const carToInquireAbout = combinedData.find(
-                    (carElem) => carElem.id === messageData.car_id
-                );
+                // const carToInquireAbout = combinedData.find(
+                //     (carElem) => carElem.id === messageData.car_id
+                // );
 
-                if (carToInquireAbout) {
-                    setCarInquireAbout(carToInquireAbout);
+                // if (carToInquireAbout) {
+                //     setCarInquireAbout(carToInquireAbout);
 
-                    const imageDataArray = await Promise.all(
-                        carToInquireAbout.images.map(async(elem) => {
-                            if(elem) {
-                                const imageUrl = `http://jdadmin.jdnsonsautobrokers.com/carimages/${elem.image_url}`
-                                return imageUrl
-                            }
-                            return null
-                        })
-                    )
-                    setImages(imageDataArray)
-                }
+                //     const imageDataArray = await Promise.all(
+                //         carToInquireAbout.images.map(async(elem) => {
+                //             if(elem) {
+                //                 const imageUrl = `${backendUrl}/carimages/${elem.image_url}`
+                //                 return imageUrl
+                //             }
+                //             return null
+                //         })
+                //     )
+                // }
+
+                // setImages(carinfo)
+
 
             } catch (error) {
                 console.log("Error fetching data", error);
@@ -73,7 +77,7 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
 
         try {
             if(messageData && messageData.messageType && messageData.id) {
-                const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deleteMessage/${messageData.messageType}/${messageData.id}`)
+                const response = await axios.delete(`${backendUrl}/deletemessage/${messageData._id}`)
                 
                 if(response.status === 200) {
                     console.log("Deleted message successfully")
@@ -86,6 +90,9 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
             console.log("Error deleting data", error)
         }
     }
+
+
+    console.log("Car Inquire About", carInquireAbout)
 
     return (
         <div className={messagemodalstyle.mainContainer}>
@@ -157,14 +164,18 @@ const MessageModal = ( { messageData, closeMessageModal}) => {
                             </p>
                         </div>
                         <div className={messagemodalstyle.imageWrapper}>
-                            {carInquireAbout && images && images.length >= 4 ? (
+                            {carInquireAbout && carInquireAbout.carimages && carInquireAbout.carimages.length > 0 ? (
+                                <>
+                                    {carimages.map((image, index) => (
+                                        <img key={index} src={image} alt="car" />   
+                                    )
+                                    )}
+                                </>
+                            ) : (
                                 <p>
-                                    <img src={images[3]} alt='Car Image' width={200} height={200}/>
+                                    No Image Available
                                 </p>
-                            ) : <p>
-                                
-                                </p>
-                            }
+                            )}
                         </div>
                 </div>
 

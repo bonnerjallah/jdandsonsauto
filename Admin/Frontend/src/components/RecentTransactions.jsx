@@ -4,22 +4,31 @@ import {useState,useEffect} from 'react'
 import recenttransactonsstyle from '../style/recenttransactionsstyle.module.css'
 import axios from 'axios'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 const RecentTransactions = () => {
 
     const [purchase, setPurchase] = useState([]);
 
     useEffect(() => {
-        axios.get('http://jdadmin.jdnsonsautobrokers.com/purchases')
-            .then((res) => {
-                if (res.status === 200) {
-                    setPurchase(res.data); 
+
+        const fetchPurchaseData = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getpurchases`);
+
+                if (response.status === 200) {
+                    setPurchase(response.data);
                 } else {
-                    console.error('Invalid response data', res.data);
+                    console.error('Invalid response data', response.data);
                 }
-            })
-            .catch((error) => {
+
+            } catch (error) {
                 console.error('Error fetching purchase data', error);
-            });
+            }
+        }
+
+        fetchPurchaseData();
+
     }, []); 
 
     return (

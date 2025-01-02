@@ -8,6 +8,8 @@ import EditMantModal from '../components/EditMantModal'
 
 import svcmaintstyle from "../style/svcmaintstyle.module.css"
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 const ServiceMaintenance = () => {
 
     const [maintInputData, setMaintInputData] = useState({
@@ -33,7 +35,7 @@ const ServiceMaintenance = () => {
         e.preventDefault();
     
         try {
-            const response = await axios.post("http://jdadmin.jdnsonsautobrokers.com/servicemaintenance", maintInputData, {
+            const response = await axios.post(`${backendUrl}/createservicemaintenance`, maintInputData, {
                 headers: { "Content-Type": 'application/json' }
             });
     
@@ -61,17 +63,22 @@ const ServiceMaintenance = () => {
     const [maintenanceData, setMaintenanceData] = useState([])
 
     useEffect(() => {
-        axios.get('http://jdadmin.jdnsonsautobrokers.com/servicemaintenance')
-            .then((res) => {
-                if(res.status === 200) {
-                    setMaintenanceData(res.data)
+    
+        const fetchMaintenanceData = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getservicemaintenance`)
+                if (response.status === 200) {
+                    setMaintenanceData(response.data)
                 } else {
-                    console.log("Invalid response data", res.data)
+                    console.log("Invalid response data", response.data)
                 }
-            })
-            .catch ((error) => {
+            } catch (error) {
                 console.error("Error fetching data", error)
-            })
+            }
+        }
+
+        fetchMaintenanceData()
+
     }, [])
 
     const [openModal, setOpenModal] = useState(false)
@@ -91,7 +98,7 @@ const ServiceMaintenance = () => {
         }
 
         try {
-            const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deleteSvcMaint/${id}`)
+            const response = await axios.delete(`${backendUrl}/deleteSvcMaint/${id}`)
 
             if (response.status === 200) {
                 console.log("Deleted successfully")

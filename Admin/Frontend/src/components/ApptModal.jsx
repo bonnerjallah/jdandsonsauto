@@ -5,10 +5,7 @@ import format from 'date-fns/format'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-
-
-
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 import dashboardstyletwo from '../style/dashboardstyletwo.module.css'
 import axios from 'axios'
@@ -48,7 +45,7 @@ const ApptModal = ({closeApptModal, apptData}) => {
 
         try {
             console.log("Data being sent", localApptEditData)
-            const response = await axios.put("http://jdadmin.jdnsonsautobrokers.com/calander", {
+            const response = await axios.put(`${backendUrl}/calander`, {
                 id: localApptEditData.id,
                 title: localApptEditData.title,
                 start: formattedStartDate,
@@ -91,7 +88,7 @@ const ApptModal = ({closeApptModal, apptData}) => {
 
         try {
             console.log("data sent to be deleted", formattedStartDate, formattedEndDate)
-            const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deleteappt`, {
+            const response = await axios.delete(`${backendUrl}/deleteappt`, {
                 id: localApptEditData.id,
                 title: localApptEditData.title,
                 start: formattedStartDate,

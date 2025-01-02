@@ -8,6 +8,8 @@ import ScrollToTopOnMount from '../components/ScrollToTopOnMont'
 
 import inventorystyle from '../styles/inventorystyle.module.css'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 
 const Pagination = ({carDiscription, keyWordFilteredData}) => {
@@ -24,6 +26,8 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
     const indexOfLastCarInfos = currentPage * carDiscriptionPerPage
     const indexOfFirstCarInfos = indexOfLastCarInfos - carDiscriptionPerPage
     const currentCarInfos = dataToPaginate.slice(indexOfFirstCarInfos, indexOfLastCarInfos) 
+
+    console.log("carinofs",currentCarInfos)
 
 
     //Pagination
@@ -81,17 +85,27 @@ const Pagination = ({carDiscription, keyWordFilteredData}) => {
             </div>
 
             <div>   
-                {currentCarInfos.map((elem, id) => (
-                    <div key={id} className={inventorystyle.carInfomainBox}>
+                {currentCarInfos.map((elem, _id) => (
+                    <div key={_id} className={inventorystyle.carInfomainBox}>
                         <div className={inventorystyle.carDiscriptionContainer}>
                             <div className={inventorystyle.carDiscriptionImageWrapper}>
-                                <NavLink to={`/ViewDetails/${elem.id}`}>
-                                    {elem.images && elem.images
-                                        .filter((image) => image.car_id === elem.id)  // Filter images based on car_id
-                                        .slice(3, 4)  // Take only the forth image
-                                        .map((filteredImage, index) => (
-                                        <img key={index} src={`https://jdnsonsautobrokers.com/carImages/${filteredImage.image_url}`} alt={`Image ${index}`} width="100%" height="100%" />
-                                    ))}
+                                <NavLink to={`/ViewDetails/${elem._id}`}>
+                                    {elem.carimages && (
+                                        <>
+                                            {elem.carimages.map((imageElem, index) => (
+                                                // Check if it's the third image (index 2)
+                                                index === 1 && (
+                                                    <img
+                                                        key={index}
+                                                        src={`${backendUrl}/carimages/${imageElem}`}
+                                                        alt="car"
+                                                        width="100%"
+                                                        height="100%"
+                                                    />
+                                                )
+                                            ))}
+                                        </>
+                                    )}
                                 </NavLink>
                             </div>
                             <div className={inventorystyle.carInfoWrapper}>

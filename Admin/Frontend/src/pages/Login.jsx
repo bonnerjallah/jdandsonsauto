@@ -3,9 +3,9 @@ import { NavLink, useNavigate} from 'react-router-dom'
 import { useAuth } from '../components/AuthContext'
 import axios from 'axios'
 
-import Cookies from 'js-cookie'
-
 import loginstyle from '../style/loginstyle.module.css'
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 const Login = () => {
     const {login} = useAuth()
@@ -31,40 +31,41 @@ const Login = () => {
     axios.defaults.withCredentials = true;
     const handleSubmitData = async (e) => {
         e.preventDefault();
-
+    
         try {
-            const response = await axios.post('http://jdadmin.jdnsonsautobrokers.com/login', loginData, {
-                headers: { 'Content-Type': 'application/json'},
+            const response = await axios.post(`${backendUrl}/login`, loginData, {
+                headers: { 'Content-Type': 'application/json' },
             });
-
+    
             if (response.status === 200) {
                 console.log('Logged in successfully');
-
-                // Access token from cookies
-                const token = Cookies.get('token');
-
-                // Access the data in the front end
+    
                 const { userData } = response.data;
-
-                login(userData, token);
-
+    
+                login(userData); 
+    
                 setLoginData({
                     username: '',
                     pwd: '',
                 });
-
-                setErrorMessage('');
-
+    
                 navigate('/Dashboard');
-
-            } else {
-                console.log('Error:', response.data.error);
             }
-        } catch (error) {       
+        } catch (error) {
             console.log('Error logging in:', error);
-            setErrorMessage(error.response.data.error);
+    
+            if (error.response && error.response.data.error) {
+                setErrorMessage(error.response.data.error); 
+            } else {
+                setErrorMessage('An unexpected error occurred.');
+            }
+    
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 2000);
         }
     };
+    
 
 
     return (

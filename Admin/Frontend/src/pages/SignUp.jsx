@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-
+import axios from 'axios'
 import loginstyle from '../style/loginstyle.module.css'
 
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 const SignUp = () => {
 
@@ -24,18 +24,16 @@ const SignUp = () => {
         setSignUpInput((prevData) =>({...prevData, [name]: value}))
     }
     
-    const handleInputSubmit = async(e) => {
-        e.preventDefault()
+    const handleInputSubmit = async (e) => {
+        e.preventDefault();
     
         try {
-            const res = await fetch('http://jdadmin.jdnsonsautobrokers.com/register', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(signUpInput)
-            })
+            const res = await axios.post(`${backendUrl}/createadminuser`, signUpInput, {
+                headers: { 'Content-Type': 'application/json' }
+            });
     
-            if(res.ok) {
-                console.log("User created successfully")
+            if (res.status === 201) {  // Check for successful creation
+                console.log("User created successfully");
     
                 setSignUpInput({
                     firstName: '',
@@ -43,24 +41,25 @@ const SignUp = () => {
                     email: '',
                     username: '',
                     Pwd: '',
-                })
+                });
     
-                setErrorMessage('') // clear any previous error message
+                setErrorMessage(''); // Clear any previous error message
             } else {
-                const errorData = await res.json()
-                console.log('Error:', errorData)
-
-                if(errorData && errorData.error === 'All fields required' || errorData.error === 'Invalid email format' || errorData.error === 'Password must be at least 8 characters long') {
-                    setErrorMessage(errorData.error); //set error message
+                // Backend returns error as JSON, so handle it properly
+                const errorData = res.data;
+                console.log('Error:', errorData);
+    
+                if (errorData && errorData.error) {
+                    setErrorMessage(errorData.error); // Set error message
                 } else {
-                    console.log("An Error occurred")
+                    console.log("An unknown error occurred");
                 }
             }
-    
         } catch (error) {
-            console.log("Error creating User:", error)
+            console.log("Error creating User:", error);
         }
-    }
+    };
+    
 
     return (
         <div className={loginstyle.signUpMainContainer}>

@@ -3,7 +3,7 @@ import { useAuth } from "../components/AuthContext"
 
 import axios from "axios"
 
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 const Uploadprofilepic = () => {
 
@@ -37,7 +37,7 @@ const Uploadprofilepic = () => {
 
     
         try {
-            const res = await axios.put('http://jdadmin.jdnsonsautobrokers.com/profilepic', formData, {
+            const res = await axios.put(`${backendUrl}/profilepic`, formData, {
                 headers: { "Content-Type": 'multipart/form-data' }
             });
     

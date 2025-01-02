@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route path="/ApplyOnLine/:id" element={<ApplyOnLine />} />
       <Route path="/AboutUs" element={<AboutUs />} />
       <Route path="ContactUs" element={<ContactUs /> } />
-      <Route path="ViewDetails/:id" element={<ViewDetails /> } />
+      <Route path="ViewDetails/:_id" element={<ViewDetails /> } />
       <Route path="PrivacyPolicy" element={<PrivacyPolicy /> } />
     </Route>
   )

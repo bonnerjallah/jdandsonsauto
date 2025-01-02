@@ -32,7 +32,7 @@ const ImageSlider = ({carImagesUrls}) => {
 
         <div style={{ width: "100%", height: "30rem", position: "relative" }}>
             <div style={{width: "100%", height: "100%", display: "flex", overflow: 'hidden'}}>
-                {carImagesUrls.map((elemUrl, index) => (
+                {carImagesUrls && carImagesUrls.map((elemUrl, index) => (
                     <img key={index} src={elemUrl} 
                     className={homestyle.imageSliderImages}
                     style={{ transform: `translateX(${-100 * currentIndex}%)` }}
@@ -47,7 +47,7 @@ const ImageSlider = ({carImagesUrls}) => {
             </button>
 
             <div className={homestyle.smallImagesWrapper}>
-                {carImagesUrls.map((elemUrl, index) => (
+                {carImagesUrls && carImagesUrls.map((elemUrl, index) => (
                     <button key={index} onClick={() => setCurrentIndex(index)}>
                         <img
                         src={elemUrl}

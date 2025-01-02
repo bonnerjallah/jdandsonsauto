@@ -4,6 +4,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 import areachartstyle from '../style/areachartstyle.module.css'
 
+
 const FinancialGains = () => {
 
         const data = [

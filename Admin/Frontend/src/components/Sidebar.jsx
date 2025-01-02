@@ -11,51 +11,31 @@ import { faHouse, faBox, faCarSide, faMagnifyingGlassChart, faCalendarDays, faCl
 
 import sidebarstyle from '../style/sidebarstyle.module.css'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const Sidebar = () => {
 
     const {user} = useAuth()
-
-    // const StoredUserData = JSON.parse(window.localStorage.getItem('userData'))
-
-    // const [member, setMember] = useState(StoredUserData || "")
-    // const [profileImage, setProfileImage] = useState([])
-
-    // useEffect(() => {
-    //     if (StoredUserData) {
-    //     setMember(StoredUserData);
-    //     setProfileImage(StoredUserData.profilePic);
-    //     }
-    // }, []);
 
     const [member, setMember] = useState("")
     const [profileImage, setProfileImage] = useState([])
 
     axios.defaults.withCredentials = true
     useEffect(() => {
-    if (user) {
-        const token = Cookies.get('token'); // Retrieve the access token from the cookie
+        if(!user) return
+        const fetchMember = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getadminmember`)
 
-        axios.get('http://jdadmin.jdnsonsautobrokers.com/user', {
-            headers: {
-                'Authorization': `Bearer ${token}`, // Include the actual access token
+                response.data.valid ? setMember(response.data) : console.error("Invalid user session", response.data)
+            } catch (error) {
+                console.log("Error fetching user data", error)
             }
-        })
-        .then(res => {
-            if (res.data.valid) {
-                setMember(res.data.user);
-            } else {
-                console.error('Invalid response data:', res.data);
-            }
-        })
-        .catch(err => {
-            console.error('Error fetching user data:', err);
-            if(err.response) {
-                console.log("Response data", err.response.data)
-            }
-        });
-    }
-}, [user]);
+        }
+
+        fetchMember()
+    }, [user]);
 
 
 
@@ -64,7 +44,7 @@ const Sidebar = () => {
             if (member && typeof member === 'object' && member.profilePic) {
                 const imagePicPromises = [member.profilePic].map(async (elem) => {
                     if (elem) {
-                        return `http://jdadmin.jdnsonsautobrokers.com/profilepic/${elem}`;
+                        return `${backendUrl}/profilepic/${elem}`;
                     }
                     return null;
                 });

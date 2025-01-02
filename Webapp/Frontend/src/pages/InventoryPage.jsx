@@ -12,55 +12,46 @@ import Pagination from '../components/Pagination'
 import inventorystyle from '../styles/inventorystyle.module.css'
 
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const InventoryPage = () => {
 
     //Use State for fetching data and images
     const [carDiscription, setCarDiscription] = useState([])
 
-        useEffect(() => {
-            const fetchData = async () => {
-                try {    
-                    // Fetch car details
-                    const response = await axios.get('https://jdnsonsautobrokers.com/cardiscrip');
-                    const vehicleDiscriptionData = response.data;
-        
-                    // Format miles and priceamount properties for each car
-                    const formatedDataWithCommas = vehicleDiscriptionData.map((vehicleElem) => {
-                        // Format miles property
-                        vehicleElem.miles = parseFloat(vehicleElem.miles).toLocaleString();
-        
-                        // Format priceamount property
-                        vehicleElem.priceamount = parseFloat(vehicleElem.priceamount).toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                        });
-        
-                        return vehicleElem;
-                    });
-        
-                    const carInformation = formatedDataWithCommas;
-        
-                    // Fetch car Images
-                    const imagesResponse = await axios.get('https://jdnsonsautobrokers.com/carImages');
-                    const carImage = imagesResponse.data;
-        
-                    // Combine data
-                    const combinedData = carInformation.map((carElem) => {
-                        const imagesForCar = carImage.filter((imageElem) => imageElem.car_id === carElem.id);
-                        carElem.images = imagesForCar;
-                        return carElem;
-                    });
-        
-                    setCarDiscription(combinedData);
-        
-                } catch (error) {
-                    console.error("Error fetching car discription from database", error);
-                }
-            };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {    
+                // Fetch car details
+                const response = await axios.get(`${backendUrl}/getCarData`);
+                const vehicleDiscriptionData = response.data;
     
-        fetchData();
+                // Format miles and priceamount properties for each car
+                const formatedDataWithCommas = vehicleDiscriptionData.map((vehicleElem) => {
+                    // Format miles property
+                    vehicleElem.miles = parseFloat(vehicleElem.miles).toLocaleString();
+    
+                    // Format priceamount property
+                    vehicleElem.priceamount = parseFloat(vehicleElem.priceamount).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    });
+    
+                    return vehicleElem;
+                });
+    
+                setCarDiscription(formatedDataWithCommas);
+    
+            } catch (error) {
+                console.error("Error fetching car discription from database", error);
+            }
+        };
+
+    fetchData();
     }, []);
+
+    console.log(carDiscription)
 
 
     //Keword filter data callback function logic

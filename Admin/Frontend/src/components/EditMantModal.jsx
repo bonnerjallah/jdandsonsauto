@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import svcmaintstyle from "../style/svcmaintstyle.module.css"
 import axios from "axios"
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const EditMantModal = ({closeModal, editData}) => {
 
@@ -26,7 +28,7 @@ const EditMantModal = ({closeModal, editData}) => {
         }
 
         try {
-            const response = await axios.put("http://jdadmin.jdnsonsautobrokers.com/updateSvcMaint", localEditData, {
+            const response = await axios.put(`${backendUrl}/updateSvcMaint`, localEditData, {
                 headers: {"Content-Type": "application/json"}
             })
             if(response.status === 200) {

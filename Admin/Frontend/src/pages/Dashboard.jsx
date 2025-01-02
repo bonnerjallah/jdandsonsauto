@@ -20,6 +20,8 @@ import { faBox } from "@fortawesome/free-solid-svg-icons"
 
 import dashboardstyletwo from '../style/dashboardstyletwo.module.css';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const Dashboard = () => {
 
@@ -30,35 +32,34 @@ const Dashboard = () => {
 
     axios.defaults.withCredentials = true
     useEffect(() => {
-        if (user) {
-            const token = Cookies.get('token')
+        const fetchUserData = async () => {
+            if(!user) return
 
-            axios.get('http://localhost:3001/user', {
-                headers: {
-                    "Content-Type": 'application/json',  'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(res => {
-                if (res.data.valid) {
-                    setMember(res.data.user);
-                } else {
-                    console.error('Invalid response data:', res.data);
-                }
-            })
-            .catch(err => {
-            console.error('Error fetching user data:', err);
-            });
+            try{
+                const response = await axios.get(`${backendUrl}/getadminmember`)
+
+                response.data.valid ? setMember(response.data) : console.error("Invalid user session", response.data)   
+
+            } catch (error) {
+                console.error("Error fetching user data", error)
+            }
         }
-    }, [user]);
+
+        fetchUserData()
+        
+    }, [user]); 
 
 
     const [inventoryData, setInventoryData] = useState('')
 
+
+
     useEffect(() => {
-        axios.get("http://localhost:3001/cardiscrip")
-            .then((res) => {
-                if(res.status === 200) {
-                    const data = res.data
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getCarData`);
+                if (response.status === 200) {
+                    const data = response.data;
                     const totalCount = {
                         sedan : 0,
                         sport : 0,
@@ -73,11 +74,14 @@ const Dashboard = () => {
                                 totalCount.sedan++
                             } else if (lowerTrim.includes('truck' ) || (lowerTrim.includes('pickup'))) {
                                 totalCount.truck++
-                            } else if (lowerTrim.includes('sport')) {
+                            }
+                            else if (lowerTrim.includes('sport')) {
                                 totalCount.sport++
-                            } else if (lowerTrim.includes('suv')) {
+                            }
+                            else if (lowerTrim.includes('suv')) {
                                 totalCount.suv++
-                            } else if (lowerTrim.includes('van')) {
+                            }
+                            else if (lowerTrim.includes('van')) {
                                 totalCount.suv++
                             }
                         }
@@ -85,18 +89,19 @@ const Dashboard = () => {
 
                     setInventoryData(totalCount)
                 }
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error("Error fetching inventory data", error);
-            });
+            }
+        };
+        fetchData();
     }, []);
 
-    console.log(inventoryData)
+
 
     const [allEvents, setAllEvents] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3001/calander")
+        axios.get(`${backendUrl}/getappointments`)
             .then((res) => {
                 if (res.status === 200) {
                     const formattedData = res.data.map((elem) => ({

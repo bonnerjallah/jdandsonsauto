@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import vehicleupdatestyle from '../style/vehicleupdatestyle.module.css'
-import Sidebar from "../components/Sidebar"
+import vehicleupdatestyle from '../style/vehicleupdatestyle.module.css';
+import Sidebar from "../components/Sidebar";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-//Image Slider
+// Image Slider Component
 const ImageSlider = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -15,161 +15,170 @@ const ImageSlider = ({ images }) => {
         if (currentIndex < images.length - 1) {
             setCurrentIndex(currentIndex + 1);
         }
-    }
+    };
 
     const previousImage = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
         }
-    }
+    };
 
     return (
         <div className={vehicleupdatestyle.imageWrapper}>
             <button onClick={previousImage} disabled={currentIndex === 0}>Previous</button>
-            <img src={`http://localhost:3001/carimages/${images[currentIndex].image_url}`} alt={`Image ${currentIndex}`} />
+            <img src={images[currentIndex]} alt={`Image ${currentIndex}`} />
             <button onClick={nextImage} disabled={currentIndex === images.length - 1}>Next</button>
         </div>
     );
-}
-
-
+};
 
 const VehicleUpdate = () => {
-    const { id } = useParams();
+    const { _id } = useParams();
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
+    const [selectedCarData, SetSelectedCarData] = useState({
+        carname: '',
+        caryear: '',
+        condi: '',
+        doors: '',
+        drivetrain: '',
+        engine: '',
+        extcolor: '',
+        fueltype: '',
+        intecolor: '',
+        miles: '',
+        priceamount: '',
+        stocknum: '',
+        transmiss: '',
+        trim: '',
+        vinnum: '',
+        carimages: []
+    });
+    const [carDataImage, setCarDataImage] = useState([]);
 
-    const [carDataImage, setCarDataImage] = useState(null);
-
-    const [carData, setCarData] = useState(null);
 
     useEffect(() => {
-        const carInformation = async () => {
+        const fetchCarData = async () => {
             try {
-                const response = await axios.get(`http://jdadmin.jdnsonsautobrokers.com/cardiscrip/${id}`);
+                const response = await axios.get(`${backendUrl}/getSelectedCarData/${_id}`);
                 if (response.status === 200) {
-                    setCarData(response.data[0]);
-                }
+                    SetSelectedCarData({
+                        carname: response.data.carname || '',
+                        caryear: response.data.caryear || '',
+                        condi: response.data.condi || '',
+                        doors: response.data.doors || '',
+                        drivetrain: response.data.drivetrain || '',
+                        engine: response.data.engine || '',
+                        extcolor: response.data.extcolor || '',
+                        fueltype: response.data.fueltype || '',
+                        intecolor: response.data.intecolor || '',
+                        miles: response.data.miles || '',
+                        priceamount: response.data.priceamount || '',
+                        stocknum: response.data.stocknum || '',
+                        transmiss: response.data.transmiss || '',
+                        trim: response.data.trim || '',
+                        vinnum: response.data.vinnum || '',
+                        carimages: response.data.carimage || []
+                    });
+                    
 
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-                const imageParam = urlParams.get("images");
-
-                if (imageParam) {
-                    const parsedImages = JSON.parse(imageParam);
-                    setCarDataImage(parsedImages);
-                } else {
-                    console.log("No image found in the URL parameter");
+                    if (response.data.carimages && response.data.carimages.length > 0) {
+                        const carImages = response.data.carimages;
+                        const carImagesArray = carImages.map((image) => `${backendUrl}/carimages/${image}`);
+                        setCarDataImage(carImagesArray);
+                    }
+    
                 }
             } catch (error) {
                 console.log("Error fetching car data", error);
             }
-        }
+        };
 
-        carInformation();
-    }, [id]);
+        fetchCarData();
+    }, [_id]);
 
+
+
+
+    const handleImageChange = (e) => {
+        const files = e.target.files;
+        setCarDataImage(files);  
+    };
+    
 
     const handleUpdatedInput = (e) => {
-        const {name, value} = e.target  
-        setCarData((prevData) => ({...prevData, [name]: value,}))
-    }
+        const { name, value } = e.target;
+        setCarData(prevData => ({ ...prevData, [name]: value }));
+    };
 
-    const handleSubmitEditedInput = async (e, action) => {
-        e.preventDefault()
-
-        const userConfirmed = window.confirm("Are you sure you want to update this record")
-
-        if(!userConfirmed) {
+   
+    const handleSubmitEditedInput = async (e) => {
+        e.preventDefault();
+    
+        const userConfirmed = window.confirm("Are you sure you want to update this record?");
+        if (!userConfirmed) return;
+    
+        if (!_id) {
+            console.log("No _id found");
             return;
         }
+    
+        try {
+            const formData = new FormData();
+            formData.append('_id', _id);
+    
+            // Append car data fields
+            Object.entries(selectedCarData).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+    
+            // Append the selected images as actual files
+            for (let i = 0; i < carDataImage.length; i++) {
+                formData.append('editCarImages', carDataImage[i]); // Append directly as File object
+            }
+    
+            const response = await axios.put(`${backendUrl}/updatedescription`, formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+    
+            if (response.status === 200) {
+                console.log("Update was successful");
+                navigate('/InventoryManagement');
+            } else {
+                console.log("Error updating car description", response.data.message);
+            }
+        } catch (error) {
+            console.log("Error submitting edited data", error);
+        }
+    };
+    
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        const userConfirmed = window.confirm("Are you sure you want to delete this record?");
+        if (!userConfirmed) return;
 
         try {
-            if(action === 'edit') {
-                const response = await axios.put('http://jdadmin.jdnsonsautobrokers.com/cardiscripupdate', carData, {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
+            const response = await axios.delete(`${backendUrl}/deletecar/${_id}`, {
+                headers: { "Content-Type": "application/json" },
+            });
 
-                if(response.status === 200) {
-                    console.log("Update was successful")
-
-                    setCarData({
-                        carname: '',
-                        caryear: '',
-                        condi: '',
-                        doors: '',
-                        drivetrain: '',
-                        engine: '',
-                        extcolor: '',
-                        fueltype: '',
-                        intecolor: '',
-                        miles: '',
-                        priceamount: '',
-                        stocknum: '',
-                        transmiss: '',
-                        trim: '',
-                        vinnum: '',
-                        id: '',
-                    })
-
-                    navigate('/InventoryManagement')
-
-                } else {
-                    console.log("Error updating car discription", response.data.message)
-                }
-            } else if (action === 'delete') {
-
-                const requestData = {
-                    id: carData.id,
-                };
-
-                console.log("data being sent to the server", requestData)
-
-                const response = await axios.delete(`http://jdadmin.jdnsonsautobrokers.com/deletecardata/${id}`, {
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    data: {id: id}
-                })
-
-                if (response.status === 200) {
-                    console.log("deleted car data successfully")
-
-                    setCarData({
-                        carname: '',
-                        caryear: '',
-                        condi: '',
-                        doors: '',
-                        drivetrain: '',
-                        engine: '',
-                        extcolor: '',
-                        fueltype: '',
-                        intecolor: '',
-                        miles: '',
-                        priceamount: '',
-                        stocknum: '',
-                        transmiss: '',
-                        trim: '',
-                        vinnum: '',
-                        id: '',
-                    })
-
-                    navigate('/InventoryManagement')
-
-                } else {
-                    console.log("Error deleting car data", response.data.message)
-                }
+            if (response.status === 200) {
+                console.log("Deleted car data successfully");
+                
+                navigate('/InventoryManagement');
+            } else {
+                console.log("Error deleting car data", response.data.message);
             }
-            
         } catch (error) {
-            console.log("Error submiting edited data", error) 
+            console.log("Error deleting data", error);
         }
-    }
+    };
 
 
-    return(
+
+    return (
         <div className={vehicleupdatestyle.container}>
             <div>
                 <Sidebar />
@@ -179,88 +188,54 @@ const VehicleUpdate = () => {
                     <h1>Vehicle Update</h1>
                 </div>
                 <div className={vehicleupdatestyle.imageSliderWrapper}>
-                    {carDataImage && <ImageSlider images={carDataImage} />}
+                    {carDataImage.length > 0 && <ImageSlider images={carDataImage} />}
                 </div>
-
-                
                 <div className={vehicleupdatestyle.updateformwrapper}>
-                    {carData && Object.keys(carData).length > 0 ? (
-                        <form onSubmit={handleSubmitEditedInput}>
-                            <label htmlFor="carName">
-                                Car Name:
-                                <input type="text" name="carname" id="carName" value={carData.carname} onChange={handleUpdatedInput} />
+                    {Object.keys(selectedCarData).length > 0 ? (
+                        <form onSubmit={handleSubmitEditedInput} encType="multipart/form-data" method="POST">
+                            {Object.keys(selectedCarData).map((key) => (
+                                key !== 'carimages' && (
+                                    <label htmlFor={key} key={key}>
+                                        {key.charAt(0).toUpperCase() + key.slice(1)}:
+                                        <input 
+                                            type="text" 
+                                            name={key} 
+                                            id={key} 
+                                            value={selectedCarData[key]} 
+                                            onChange={handleUpdatedInput} 
+                                        />
+                                    </label>
+                                )
+                            ))}
+                            {/* Image upload handling */}
+                            <label htmlFor="Images">
+                                Upload Images:
+                                <input 
+                                    type="file" 
+                                    name="editCarImages" 
+                                    id="Images" 
+                                    multiple 
+                                    accept="image/*" 
+                                    onChange={handleImageChange} 
+                                />
                             </label>
-                            <label htmlFor="carYear">
-                                Car Year:
-                                <input type="text" name="caryear" id="carYear" value={carData.caryear}  onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="condition">
-                                Condition: 
-                                <input type="text" name="condi" id="condition" value={carData.condi} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="doorsNumber">
-                                Doors:
-                                <input type="text" name="doors" id="doorsNumber" value={carData.doors} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="drive">
-                                Drivetrain:
-                                <input type="text" name="drivetrain" id="drive" value={carData.drivetrain} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carEngine">
-                                Engine: 
-                                <input type="text" name="engine" id="carEngine" value={carData.engine} onChange={handleUpdatedInput} />
-                            </label>
-                            <br />
-                            <label htmlFor="carExtColor">
-                                Exterior Color:
-                                <input type="text" name="extcolor" id="carExtColor" value={carData.extcolor} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="fuelType">
-                                Fule Type:
-                                <input type="text" name="fueltype" id="fuelType" value={carData.fueltype} onChange={handleUpdatedInput} />
-                            </label>
-                            <br />
-                            <label htmlFor="inteColor">
-                                Interior Color:
-                                <input type="text" name="intecolor" id="inteColor" value={carData.intecolor} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carMiles">
-                                Miles:
-                                <input type="text" name="miles" id="carMiles" value={carData.miles} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carPriceAmount">
-                                Price Amount:
-                                <input type="text" name="priceamount" id="carPriceAmount" value={carData.priceamount} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carStockNumber">
-                                Stock Number:
-                                <input type="text" name="stocknum" id="carStockNumber" value={carData.stocknum} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carTransmiss">
-                                Trasmission:
-                                <input type="text" name="transmiss" id="carTransmiss" value={carData.transmiss} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carTrim">
-                                Trim:
-                                <input type="text" name="trim" id="carTrim" value={carData.trim} onChange={handleUpdatedInput} />
-                            </label>
-                            <label htmlFor="carVinNum">
-                                Vin Number:
-                                <input type="text" name="vinnum" id="carVinNum" value={carData.vinnum} onChange={handleUpdatedInput} />
-                            </label>
-                            <div className={vehicleupdatestyle.vehicleUpdateBttnWrapper}>
-                                <button className={vehicleupdatestyle.vehUpdateBttnEdit} onClick={(e)=> {handleSubmitEditedInput(e, 'edit')}} type="button">Edit Vehicle</button>
-                                <button className={vehicleupdatestyle.vehUpdateBttnDelete} onClick={(e) => {handleSubmitEditedInput(e, 'delete')}} type="button">Delete Vehicle</button>
-                            </div>
 
+                            <div className={vehicleupdatestyle.vehicleUpdateBttnWrapper}>
+                                <button className={vehicleupdatestyle.vehUpdateBttnEdit} type="submit">
+                                    Edit Vehicle
+                                </button>
+                                <button className={vehicleupdatestyle.vehUpdateBttnDelete} type="button" onClick={handleDelete}>
+                                    Delete Vehicle
+                                </button>
+                            </div>
                         </form>
                     ) : (
-                        <p>loading...</p>
+                        <p>Loading...</p>
                     )}
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default VehicleUpdate
+export default VehicleUpdate;

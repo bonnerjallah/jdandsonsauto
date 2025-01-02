@@ -12,6 +12,8 @@ import Footer from "../components/Footer"
 import applyonline from "../styles/applyonlinestyle.module.css"
 import carfinderstyle from "../styles/carfinderstyle.module.css"
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 
 const CarFinder = () => {
@@ -44,7 +46,7 @@ const CarFinder = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post("https://jdnsonsautobrokers.com/carfinder", vehicleFinder, {
+            const response = await axios.post(`${backendUrl}/createcarfinder`, vehicleFinder, {
                 headers: {'Content-Type': "application/json"}
             })
 

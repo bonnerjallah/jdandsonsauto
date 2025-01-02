@@ -8,6 +8,8 @@ import { faInbox, faCommentDollar, faMagnifyingGlassDollar, faBell} from "@forta
 import dashboardstyletwo from '../style/dashboardstyletwo.module.css';
 import { NavLink } from 'react-router-dom';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 const Messages = () => {
 
     const [message, setMessage] = useState([])
@@ -15,13 +17,13 @@ const Messages = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const availabilityResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/availabilityandquote")
+                const availabilityResponse = await axios.get(`${backendUrl}/getavailabilityandquote`)
                 const availMessage = availabilityResponse.data
 
-                const carfinderResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/carfinder")
+                const carfinderResponse = await axios.get(`${backendUrl}/getcarfinderdata`)
                 const carfinderMessage = carfinderResponse.data
 
-                const messageResponse = await axios.get("http://jdadmin.jdnsonsautobrokers.com/message")
+                const messageResponse = await axios.get(`${backendUrl}/getmessages`)
                 const messageData = messageResponse.data
 
                 const combineAllMessageData = availMessage.concat(carfinderMessage, messageData)

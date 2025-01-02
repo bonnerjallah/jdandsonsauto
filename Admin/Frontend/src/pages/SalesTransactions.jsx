@@ -11,6 +11,8 @@ import React from 'react'
 import axios from 'axios'
 
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 
 const SalesTransactions = () => {
 
@@ -31,7 +33,7 @@ const SalesTransactions = () => {
         e.preventDefault()
 
         try {
-        const res = await axios.post('http://jdadmin.jdnsonsautobrokers.com/purchases', inputData, {
+        const res = await axios.post(`${backendUrl}/purchases`, inputData, {
             headers: { 'Content-Type': 'application/json' },
         })
 

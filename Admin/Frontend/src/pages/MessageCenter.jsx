@@ -10,6 +10,9 @@ import MessageModal from "../components/MessageModal"
 
 import messagecenterstyle from '../style/messagecenterstyle.module.css'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+
 const MessageCenter = () => {
 
     const[availabilityMessage, setAvailabilityMessage] = useState([])
@@ -17,47 +20,59 @@ const MessageCenter = () => {
     const[message, setMessage] = useState([])
 
     useEffect(() => {
-        axios.get("http://jdadmin.jdnsonsautobrokers.com/availabilityandquote")
-            .then((res) => {
-                if(res.status === 200) {
-                    setAvailabilityMessage(res.data)
-                } else{
-                    console.log("error fetching data", res.error)
+
+        const fetchData = async () => { 
+            try {
+                const response = await axios.get(`${backendUrl}/getavailabilityandquote`);
+                if (response.status === 200) {
+                    setAvailabilityMessage(response.data);
+                } else {
+                    console.error("Unexpected response status:", response.status);
                 }
-            })
-            .catch((error) => {
-                console.error("Internal server Issue", error)
-            })
-    }, [])
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        };
+
+        fetchData();
+    }   , [])
 
 
     useEffect(() => {
-        axios.get("http://jdadmin.jdnsonsautobrokers.com/carfinder")
-            .then((res) => {
-                if(res.status === 200) {
-                    setCarFinderMessage(res.data)
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getcarfinderdata`);
+                if (response.status === 200) {
+                    setCarFinderMessage(response.data);
                 } else {
-                    console.log("error fetching data", res.error)
+                    console.error("Unexpected response status:", response.status);
                 }
-            })
-            .catch((error) => {
-                console.error("Internal server Issue", error)
-            })
-    }, [])
+            } catch (err) {
+                console.error("Error fetching data:", err);
+                setError("Failed to fetch car data. Please try again later.");
+            }
+        };
+
+        fetchData();
+    }, []);
 
     
     useEffect(() => {
-        axios.get("http://jdadmin.jdnsonsautobrokers.com/message")
-            .then((res) => {
-                if(res.status === 200) {
-                    setMessage(res.data)
+
+        const fetchData = async () => { 
+            try {
+                const response = await axios.get(`${backendUrl}/getmessages`);
+                if (response.status === 200) {
+                    setMessage(response.data);
                 } else {
-                    console.log("Error fetching data", res.data)
+                    console.error("Unexpected response status:", response.status);
                 }
-            })
-            .catch((error) => {
-                console.error("Internal server error", error)
-            })
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        };
+
+        fetchData();
     }, [])
 
 

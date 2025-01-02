@@ -3,32 +3,41 @@ import { useState, useEffect } from 'react'
 import recenttransactonsstyle from '../style/recenttransactionsstyle.module.css'
 import axios from 'axios'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL
+
 const RecentSalesTransactions = () => {
 
     const [customerData, setCustomerData] = useState([])
 
     useEffect(() => {
-        axios.get('http://jdadmin.jdnsonsautobrokers.com/customers')
-        .then((res) => {
-            if (res.status === 200) {
-            const formattedData = res.data.map((elem) => {
-                const formattedDate = new Date(elem.datepurchase).toISOString().split('T')[0];
-    
-                // Update the 'datepurchase' field
-                elem.datepurchase = formattedDate;
-    
-                return elem;
-            });
-            
-            setCustomerData(formattedData);
 
-            } else {
-            console.log("Invalid response data", res.data);
+        const fetchCustomerData = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/getcustomers`);
+
+                if (response.status === 200) {
+                    const formattedData = response.data.map((elem) => {
+                        const formattedDate = new Date(elem.datepurchase).toISOString().split('T')[0];
+
+                        // Update the 'datepurchase' field
+                        elem.datepurchase = formattedDate;
+
+                        return elem;
+                    });
+
+                    setCustomerData(formattedData);
+
+                } else {
+                    console.log("Invalid response data", response.data);
+                }
+
+            } catch (error) {
+                console.error('Error fetching data', error);
             }
-        })
-        .catch((error) => {
-            console.error('Error fetching data', error);
-        });
+        }
+
+        fetchCustomerData();
+
     }, []);
 
     return (
