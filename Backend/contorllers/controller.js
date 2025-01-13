@@ -8,6 +8,8 @@ const AdminUser = require('../models/adminmodel');
 
 const jwtSec = process.env.JWT_SECRET
 const refToken = process.env.JWT_REFRESH_SECRET
+const isProduction = process.env.NODE_ENV === "production";
+
 
 
 // Function to verify refresh tokens
@@ -93,16 +95,16 @@ const login = async (req, res) => {
                 // Create user data for the token
                 const userData = {
                     id: adminUser._id,
-                    firstName: adminUser.firstName,
-                    profilePic: adminUser.profilePic,
+                    firstName: adminUser.firstname,
+                    profilePic: adminUser.profilepic,
                 };
 
                  // Generate tokens (access and refresh)
                 const accessToken = jwt.sign({ user: userData }, jwtSec, { expiresIn: "5min" });
                 const refresh_token = jwt.sign({ user: userData }, refToken, { expiresIn: "1hr" });
 
-                res.cookie("adminToken", accessToken, {httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production"});
-                res.cookie("refreshAdminToken", refresh_token, {httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production"});
+                res.cookie("adminToken", accessToken, {httpOnly: true, sameSite: isProduction ? "None" : "Lax", secure: process.env.NODE_ENV === "production"});
+                res.cookie("refreshAdminToken", refresh_token, {httpOnly: true, sameSite: isProduction ? "None" : "Lax", secure: process.env.NODE_ENV === "production"});
 
                 return res.status(200).json({ message: "Login Successfully", userData });
 
@@ -134,7 +136,11 @@ const refreshAdminToken = async (req, res) => {
         const userData = decoded.user;
 
         const newAccessToken = jwt.sign({ user: userData }, adminJwtSec, { expiresIn: "5min" });
-        res.cookie("adminToken", newAccessToken, { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
+        res.cookie("adminToken", newAccessToken, { 
+            httpOnly: true, 
+            sameSite: isProduction ? "None" : "Lax", 
+            secure: isProduction 
+        });
 
         return res.status(200).json({ userData, accessToken: newAccessToken });    
     } catch (err) {
@@ -177,11 +183,12 @@ const getAdminMember = (req, res) => {
 };
 
 const adminLogOut = (req, res) => {
-    res.clearCookie("adminToken", {httpOnly: true, sameSite: "None", secure: true})
-    res.clearCookie("refreshAdminToken", {httpOnly: true, sameSite: "None", secure: true})
+    res.clearCookie("adminToken", { httpOnly: true, sameSite: isProduction ? "None" : "Lax", secure: isProduction });
+    res.clearCookie("refreshAdminToken", { httpOnly: true, sameSite: isProduction ? "None" : "Lax", secure: isProduction });
 
-    res.status(200).json({messane: "Logged out successfully"})
-}
+    res.status(200).json({ message: "Logged out successfully" });
+};
+
 
 
 
