@@ -18,7 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: [ADMIN_FRONTEND_URL, CLIENT_FRONTEND_URL],
+  origin: [
+    'https://jdandsonsauto-admin.onrender.com',
+    'https://jdandsonsauto.onrender.com',
+  ],
   methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true,
 };
