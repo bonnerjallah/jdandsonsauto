@@ -7,4 +7,7 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Set the output folder for the build
   },
+  define: {
+    'process.env': {}, // Ensure process.env is defined (optional for Vite)
+  },
 });
