@@ -24,14 +24,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Explicitly handle preflight requests
 
-// Log incoming request origin for debugging
-app.use((req, res, next) => {
-  console.log("Request Origin:", req.headers.origin);
-  next();
-});
-
-// app.options("*", cors(corsOptions)); // Explicitly handle preflight requests
 
 // Static file serving
 app.use("/carimages", express.static(path.join(__dirname, "../shared-assets/public/carimages")));
