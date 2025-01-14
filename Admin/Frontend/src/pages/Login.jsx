@@ -5,7 +5,8 @@ import axios from 'axios'
 
 import loginstyle from '../style/loginstyle.module.css'
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = import.meta.env.VITE_BACKEND_URL 
+console.log(backendUrl)
 
 const Login = () => {
     const {login} = useAuth()

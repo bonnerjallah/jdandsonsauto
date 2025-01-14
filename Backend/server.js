@@ -18,10 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: [
-    'https://jdandsonsauto-admin.onrender.com',
-    'https://jdandsonsauto.onrender.com',
-  ],
+  origin: [ADMIN_FRONTEND_URL, CLIENT_FRONTEND_URL],
   methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true,
 };
@@ -34,7 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.options("*", cors(corsOptions)); // Explicitly handle preflight requests
+// app.options("*", cors(corsOptions)); // Explicitly handle preflight requests
 
 // Static file serving
 app.use("/carimages", express.static(path.join(__dirname, "../shared-assets/public/carimages")));
