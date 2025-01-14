@@ -41,8 +41,7 @@ const Login = () => {
                 console.log('Logged in successfully');
     
                 const { userData } = response.data;
-    
-                login(userData); 
+                login(userData);  
     
                 setLoginData({
                     username: '',
@@ -55,7 +54,7 @@ const Login = () => {
             console.log('Error logging in:', error);
     
             if (error.response && error.response.data.error) {
-                setErrorMessage(error.response.data.error); 
+                setErrorMessage(error.response.data.error);  // Assuming 'setErrorMessage' is for setting error messages
             } else {
                 setErrorMessage('An unexpected error occurred.');
             }
@@ -65,6 +64,7 @@ const Login = () => {
             }, 2000);
         }
     };
+    
     
 
 
